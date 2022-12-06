@@ -20,6 +20,7 @@ public class Movimiento_Player : MonoBehaviour
     {
         if (Input.GetKey("left") && canMoveLeft)
         {
+
             gameObject.transform.Translate(-3f * Time.deltaTime, 0, 0);
             //canMoveRight = true;
         }
