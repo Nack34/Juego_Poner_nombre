@@ -11,7 +11,7 @@ public class Movimiento_Player : MonoBehaviour
 
     }
 
-    bool canMoveLeft = true, canMoveRight = true, canMoveUp = true, canMoveDown = true;
+    public bool canMoveLeft = true, canMoveRight = true, canMoveUp = true, canMoveDown = true;
 
     
 
