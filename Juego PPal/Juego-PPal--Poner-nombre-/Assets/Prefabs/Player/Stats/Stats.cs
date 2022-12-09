@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    private int tiempoSinRecibirDanio=999;   
-    public int TiempoSinRecibirDanio {
+    private float tiempoSinRecibirDanio=999f;   
+    public float TiempoSinRecibirDanio {
         set {
             tiempoSinRecibirDanio=value;
         }
@@ -36,7 +36,7 @@ public class Stats : MonoBehaviour
     
     void Start()
     {
-        Vida = vidaMax;
+        //Vida = vidaMax;
     }
     
     private void Muerte (){
@@ -44,39 +44,11 @@ public class Stats : MonoBehaviour
         //Destroy(gameObject);
     }
 
-
-
-
-
-    //[SerializeField] private int segundosNecesariosParaCurarse= 10;
-    //private float temporizadorDeSegundos=0f;
-    //private float CuracionAcumulada = 0;
-
-    /*void FixedUpdate()
-    {
-        temporizadorDeSegundos+=Time.fixedDeltaTime;
-        if (temporizadorDeSegundos>=1f){ //temporizadorDeSegundos es para que cada un segundo cheequee si puedo curarme
-            temporizadorDeSegundos=0f;
-
-            tiempoSinRecibirDanio++;
-            if (tiempoSinRecibirDanio>=segundosNecesariosParaCurarse){
-                CuracionAcumulada = CantCuracion(CuracionAcumulada);
-                Curarse(CuracionAcumulada);
-            }
-        }
+    void FixedUpdate(){
+        TiempoSinRecibirDanio+=Time.fixedDeltaTime;
     }
 
-    public int cantPorcentajeCuracionXSegundo = 5;
-    private float CantCuracion (float CuracionAcumulada){ // la curacion es de manera pasiva, cada cierta cant de tiempo sin recivir danio, me curo el (cantPorcentajeCuracionXSegundo)% de la vida
-        if (Vida<vidaMax) 
-            return CuracionAcumulada + vidaMax * (cantPorcentajeCuracionXSegundo/100);
-        else return 0;
-    }
-    
-    private void Curarse (float CuracionAcumulada){
-        Vida+=(int)CuracionAcumulada;
-        if ((int)CuracionAcumulada>0)
-            CuracionAcumulada=0;
-    }*/
+
+
 
 }
