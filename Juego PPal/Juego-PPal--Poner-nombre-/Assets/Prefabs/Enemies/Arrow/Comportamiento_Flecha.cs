@@ -19,7 +19,7 @@ public class Comportamiento_Flecha : MonoBehaviour
     public float collisionOffset = 0.05f;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -29,39 +29,8 @@ public class Comportamiento_Flecha : MonoBehaviour
                                         player.gameObject.GetComponent<Transform>().position.y - gameObject.GetComponent<Transform>().position.y) ;
         // obtengo el valor de direction para que la flecha viaje de a poquito
         direction = ReducirEscala(direction); 
+
     }   
-
-    public float tiempoRestante=10f;
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        tiempoRestante = tiempoRestante - Time.fixedDeltaTime; 
-
-        if (tiempoRestante <= 0f)
-            Destroy(gameObject);
-        else 
-        {
-            int count = rb.Cast(
-                    direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
-                    movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
-                    castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                    velocity * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
-
-                if(count == 0)
-                    //Me muevo recto 
-                    rb.MovePosition(rb.position + direction * velocity * Time.fixedDeltaTime);
-                else 
-                { //Debug.Log (castCollisions[0].collider.name);
-                    if (castCollisions[0].collider.name == "Player")
-                    {
-                        //Debug.Log("Hago danio");
-                        player.GetComponent<Stats_Player>().RecibirDanio(damage,tipoDeDanio);
-                    } // le resta vida al player <---------------------------------------------------------------------------
-                    Destroy(gameObject);
-                }
-        }
-    }
 
     private Vector2 ReducirEscala (Vector2 direction)
     {
@@ -84,4 +53,31 @@ public class Comportamiento_Flecha : MonoBehaviour
         else 
             return -Mathf.Atan(direction.x/direction.y); // menos arcotangente (adyasente/opuesto)
     }
+
+
+    [SerializeField] private float tiempoHastaDestruirLaFlecha=10f;
+
+    private void FixedUpdate()
+    {
+        tiempoHastaDestruirLaFlecha-= Time.fixedDeltaTime; 
+
+        if (tiempoHastaDestruirLaFlecha <= 0f) // si paso el tiempo de vida se destruye
+            Destroy(gameObject);
+        else 
+            rb.MovePosition(rb.position + direction * velocity * Time.deltaTime); // sino, me muevo recto
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        Damageable damageable = other.GetComponent<Damageable>();
+        if (damageable != null ) 
+            damageable.RecibirDanio(damage,tipoDeDanio);
+        Destroy(gameObject);
+    }
+
+
+
+
+
+
 }

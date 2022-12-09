@@ -18,7 +18,7 @@ public class SpawnArcher : MonoBehaviour
         }
     }
 
-    /* float temporizador=0; 
+    float temporizador=0; 
     public float segundosEntreSpawns= 5;
     
     void FixedUpdate()
@@ -34,5 +34,5 @@ public class SpawnArcher : MonoBehaviour
             temporizador = 0;
             Instantiate(archer,position,rotation);
         }
-    }*/
+    }
 }

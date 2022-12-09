@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3698066197318474361}
   - component: {fileID: 3698066197318474374}
   - component: {fileID: 7803742056078264756}
+  - component: {fileID: 6190386586295126146}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -207,12 +208,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidaMax: 5
-  danioBase: 1
+  vida: 5
   defensaFisica: 1
   defensaMagica: 1
-  stamina: 5
-  percepcion: 1
-  carisma: 1
-  inteligencia: 1
-  segundosNecesariosParaCurarse: 10
-  cantPorcentajeCuracionXSegundo: 5
+--- !u!114 &6190386586295126146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3698066197318474367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c0336094e829b4fb807791400d8e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
