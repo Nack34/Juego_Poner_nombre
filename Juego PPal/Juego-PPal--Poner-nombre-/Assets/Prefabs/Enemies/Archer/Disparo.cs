@@ -5,20 +5,23 @@ using UnityEngine;
 public class Disparo : MonoBehaviour
 {
 
-    float temporizador;
-
+    private float temporizador=0;
+    public float tiempoEntreDisparos= 2f; 
     public GameObject FlechaPrefab;
     
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        temporizador = temporizador + Time.deltaTime;
+        temporizador = temporizador + Time.fixedDeltaTime;
 
-        if (temporizador >= 2f)
+        if (temporizador >= tiempoEntreDisparos)
         {
             temporizador = 0;
-            Instantiate(FlechaPrefab);
+            
+            Quaternion rotation = new Quaternion(); 
+            Vector3 positionArrow = gameObject.GetComponent<Transform>().position;
+            Instantiate(FlechaPrefab,positionArrow,rotation);
 
         }
 

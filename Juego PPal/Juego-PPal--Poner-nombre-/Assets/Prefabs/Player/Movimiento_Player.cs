@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Takes and handles input and movement for a player character
+// Takes and handles input and movement for a player character    // todo el codigo que esta en comentarios es codigo de animaciones (cuando las implementemos, se utilizara)
 public class Movimiento_Player : MonoBehaviour
 {
     public float moveSpeed = 1f;
@@ -32,9 +32,9 @@ public class Movimiento_Player : MonoBehaviour
             // If movement input is not 0, try to move
             if(movementInput != Vector2.zero){
                 
-                bool success = TryMove(movementInput);
+                bool success = TryMove(movementInput); //me muevo en diagonal
 
-                if(!success) {
+                if(!success) { //si no puedo moverme en diagonal, lo intento en un solo eje
                     success = TryMove(new Vector2(movementInput.x, 0));
                 }
 
@@ -78,7 +78,7 @@ public class Movimiento_Player : MonoBehaviour
         
     }
 
-    void OnMove(InputValue movementValue) {
+    void OnMove(InputValue movementValue) { //obtengo los datos de Player Input
         movementInput = movementValue.Get<Vector2>();
     }
 
