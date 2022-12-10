@@ -3,32 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 // Takes and handles input and movement for a player character    // todo el codigo que esta en comentarios es codigo de animaciones (cuando las implementemos, se utilizara)
 public class Movimiento_Player : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 1f;
+    
     [SerializeField] private float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
     //public SwordAttack swordAttack;
 
+    // esto es para mover al player
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
-    //Animator animator;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-
     private bool canMove = true;
+    
+    Animator animator;
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before Start 
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Start(){
+         // agregar lo de correr en FixedUpdate
+    }
+
+
+    public float MoveSpeed (){
+        if (isMoving){
+            if (isRunning)
+            {
+                return gameObject.GetComponent<Stats>().runSpeed;
+            }
+            else 
+            {
+                return gameObject.GetComponent<Stats>().walkSpeed;
+            }
+        } 
+        else return 0;
+    }
+    private float moveSpeed;
     private void FixedUpdate() {
         if(canMove) {
+            moveSpeed=MoveSpeed();  // TENER CUIDADO CON ESTO
             // If movement input is not 0, try to move
             if(movementInput != Vector2.zero){
                 
@@ -63,7 +85,7 @@ public class Movimiento_Player : MonoBehaviour
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                moveSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                (moveSpeed) * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if(count == 0){
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
@@ -78,11 +100,106 @@ public class Movimiento_Player : MonoBehaviour
         
     }
 
-    void OnMove(InputValue movementValue) { //obtengo los datos de Player Input
-        movementInput = movementValue.Get<Vector2>();
+    private bool isMoving=false;
+    public bool IsMoving{
+        set {
+            isMoving=value;
+            animator.SetBool(AnimationStrings.isMoving,value);
+        }
+        get{
+            return isMoving;
+        }
+    }
+    public void OnMove(InputAction.CallbackContext context) { //obtengo los datos de Player Input
+        movementInput = context.ReadValue<Vector2>();
+        IsMoving = movementInput != Vector2.zero;
+        if (IsMoving)
+            CheckDirection(movementInput);    
     }
 
-    /*void OnFire() {
+    private bool isRunning=false;
+    public bool IsRunning{
+        set {
+            isRunning=value;
+            animator.SetBool(AnimationStrings.isRunning,value);
+        }
+        get{
+            return isRunning;
+        }
+    }
+    public void OnRun(InputAction.CallbackContext context) { //obtengo los datos de Player Input
+        if (context.started)
+        {
+            IsRunning=true;
+        } 
+        else if (context.canceled)
+            {
+                IsRunning=false;
+            }
+    }
+    private string direction="down";
+    public string Direction{
+        set { 
+            direction=value;
+            switch (direction)
+            {
+                case "up": {
+                    animator.SetBool(AnimationStrings.isLookingUp,true);
+                    animator.SetBool(AnimationStrings.isLookingDown,false);
+                    animator.SetBool(AnimationStrings.isLookingLeft,false);
+                    animator.SetBool(AnimationStrings.isLookingRight,false);
+                    break;
+                }
+                case "down": {
+                    animator.SetBool(AnimationStrings.isLookingUp,false);
+                    animator.SetBool(AnimationStrings.isLookingDown,true);
+                    animator.SetBool(AnimationStrings.isLookingLeft,false);
+                    animator.SetBool(AnimationStrings.isLookingRight,false);
+                    break;
+                }
+                case "right": {
+                    animator.SetBool(AnimationStrings.isLookingUp,false);
+                    animator.SetBool(AnimationStrings.isLookingDown,false);
+                    animator.SetBool(AnimationStrings.isLookingLeft,false);
+                    animator.SetBool(AnimationStrings.isLookingRight,true);
+                    break;
+                }
+                case "left": {
+                    animator.SetBool(AnimationStrings.isLookingUp,false);
+                    animator.SetBool(AnimationStrings.isLookingDown,false);
+                    animator.SetBool(AnimationStrings.isLookingLeft,true);
+                    animator.SetBool(AnimationStrings.isLookingRight,false);
+                    break;
+                }
+            }
+        }
+        get {
+            return direction;
+        }
+    }
+    
+    private void CheckDirection(Vector2 movementInput){ // le da prioridad al eje X
+        if (movementInput.x == 0f)
+            if (movementInput.y > 0f)
+                Direction = "up"; 
+            else Direction = "down";
+        else if (movementInput.x > 0f)
+            Direction = "right";
+            else Direction = "left";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /*void OnAttack() {
         animator.SetTrigger("swordAttack");
     }*/
 

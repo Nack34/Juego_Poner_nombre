@@ -33,7 +33,10 @@ public class Stats : MonoBehaviour
     public int percepcion =1; // algunas cosas (objetos) del mundo solo pueden verse con cierto puntaje de esto, de tenerlo demasiado bajo, estas cosas seran invicibles o se veran de otra manera
     public int carisma =1; // para relacionearte mejor con los npcs
     public int inteligencia =1; // sirve para resolver puzzles o trabajar en investigacion
-    
+    public float walkSpeed =1; // velocidad de caminar
+    public float runSpeed =1; // velocidad de correr
+
+
     void Start()
     {
         //Vida = vidaMax;
