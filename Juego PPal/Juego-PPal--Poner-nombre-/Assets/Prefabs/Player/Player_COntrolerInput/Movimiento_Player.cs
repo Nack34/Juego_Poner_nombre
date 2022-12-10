@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 // Takes and handles input and movement for a player character    // todo el codigo que esta en comentarios es codigo de animaciones (cuando las implementemos, se utilizara)
 public class Movimiento_Player : MonoBehaviour
 {
-    public float moveSpeed = 1f;
-    public float collisionOffset = 0.05f;
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
     //public SwordAttack swordAttack;
 
@@ -17,7 +17,7 @@ public class Movimiento_Player : MonoBehaviour
     //Animator animator;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
-    bool canMove = true;
+    private bool canMove = true;
 
     // Start is called before the first frame update
     void Start()

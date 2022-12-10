@@ -59,14 +59,14 @@ public class Comportamiento_Flecha : MonoBehaviour
 
     [SerializeField] private float tiempoHastaDestruirLaFlecha=10f;
 
-    private void Update()
+    private void FixedUpdate() //es fixed ya que cambia rb, y eso tiene q ver con las fisicas
     {
-        tiempoHastaDestruirLaFlecha-= Time.deltaTime; 
+        tiempoHastaDestruirLaFlecha-= Time.fixedDeltaTime; 
 
         if (tiempoHastaDestruirLaFlecha <= 0f) // si paso el tiempo de vida se destruye
             Destroy(gameObject);
         else 
-            rb.MovePosition(rb.position + direction * velocity * Time.deltaTime); // sino, me muevo recto
+            rb.MovePosition(rb.position + direction * velocity * Time.fixedDeltaTime); // sino, me muevo recto
     }
 
 
