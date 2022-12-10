@@ -6,14 +6,14 @@ public class Disparo : MonoBehaviour
 {
 
     private float temporizador=0;
-    public float tiempoEntreDisparos= 2f; 
+    [SerializeField] private float tiempoEntreDisparos= 2f; 
     public GameObject FlechaPrefab;
     
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        temporizador = temporizador + Time.fixedDeltaTime;
+        temporizador = temporizador + Time.deltaTime;
 
         if (temporizador >= tiempoEntreDisparos)
         {

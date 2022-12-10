@@ -5,29 +5,23 @@ using UnityEngine;
 public class Curable : MonoBehaviour
 {
     // Start is called before the first frame update
-    int vidaMax;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    private float vidaMax;
     [SerializeField] private int segundosNecesariosParaCurarse= 10;
     private float temporizadorDeSegundos=0f; //temporizadorDeSegundos es para que cada un segundo cheequee si puedo curarme
-    private float curacionAcumulada = 0;
+    private float curacionAcumulada = 0f;
     
     float tiempoSinRecibirDanio;
-    void FixedUpdate()
+    void Update()
     {
         vidaMax = gameObject.GetComponent<Stats>().vidaMax;
         tiempoSinRecibirDanio = gameObject.GetComponent<Stats>().TiempoSinRecibirDanio;
 
-        temporizadorDeSegundos+=Time.fixedDeltaTime;
+        temporizadorDeSegundos+=Time.deltaTime;
         if (temporizadorDeSegundos>=1f){ //cada un segundo cheequeo si puedo curarme
             temporizadorDeSegundos=0f;
 
@@ -39,7 +33,7 @@ public class Curable : MonoBehaviour
         }
     }
 
-    [SerializeField] private int cantPorcentajeCuracionXSegundo = 10;
+    [SerializeField] private float cantPorcentajeCuracionXSegundo = 10;
     private float CantCuracion (float curacionAcumulada){ // la curacion es de manera pasiva, cada cierta cant de tiempo sin recibir danio, me curo el (cantPorcentajeCuracionXSegundo)% de la vida    
             return curacionAcumulada + ((vidaMax * cantPorcentajeCuracionXSegundo)/100);
         }
