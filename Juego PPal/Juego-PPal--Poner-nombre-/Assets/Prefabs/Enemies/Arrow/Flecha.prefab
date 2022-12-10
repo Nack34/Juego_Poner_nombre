@@ -149,5 +149,5 @@ MonoBehaviour:
   damage: 1
   tipoDeDanio: fisico
   player: {fileID: 3698066197318474367, guid: e3c18e2dcabd44f47bd41cc9d2054494, type: 3}
-  velocity: 3.5
+  velocity: 1
   tiempoHastaDestruirLaFlecha: 10
