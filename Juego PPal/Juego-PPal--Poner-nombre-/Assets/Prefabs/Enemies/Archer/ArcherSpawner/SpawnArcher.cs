@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SpawnArcher : MonoBehaviour
 {
-    
-    public GameObject archer;
-    public int CantArqueros=5;
-    void Start (){
+    public GameObject archer; // me traigo e objeto a spawnear (sirve para cualquier objeto, no solo para los arqueros) 
+
+    [SerializeField] private int CantArqueros=5;
+    void Start (){  // al arrancar spawnea cantArqueros arqueros
         for ( int i=0; i<CantArqueros; i++)
         {
             float x = Random.Range(-1.20f,1.20f);
@@ -18,12 +18,12 @@ public class SpawnArcher : MonoBehaviour
         }
     }
 
-    float temporizador=0; 
-    public float segundosEntreSpawns= 5;
+    /* private float temporizador=0f; 
+    [SerializeField] private float segundosEntreSpawns= 5f;
     
-    void FixedUpdate()
+    private void Update() // cada segundosEntreSpawns segundos, spawnea un nuevo arquero
     {
-        temporizador = temporizador + Time.fixedDeltaTime;
+        temporizador = temporizador + Time.deltaTime;
 
         if (temporizador >= segundosEntreSpawns)
         {
@@ -34,5 +34,5 @@ public class SpawnArcher : MonoBehaviour
             temporizador = 0;
             Instantiate(archer,position,rotation);
         }
-    }
+    }*/
 }

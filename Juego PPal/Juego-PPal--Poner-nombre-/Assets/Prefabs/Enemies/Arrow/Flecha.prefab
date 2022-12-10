@@ -149,20 +149,5 @@ MonoBehaviour:
   damage: 1
   tipoDeDanio: fisico
   player: {fileID: 3698066197318474367, guid: e3c18e2dcabd44f47bd41cc9d2054494, type: 3}
-  velocity: 1
-  movementFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  collisionOffset: 0.0005
-  tiempoRestante: 3
+  velocity: 3.5
+  tiempoHastaDestruirLaFlecha: 10
