@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 // Takes and handles input and movement for a player character    // todo el codigo que esta en comentarios es codigo de animaciones (cuando las implementemos, se utilizara)
-public class Movimiento_Player : MonoBehaviour
+public class Player_Controller : MonoBehaviour
 {
     
     [SerializeField] private float collisionOffset = 0.05f;
@@ -195,11 +195,32 @@ public class Movimiento_Player : MonoBehaviour
 
 
 
+    // lo hice yo
+    public int tipoArma=0;  // estas 2 variables son modificadas desde otros scripts
+    public int tipoHabilidad=0;
+    public int tipoDisparo=0;
+    public void OnNormalAttack(InputAction.CallbackContext context) 
+    { 
+        if (context.started) // si aprieto golpeo (armas cuerpo a cuerpo) o apunto (armas a distancia)
+        {
+            animator.SetTrigger(AnimationStrings.isAttacking); 
+            animator.SetInteger(AnimationStrings.tipoArma,tipoArma);
+            animator.SetInteger(AnimationStrings.tipoHabilidad,tipoHabilidad);
+        } 
+        /*else 
+        {
+            if (context.canceled) // si dejo de apretar no importa (armas cuerpo a cuerpo) o disparo (armas a distancia)
+            {   
+                if (// tipoHabilidad == (tipo de habilidad de disparo (a distancia)))
+                {
+                    animator.SetInteger(AnimationStrings.Disparo,true); // luego  
+                }    
+            }
+        }*/
+    }
 
-
-
-
-    /*void OnAttack() {
+    // de aca para abajo, NO lo hice yo
+    /*void OnNormalAttack() {
         animator.SetTrigger("swordAttack");
     }*/
 
