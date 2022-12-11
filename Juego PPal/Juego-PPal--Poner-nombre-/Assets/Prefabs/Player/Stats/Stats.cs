@@ -20,7 +20,13 @@ public class Stats : MonoBehaviour
         set {
             vida=value;
             if (vida<=0) // si tu vida llega a 0, moris
-                Muerte();
+            {
+                Damageable damageable = gameObject.GetComponent<Damageable>();
+                if (damageable != null ) /* esta condicion no se si hace falta. Osea, la pregunta es, que objeto podria recibir 
+                                            danio de otro lado que no se damageable? (si la vida bajo a 0, significa que recibio 
+                                            danio. Y si recibio danio, tendria q haberlo recibido por medio de damageable, no?)*/
+                    damageable.Muerte();
+            }
         }
         get {
             return vida;
@@ -42,10 +48,6 @@ public class Stats : MonoBehaviour
         //Vida = vidaMax;
     }
     
-    private void Muerte (){
-        Debug.Log("muerte de player");
-        //Destroy(gameObject);
-    }
 
     void FixedUpdate(){
         TiempoSinRecibirDanio+=Time.fixedDeltaTime;
