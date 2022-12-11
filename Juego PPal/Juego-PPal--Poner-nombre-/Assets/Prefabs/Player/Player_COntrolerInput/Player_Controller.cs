@@ -199,7 +199,7 @@ public class Player_Controller : MonoBehaviour
 
 
 
-
+    // lo siguiente tiene q irse a otro script ("Attacking"?), este script es solo del movimiento del player
     // lo hice yo
     public int tipoArma=0;  // estas 2 variables son modificadas desde otros scripts
     public int tipoHabilidad=0;
