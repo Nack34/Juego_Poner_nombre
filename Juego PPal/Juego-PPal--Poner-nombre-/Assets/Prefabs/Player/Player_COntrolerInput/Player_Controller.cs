@@ -213,7 +213,7 @@ public class Player_Controller : MonoBehaviour
             {   
                 if (// tipoHabilidad == (tipo de habilidad de disparo (a distancia)))
                 {
-                    animator.SetInteger(AnimationStrings.Disparo,true); // luego  
+                    animator.SetTrigger(AnimationStrings.Disparo); // luego  
                 }    
             }
         }*/
