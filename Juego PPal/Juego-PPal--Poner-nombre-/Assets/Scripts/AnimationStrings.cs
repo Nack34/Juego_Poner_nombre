@@ -11,7 +11,8 @@ public class AnimationStrings : MonoBehaviour
     public static string isLookingLeft = "isLookingLeft"; 
     public static string isLookingRight = "isLookingRight";
     public static string isAttacking = "isAttacking";
-    public static string tipoArma = "tipoArma";
+    public static string tipoArma = "tipoArma"; 
     public static string tipoHabilidad = "tipoHabilidad";
+    public static string canMove = "canMove";
 
 }

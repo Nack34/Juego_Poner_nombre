@@ -17,7 +17,6 @@ public class Player_Controller : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    private bool canMove = true;
     
     Animator animator;
 
@@ -30,9 +29,8 @@ public class Player_Controller : MonoBehaviour
     }
 
     private void Start(){
-         // agregar lo de correr en FixedUpdate
+        
     }
-
 
     public float MoveSpeed (){
         if (isMoving){
@@ -47,9 +45,16 @@ public class Player_Controller : MonoBehaviour
         } 
         else return 0;
     }
+
+    public bool CanMove {
+        get {
+            return animator.GetBool(AnimationStrings.canMove);
+        }
+    }
+
     private float moveSpeed;
     private void FixedUpdate() {
-        if(canMove) {
+        if(CanMove) {
             moveSpeed=MoveSpeed();  // TENER CUIDADO CON ESTO
             // If movement input is not 0, try to move
             if(movementInput != Vector2.zero){
