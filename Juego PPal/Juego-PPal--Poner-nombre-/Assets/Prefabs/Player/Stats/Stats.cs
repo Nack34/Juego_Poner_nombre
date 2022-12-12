@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    private int tiempoSinRecibirDanio=999;   
-    public int TiempoSinRecibirDanio {
+    private float tiempoSinRecibirDanio=999f;   
+    public float TiempoSinRecibirDanio {
         set {
             tiempoSinRecibirDanio=value;
         }
@@ -20,7 +20,13 @@ public class Stats : MonoBehaviour
         set {
             vida=value;
             if (vida<=0) // si tu vida llega a 0, moris
-                Muerte();
+            {
+                Damageable damageable = gameObject.GetComponent<Damageable>();
+                if (damageable != null ) /* esta condicion no se si hace falta. Osea, la pregunta es, que objeto podria recibir 
+                                            danio de otro lado que no se damageable? (si la vida bajo a 0, significa que recibio 
+                                            danio. Y si recibio danio, tendria q haberlo recibido por medio de damageable, no?)*/
+                    damageable.Muerte();
+            }
         }
         get {
             return vida;
@@ -33,50 +39,21 @@ public class Stats : MonoBehaviour
     public int percepcion =1; // algunas cosas (objetos) del mundo solo pueden verse con cierto puntaje de esto, de tenerlo demasiado bajo, estas cosas seran invicibles o se veran de otra manera
     public int carisma =1; // para relacionearte mejor con los npcs
     public int inteligencia =1; // sirve para resolver puzzles o trabajar en investigacion
-    
+    public float walkSpeed =1; // velocidad de caminar
+    public float runSpeed =1; // velocidad de correr
+
+
     void Start()
     {
-        Vida = vidaMax;
+        //Vida = vidaMax;
     }
     
-    private void Muerte (){
-        Debug.Log("muerte de player");
-        //Destroy(gameObject);
+
+    void FixedUpdate(){
+        TiempoSinRecibirDanio+=Time.fixedDeltaTime;
     }
 
 
 
-
-
-    //[SerializeField] private int segundosNecesariosParaCurarse= 10;
-    //private float temporizadorDeSegundos=0f;
-    //private float CuracionAcumulada = 0;
-
-    /*void FixedUpdate()
-    {
-        temporizadorDeSegundos+=Time.fixedDeltaTime;
-        if (temporizadorDeSegundos>=1f){ //temporizadorDeSegundos es para que cada un segundo cheequee si puedo curarme
-            temporizadorDeSegundos=0f;
-
-            tiempoSinRecibirDanio++;
-            if (tiempoSinRecibirDanio>=segundosNecesariosParaCurarse){
-                CuracionAcumulada = CantCuracion(CuracionAcumulada);
-                Curarse(CuracionAcumulada);
-            }
-        }
-    }
-
-    public int cantPorcentajeCuracionXSegundo = 5;
-    private float CantCuracion (float CuracionAcumulada){ // la curacion es de manera pasiva, cada cierta cant de tiempo sin recivir danio, me curo el (cantPorcentajeCuracionXSegundo)% de la vida
-        if (Vida<vidaMax) 
-            return CuracionAcumulada + vidaMax * (cantPorcentajeCuracionXSegundo/100);
-        else return 0;
-    }
-    
-    private void Curarse (float CuracionAcumulada){
-        Vida+=(int)CuracionAcumulada;
-        if ((int)CuracionAcumulada>0)
-            CuracionAcumulada=0;
-    }*/
 
 }

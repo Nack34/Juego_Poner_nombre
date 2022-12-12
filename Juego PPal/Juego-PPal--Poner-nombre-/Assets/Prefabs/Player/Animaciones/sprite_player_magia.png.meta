@@ -1,0 +1,890 @@
+fileFormatVersion: 2
+guid: 507f2a27c90bdbd498bada17a4f7cd4f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sprite_player_magia_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00456622460f36f4e8faf3e1d93b3a69
+      internalID: -1359671985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108a3464f325b764a8a18b46b413f9d1
+      internalID: 1307437771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a15ec24b13f527441945c7877991f563
+      internalID: -1198247799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f181ddca6d387f84b9c69655b15c1877
+      internalID: 44712265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b1f269027abb1240b6835c2ef4b9e9b
+      internalID: 1701666780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6392a6aedf1931b489e336b540cf9244
+      internalID: 705082103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6de226ff327c8e642a99d5dccde0f338
+      internalID: 881420003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b0a3a91aef43174fb14b8c0dad30889
+      internalID: -886084846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b4c64b844bf64c41a9539c8f5371164
+      internalID: -1911997361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95e652d203294e043a07e20e221e3c9e
+      internalID: 860684104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98093490190213f4187d65b88d621cfb
+      internalID: -61055927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72e97e900f3d0d14199da6b73bae41d8
+      internalID: 340581685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_13
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 099df6d9ceccc0643a732ebc3ed4a21c
+      internalID: 1565489408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_14
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf5a62bfbe5599440b9020633a85b7d5
+      internalID: -1140038292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e4152261eeeb82478e81d71792a1aa3
+      internalID: 1247253832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b6cec849e67cdc4d92673ff3833c24e
+      internalID: 817717863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_17
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 974a8e4fd1a4c8640b0c716fd6b223cc
+      internalID: 1076332197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_18
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a8dd54b23f86a5439351d8eb54e882f
+      internalID: 1521917365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_19
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31b028da664f5f14e9f7dfed5584c59d
+      internalID: 892239666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_20
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68abeaa8b153cd4096ed9aa58f9165f
+      internalID: 1527096459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_21
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb21534e962fc554a80c35db2cbb1d71
+      internalID: 693476589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcaec8275ed3a394eb566d4b7fb2387d
+      internalID: 709714509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_23
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3dd8125a7f21141b4ed9645163a559
+      internalID: -221999534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_24
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1c2d1aa4a2a6164f81594803d276861
+      internalID: -355221341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e37c8f9c81e36734d8358814177a3cb3
+      internalID: 1091023966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_26
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae2c1f9526be0cb4081347f19920a5ab
+      internalID: 1286486681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_27
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91207f5e516b6ec46a038bf6eebb6f25
+      internalID: 1605122128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_player_magia_28
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d7742be2275c7d4a9517545c418879b
+      internalID: 1717814181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sprite_player_magia_11: -61055927
+      sprite_player_magia_40: -1554427858
+      sprite_player_magia_145: -2011956862
+      sprite_player_magia_138: -1376569180
+      sprite_player_magia_174: -1595203038
+      sprite_player_magia_94: 1116748026
+      sprite_player_magia_153: -443283858
+      sprite_player_magia_81: -934800181
+      sprite_player_magia_166: -136150819
+      sprite_player_magia_65: 391385143
+      sprite_player_magia_154: 512279986
+      sprite_player_magia_142: 872972876
+      sprite_player_magia_177: 12645023
+      sprite_player_magia_107: 190255323
+      sprite_player_magia_147: -1124714775
+      sprite_player_magia_122: 290010538
+      sprite_player_magia_117: 978593185
+      sprite_player_magia_169: -1422453728
+      sprite_player_magia_28: 1717814181
+      sprite_player_magia_36: 1344709729
+      sprite_player_magia_79: 23094268
+      sprite_player_magia_0: -1359671985
+      sprite_player_magia_172: -1293437111
+      sprite_player_magia_55: 847732061
+      sprite_player_magia_39: -1914581530
+      sprite_player_magia_157: 2130725052
+      sprite_player_magia_149: -347647243
+      sprite_player_magia_12: 340581685
+      sprite_player_magia_92: -118042206
+      sprite_player_magia_32: -401822288
+      sprite_player_magia_103: 650116097
+      sprite_player_magia_52: -1498379153
+      sprite_player_magia_97: -1429249636
+      sprite_player_magia_127: 1300060408
+      sprite_player_magia_46: -426745905
+      sprite_player_magia_136: -1201136694
+      sprite_player_magia_50: -1828094111
+      sprite_player_magia_47: 1793761337
+      sprite_player_magia_73: -1180454851
+      sprite_player_magia_1: 1307437771
+      sprite_player_magia_106: 592077160
+      sprite_player_magia_29: -778612681
+      sprite_player_magia_150: -770450708
+      sprite_player_magia_9: -1911997361
+      sprite_player_magia_115: -460014655
+      sprite_player_magia_77: 3255877
+      sprite_player_magia_69: -1530745196
+      sprite_player_magia_113: -990281559
+      sprite_player_magia_87: 1748089300
+      sprite_player_magia_61: -1543630566
+      sprite_player_magia_21: 693476589
+      sprite_player_magia_109: 1012287709
+      sprite_player_magia_111: 609851415
+      sprite_player_magia_4: 1701666780
+      sprite_player_magia_98: 2127544647
+      sprite_player_magia_176: -207037034
+      sprite_player_magia_123: 1156345850
+      sprite_player_magia_20: 1527096459
+      sprite_player_magia_16: 817717863
+      sprite_player_magia_26: 1286486681
+      sprite_player_magia_35: 919882072
+      sprite_player_magia_170: -1537087879
+      sprite_player_magia_27: 1605122128
+      sprite_player_magia_152: 1660179493
+      sprite_player_magia_110: 1732434202
+      sprite_player_magia_34: -212014369
+      sprite_player_magia_15: 1247253832
+      sprite_player_magia_18: 1521917365
+      sprite_player_magia_137: 157377053
+      sprite_player_magia_78: 1701898507
+      sprite_player_magia_37: -359664785
+      sprite_player_magia_159: 2089526266
+      sprite_player_magia_162: 908282631
+      sprite_player_magia_76: 1541085762
+      sprite_player_magia_90: 1968772122
+      sprite_player_magia_133: -899065889
+      sprite_player_magia_5: 705082103
+      sprite_player_magia_96: 1056496493
+      sprite_player_magia_132: 832942304
+      sprite_player_magia_164: -950933730
+      sprite_player_magia_42: -979616118
+      sprite_player_magia_139: 123200671
+      sprite_player_magia_143: 1217630654
+      sprite_player_magia_83: -1180992258
+      sprite_player_magia_88: -178419842
+      sprite_player_magia_165: 1375174545
+      sprite_player_magia_161: 763723028
+      sprite_player_magia_13: 1565489408
+      sprite_player_magia_57: -1472612344
+      sprite_player_magia_67: 307897777
+      sprite_player_magia_104: 1878145919
+      sprite_player_magia_23: -221999534
+      sprite_player_magia_7: 1083355767
+      sprite_player_magia_130: -810370806
+      sprite_player_magia_56: -534161867
+      sprite_player_magia_82: -1657219365
+      sprite_player_magia_44: 1430358317
+      sprite_player_magia_45: -1880225337
+      sprite_player_magia_38: 783173485
+      sprite_player_magia_168: -600270748
+      sprite_player_magia_71: 1802216476
+      sprite_player_magia_80: 1519878005
+      sprite_player_magia_128: 612425419
+      sprite_player_magia_85: -897445779
+      sprite_player_magia_116: -1944152370
+      sprite_player_magia_75: 731845495
+      sprite_player_magia_120: -849389260
+      sprite_player_magia_131: 1262454545
+      sprite_player_magia_95: -1463107757
+      sprite_player_magia_6: 881420003
+      sprite_player_magia_25: 1091023966
+      sprite_player_magia_112: 1660347502
+      sprite_player_magia_30: -620822982
+      sprite_player_magia_68: 1130949593
+      sprite_player_magia_100: 582182915
+      sprite_player_magia_124: -659298613
+      sprite_player_magia_146: 1690999452
+      sprite_player_magia_59: -668566534
+      sprite_player_magia_41: -640788966
+      sprite_player_magia_119: 1400924273
+      sprite_player_magia_134: 1968000690
+      sprite_player_magia_63: 1566458923
+      sprite_player_magia_140: -243136774
+      sprite_player_magia_49: 504524066
+      sprite_player_magia_173: 1722094657
+      sprite_player_magia_163: 349295404
+      sprite_player_magia_160: 905449037
+      sprite_player_magia_99: 479069053
+      sprite_player_magia_175: 1349530400
+      sprite_player_magia_43: -1517920617
+      sprite_player_magia_2: -1198247799
+      sprite_player_magia_10: 860684104
+      sprite_player_magia_31: 963483738
+      sprite_player_magia_108: 966151844
+      sprite_player_magia_144: -1949433907
+      sprite_player_magia_126: -1214505468
+      sprite_player_magia_66: -1743575368
+      sprite_player_magia_8: -886084846
+      sprite_player_magia_74: 2096907671
+      sprite_player_magia_64: -1615196906
+      sprite_player_magia_51: 1899657489
+      sprite_player_magia_17: 1076332197
+      sprite_player_magia_171: -2001673009
+      sprite_player_magia_3: 44712265
+      sprite_player_magia_101: 405404123
+      sprite_player_magia_155: 534195582
+      sprite_player_magia_58: -889680803
+      sprite_player_magia_22: 709714509
+      sprite_player_magia_167: 2011451322
+      sprite_player_magia_60: -1345177421
+      sprite_player_magia_156: 1508847733
+      sprite_player_magia_118: -1541991326
+      sprite_player_magia_72: 603450766
+      sprite_player_magia_14: -1140038292
+      sprite_player_magia_125: -87539190
+      sprite_player_magia_54: 950281416
+      sprite_player_magia_135: -1630095815
+      sprite_player_magia_91: -1982029995
+      sprite_player_magia_33: 684448290
+      sprite_player_magia_148: -280871895
+      sprite_player_magia_93: -1877224208
+      sprite_player_magia_62: 1471319812
+      sprite_player_magia_129: 1059245854
+      sprite_player_magia_19: 892239666
+      sprite_player_magia_178: 603172538
+      sprite_player_magia_48: 1778191734
+      sprite_player_magia_24: -355221341
+      sprite_player_magia_70: 1173152401
+      sprite_player_magia_114: -1713891085
+      sprite_player_magia_102: 1912179290
+      sprite_player_magia_53: -16776768
+      sprite_player_magia_158: 648577370
+      sprite_player_magia_86: 840753915
+      sprite_player_magia_84: 1130693223
+      sprite_player_magia_141: 1791705662
+      sprite_player_magia_89: -1499685522
+      sprite_player_magia_151: -1555164695
+      sprite_player_magia_105: -1809899589
+      sprite_player_magia_121: 861951228
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

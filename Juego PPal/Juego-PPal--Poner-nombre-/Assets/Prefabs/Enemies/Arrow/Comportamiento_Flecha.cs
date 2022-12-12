@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class Comportamiento_Flecha : MonoBehaviour
 {
-    float dirX, dirY;
-    float angulo;
-    public int damage= 3;
-    public string tipoDeDanio= "fisico";
+    // usado cuando toco a player
+    [SerializeField] private int damage= 3;
+    [SerializeField] private string tipoDeDanio= "fisico"; // los tipos posibles son: fisico, magico, verdadero (lista actualizada el 9/12)
+    
 
-    public GameObject player;
-
+     // cosas para moverme
     Rigidbody2D rb;
-    public float velocity=1.0f;
+    public GameObject player; // se ingresa en unity
+    [SerializeField] private float velocity=1.0f;
+    private float angulo;
     private Vector2 direction;
-    public ContactFilter2D movementFilter;
-    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-    public float collisionOffset = 0.05f;
+
+    // Awake is called when the script instance is being loaded. Before Start
+    private void Awake (){ 
+        
+        rb = GetComponent<Rigidbody2D>(); // rb es mi propio Rigidbody2D
+    }
 
     // Start is called before the first frame update
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
         // obtengo las dif de distancias con player
         GameObject player = GameObject.Find("Player");
         direction = new Vector2 (player.gameObject.GetComponent<Transform>().position.x - gameObject.GetComponent<Transform>().position.x, 
@@ -57,27 +59,21 @@ public class Comportamiento_Flecha : MonoBehaviour
 
     [SerializeField] private float tiempoHastaDestruirLaFlecha=10f;
 
-    private void FixedUpdate()
+    private void FixedUpdate() //es fixed ya que cambia rb, y eso tiene q ver con las fisicas
     {
         tiempoHastaDestruirLaFlecha-= Time.fixedDeltaTime; 
 
         if (tiempoHastaDestruirLaFlecha <= 0f) // si paso el tiempo de vida se destruye
             Destroy(gameObject);
         else 
-            rb.MovePosition(rb.position + direction * velocity * Time.deltaTime); // sino, me muevo recto
+            rb.MovePosition(rb.position + direction * velocity * Time.fixedDeltaTime); // sino, me muevo recto
     }
 
 
     private void OnTriggerEnter2D(Collider2D other) {
         Damageable damageable = other.GetComponent<Damageable>();
-        if (damageable != null ) 
+        if (damageable != null )  // puede ser que lo que haya tocado no tenga que recibir danio
             damageable.RecibirDanio(damage,tipoDeDanio);
         Destroy(gameObject);
     }
-
-
-
-
-
-
 }
