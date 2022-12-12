@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class StatsWeapon : MonoBehaviour
 {
-
-    public int tipoArmaActual=0; // HACERLO UN ENUM?
-    public int TipoHabilidad=0; // HACERLO UN ENUM?
+    public enum TipoDeArma { dagger = 0, bow = 1, magic = 2, sword = 3 };
+    public TipoDeArma tipoArmaActual= TipoDeArma.dagger; 
+    public enum TipoHabilidad { normalAttack = 0, habilidad1 = 1, habilidad2 = 2, habilidad3 = 3 };
+    public TipoHabilidad tipoHabilidad=TipoHabilidad.normalAttack; // HACERLO UN ENUM?
 
     // Start is called before the first frame update
     void Start()

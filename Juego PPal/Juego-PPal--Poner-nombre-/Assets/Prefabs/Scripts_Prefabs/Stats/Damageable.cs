@@ -18,7 +18,7 @@ public class Damageable : MonoBehaviour
 
     public bool isInvincible=false; // es publico ya que por si se necesita (para animaciones o pociones de invincibilidad? ) 
     public float tiempoDeInvincibilidad = 0.2f;
-    private float tiempoDesdeComienzoDeInvencibilidad = 0f;
+    public float tiempoDesdeComienzoDeInvencibilidad = 0f;
     void Update()
     {
         if (isInvincible) {

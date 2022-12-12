@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Comportamiento_Flecha : MonoBehaviour
+public class Arrow_Controller : MonoBehaviour
 {
     // usado cuando toco a player
     [SerializeField] private int damage= 3;

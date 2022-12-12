@@ -102,7 +102,7 @@ public class Player_Controller : MonoBehaviour
         movementInput = context.ReadValue<Vector2>();
         IsMoving = movementInput != Vector2.zero;
         if (IsMoving)
-            CheckDirection(movementInput);    
+            gameObject.GetComponent<Directions>().CheckDirection(movementInput);    
     }
 
     private bool isRunning=false;
@@ -125,56 +125,7 @@ public class Player_Controller : MonoBehaviour
                 IsRunning=false;
             }
     }
-    private string direction="down";
-    public string Direction{
-        set { 
-            direction=value;
-            switch (direction)
-            {
-                case "up": {
-                    animator.SetBool(AnimationStrings.isLookingUp,true);
-                    animator.SetBool(AnimationStrings.isLookingDown,false);
-                    animator.SetBool(AnimationStrings.isLookingLeft,false);
-                    animator.SetBool(AnimationStrings.isLookingRight,false);
-                    break;
-                }
-                case "down": {
-                    animator.SetBool(AnimationStrings.isLookingUp,false);
-                    animator.SetBool(AnimationStrings.isLookingDown,true);
-                    animator.SetBool(AnimationStrings.isLookingLeft,false);
-                    animator.SetBool(AnimationStrings.isLookingRight,false);
-                    break;
-                }
-                case "right": {
-                    animator.SetBool(AnimationStrings.isLookingUp,false);
-                    animator.SetBool(AnimationStrings.isLookingDown,false);
-                    animator.SetBool(AnimationStrings.isLookingLeft,false);
-                    animator.SetBool(AnimationStrings.isLookingRight,true);
-                    break;
-                }
-                case "left": {
-                    animator.SetBool(AnimationStrings.isLookingUp,false);
-                    animator.SetBool(AnimationStrings.isLookingDown,false);
-                    animator.SetBool(AnimationStrings.isLookingLeft,true);
-                    animator.SetBool(AnimationStrings.isLookingRight,false);
-                    break;
-                }
-            }
-        }
-        get {
-            return direction;
-        }
-    }
     
-    private void CheckDirection(Vector2 movementInput){ // le da prioridad al eje X
-        if (movementInput.x == 0f)
-            if (movementInput.y > 0f)
-                Direction = "up"; 
-            else Direction = "down";
-        else if (movementInput.x > 0f)
-            Direction = "right";
-            else Direction = "left";
-    }
 
 
 
