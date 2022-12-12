@@ -14,7 +14,8 @@ public class AnimationStrings : MonoBehaviour
     public static string tipoArma = "tipoArma"; 
     public static string tipoHabilidad = "tipoHabilidad";
     public static string canMove = "canMove"; 
-    public static string isAlive = "isAlive";
+    public static string isAlive = "isAlive"; 
     public static string isBeingHitted = "isBeingHitted";
+    public static string disparo = "disparo";
 
 }

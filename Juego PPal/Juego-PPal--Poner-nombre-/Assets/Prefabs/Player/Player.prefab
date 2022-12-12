@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 6190386586295126146}
   - component: {fileID: 4709848276279662400}
   - component: {fileID: 1711954336971781329}
+  - component: {fileID: 4339528801999580855}
+  - component: {fileID: 859435012248379309}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -311,6 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0336094e829b4fb807791400d8e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInvincible: 0
+  tiempoDeInvincibilidad: 0.2
 --- !u!95 &4709848276279662400
 Animator:
   serializedVersion: 4
@@ -345,3 +349,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segundosNecesariosParaCurarse: 10
   cantPorcentajeCuracionXSegundo: 10
+--- !u!114 &4339528801999580855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3698066197318474367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289e3cbaad0c92c4c81c8b0a01cdf952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipoArmaActual: 0
+  TipoHabilidad: 0
+--- !u!114 &859435012248379309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3698066197318474367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a52e78e7c711246900b938fd87cbff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -7,14 +7,10 @@ using UnityEngine.InputSystem;
 // Takes and handles input and movement for a player character    // todo el codigo que esta en comentarios es codigo de animaciones (cuando las implementemos, se utilizara)
 public class Player_Controller : MonoBehaviour
 {
-    
-    [SerializeField] private float collisionOffset = 0.05f;
+    // esto es para mover al player    
+    [SerializeField] private float collisionOffset = 0.0005f;
     public ContactFilter2D movementFilter;
-    //public SwordAttack swordAttack;
-
-    // esto es para mover al player
     Vector2 movementInput;
-    SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     
@@ -25,7 +21,6 @@ public class Player_Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start(){
@@ -34,12 +29,10 @@ public class Player_Controller : MonoBehaviour
 
     public float MoveSpeed (){
         if (isMoving){
-            if (isRunning)
-            {
+            if (isRunning) {
                 return gameObject.GetComponent<Stats>().runSpeed;
             }
-            else 
-            {
+            else  {
                 return gameObject.GetComponent<Stats>().walkSpeed;
             }
         } 
@@ -68,18 +61,8 @@ public class Player_Controller : MonoBehaviour
                 if(!success) {
                     success = TryMove(new Vector2(0, movementInput.y));
                 }
-                
-                //animator.SetBool("isMoving", success);
-            }/* else {
-                animator.SetBool("isMoving", false);
             }
 
-            // Set direction of sprite to movement direction
-            if(movementInput.x < 0) {
-                spriteRenderer.flipX = true;
-            } else if (movementInput.x > 0) {
-                spriteRenderer.flipX = false;
-            }*/
         }
     }
 
@@ -196,14 +179,19 @@ public class Player_Controller : MonoBehaviour
 
 
 
+    public void OnNormalAttack(InputAction.CallbackContext context) {
+        if (context.started) {
+            gameObject.GetComponent<Attack>().NormalAttack();
+        } else if (context.canceled) {
+            gameObject.GetComponent<Attack>().Disparo();
+        }
+    }
 
-
-
+/* // BORRAR TODO LO SIGUIENTE
     // lo siguiente tiene q irse a otro script ("Attacking"?), este script es solo del movimiento del player
     // lo hice yo
     public int tipoArma=0;  // estas 2 variables son modificadas desde otros scripts
     public int tipoHabilidad=0;
-    public int tipoDisparo=0;
     public void OnNormalAttack(InputAction.CallbackContext context) 
     { 
         if (context.started) // si aprieto golpeo (armas cuerpo a cuerpo) o apunto (armas a distancia)
@@ -222,33 +210,5 @@ public class Player_Controller : MonoBehaviour
                 }    
             }
         }*/
-    }
-
-    // de aca para abajo, NO lo hice yo
-    /*void OnNormalAttack() {
-        animator.SetTrigger("swordAttack");
-    }*/
-
-    /*public void SwordAttack() {
-        LockMovement();
-
-        if(spriteRenderer.flipX == true){
-            swordAttack.AttackLeft();
-        } else {
-            swordAttack.AttackRight();
-        }
-    }
-
-    public void EndSwordAttack() {
-        UnlockMovement();
-        swordAttack.StopAttack();
-    }
-
-    public void LockMovement() {
-        canMove = false;
-    }
-
-    public void UnlockMovement() {
-        canMove = true;
-    }*/
+    //}
 }
