@@ -18,13 +18,13 @@ public class Attack : MonoBehaviour
     }
 
     // Update is called once per frame
-    private float temporizadorDeIsAttacking=0.5f, tiempoQueIsAttacking=0f;
+    private float temporizadorDeisUsingHability=0.5f, tiempoQueisUsingHability=0f;
     void Update()
     {
-        tiempoQueIsAttacking+=Time.deltaTime;
-        if (tiempoQueIsAttacking>=temporizadorDeIsAttacking){
-            tiempoQueIsAttacking=0f;
-            animator.SetBool(AnimationStrings.isAttacking,false);        
+        tiempoQueisUsingHability+=Time.deltaTime;
+        if (tiempoQueisUsingHability>=temporizadorDeisUsingHability){
+            tiempoQueisUsingHability=0f;
+            animator.SetBool(AnimationStrings.isUsingHability,false);        
         }
     }
 
@@ -44,8 +44,8 @@ public class Attack : MonoBehaviour
     { // ACLARACION: el animator tiene un script para activar el collider del arma
         animator.SetInteger(AnimationStrings.tipoArma,TipoArma);
         animator.SetInteger(AnimationStrings.tipoHabilidad,0); // la habilidad 0 es la del golpe normal. Lograr que se entienda sin comentario. Enum?
-        animator.SetBool(AnimationStrings.isAttacking,true);
-        tiempoQueIsAttacking=0f;
+        animator.SetBool(AnimationStrings.isUsingHability,true);
+        tiempoQueisUsingHability=0f;
     }
 
     public void Disparo (){ // al soltar el clic izquierdo de mouse
