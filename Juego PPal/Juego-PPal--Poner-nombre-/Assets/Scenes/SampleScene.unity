@@ -56937,6 +56937,10 @@ PrefabInstance:
       propertyPath: tiempoDeInvincibilidad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7803742056078264756, guid: e3c18e2dcabd44f47bd41cc9d2054494, type: 3}
+      propertyPath: runSpeed
+      value: 1.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3c18e2dcabd44f47bd41cc9d2054494, type: 3}
 --- !u!1001 &5441137153876390890
