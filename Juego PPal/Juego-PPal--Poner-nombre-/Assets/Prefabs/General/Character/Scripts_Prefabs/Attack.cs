@@ -31,12 +31,12 @@ public class Attack : MonoBehaviour
 
     private int TipoArma{
         get{
-            return (int) gameObject.GetComponent<StatsWeapon>().tipoArmaActual;
+            return (int) gameObject.GetComponent<CurrentStatsWeapon>().TipoArmaActual;
         }
     }
     private int TipoHabilidad{
         get{
-            return (int) gameObject.GetComponent<StatsWeapon>().tipoHabilidad;
+            return (int) gameObject.GetComponent<CurrentStatsWeapon>().tipoHabilidad;
         }
     }
 

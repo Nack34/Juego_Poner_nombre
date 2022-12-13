@@ -14,7 +14,7 @@ public class Directions : MonoBehaviour
     public enum PosibleDirections {down,up,left,right}
     public PosibleDirections direction=PosibleDirections.down;
     public PosibleDirections Direction{ 
-        set { // IMPLEMENTAR: ACA MODIFICAR EL BOX COLLIDER DEL ARMA DEL OBJETO
+        set { 
             direction=value;
             switch (direction)
             {
@@ -53,6 +53,7 @@ public class Directions : MonoBehaviour
         }
     }
     
+    // IMPLEMENTAR: ACA MODIFICAR LA DETECTION ZONE (si no es null) DEL OBJETO
     public void CheckDirection(Vector2 movementInput){ // le da prioridad al eje X
         if (movementInput.x == 0f)
             if (movementInput.y > 0f)

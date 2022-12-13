@@ -19,8 +19,8 @@ GameObject:
   - component: {fileID: 6188224536345825988}
   - component: {fileID: 454471906469257533}
   - component: {fileID: 7030561806882361859}
-  m_Layer: 0
-  m_Name: Goblin
+  m_Layer: 7
+  m_Name: DaggerGoblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -2147136511, guid: e2274b705f9a3fe4d9f5a520802d0019, type: 3}
+  m_Sprite: {fileID: 1564619351, guid: e2274b705f9a3fe4d9f5a520802d0019, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInvincible: 0
   tiempoDeInvincibilidad: 0.2
+  tiempoDesdeComienzoDeInvencibilidad: 0
 --- !u!114 &1729479706410913285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipoArmaActual: 0
-  TipoHabilidad: 0
+  tipoHabilidad: 0
 --- !u!114 &454471906469257533
 MonoBehaviour:
   m_ObjectHideFlags: 0

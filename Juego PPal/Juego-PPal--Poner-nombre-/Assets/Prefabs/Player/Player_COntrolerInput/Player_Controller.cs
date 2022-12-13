@@ -127,9 +127,6 @@ public class Player_Controller : MonoBehaviour
     }
     
 
-
-
-
     public void OnNormalAttack(InputAction.CallbackContext context) {
         if (context.started) {
             gameObject.GetComponent<Attack>().NormalAttack();
