@@ -10,15 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1110944721316682528}
   - component: {fileID: 6604160637774484406}
-  - component: {fileID: 5758880491787796877}
-  - component: {fileID: 5634050266992179021}
-  - component: {fileID: 1729479706410913285}
-  - component: {fileID: 8464292689156722086}
   - component: {fileID: 9147267909087296770}
-  - component: {fileID: 5726605593617285656}
-  - component: {fileID: 6188224536345825988}
-  - component: {fileID: 454471906469257533}
-  - component: {fileID: 7030561806882361859}
+  - component: {fileID: 6575290546741428164}
+  - component: {fileID: 2912406217069536034}
   m_Layer: 7
   m_Name: DaggerGoblin
   m_TagString: Untagged
@@ -94,84 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5758880491787796877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efbe5a4f1d3040f4b9d2f75dcf2a278b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vidaMax: 5
-  vida: 5
-  defensaFisica: 1
-  defensaMagica: 1
-  danioBase: 1
-  stamina: 5
-  percepcion: 1
-  carisma: 1
-  inteligencia: 1
-  walkSpeed: 1
-  runSpeed: 1
---- !u!114 &5634050266992179021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c0336094e829b4fb807791400d8e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInvincible: 0
-  tiempoDeInvincibilidad: 0.2
-  tiempoDesdeComienzoDeInvencibilidad: 0
---- !u!114 &1729479706410913285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 381fa2124ef5ec14f8bad28cd7e2bf7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  segundosNecesariosParaCurarse: 10
-  cantPorcentajeCuracionXSegundo: 10
---- !u!61 &8464292689156722086
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0530755, y: -0.17833388}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.64, y: 0.64}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.21114938, y: 0.05404578}
-  m_EdgeRadius: 0
 --- !u!50 &9147267909087296770
 Rigidbody2D:
   serializedVersion: 4
@@ -193,7 +109,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5726605593617285656
+--- !u!70 &6575290546741428164
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773156462666090598}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0011215301, y: -0.21744393}
+  m_Size: {x: 0.30145577, y: 0.045576315}
+  m_Direction: 1
+--- !u!114 &2912406217069536034
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,55 +134,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 773156462666090598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ecd3fc774b76740ba65acdbca86a36, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f0bc4617f98fbe46a4fabeefcfd4440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6188224536345825988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 289e3cbaad0c92c4c81c8b0a01cdf952, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tipoArmaActual: 0
-  tipoHabilidad: 0
---- !u!114 &454471906469257533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94a52e78e7c711246900b938fd87cbff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &7030561806882361859
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773156462666090598}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 23514ad950342de4da2bf172900cbe87, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  collisionOffset: 0.001
+  movementFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  direction: {x: 0, y: 0}
+  posObjetivo: {x: 0, y: 0}
+  tieneObjetivo: 0
+  tiempoEnLaMismaDireccion: 0
+  tiempoNecesarioParaCambiarDeDireccion: 2
+  moveSpeed: 0
 --- !u!1001 &9153054821361156817
 PrefabInstance:
   m_ObjectHideFlags: 0

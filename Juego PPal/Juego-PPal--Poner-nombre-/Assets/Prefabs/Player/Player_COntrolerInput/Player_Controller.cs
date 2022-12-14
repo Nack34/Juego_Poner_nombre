@@ -16,11 +16,13 @@ public class Player_Controller : MonoBehaviour
     
     Animator animator;
 
+    Attack attack;
     // Awake is called before Start 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        attack = gameObject.GetComponent<Attack>();
     }
 
     private void Start(){
@@ -50,7 +52,7 @@ public class Player_Controller : MonoBehaviour
         if(CanMove) {
             moveSpeed=MoveSpeed();  // TENER CUIDADO CON ESTO
             // If movement input is not 0, try to move
-            if(movementInput != Vector2.zero){
+            if(IsMoving){
                 
                 bool success = TryMove(movementInput); //me muevo en diagonal
 
@@ -85,7 +87,6 @@ public class Player_Controller : MonoBehaviour
             // Can't move if there's no direction to move in
             return false;
         }
-        
     }
 
     private bool isMoving=false;
@@ -120,43 +121,19 @@ public class Player_Controller : MonoBehaviour
         {
             IsRunning=true;
         } 
-        else if (context.canceled)
+        else 
+            if (context.canceled)
             {
                 IsRunning=false;
             }
     }
-    
 
     public void OnNormalAttack(InputAction.CallbackContext context) {
         if (context.started) {
-            gameObject.GetComponent<Attack>().NormalAttack();
+            attack.NormalAttack();
         } else if (context.canceled) {
-            gameObject.GetComponent<Attack>().Disparo();
+            attack.Disparo();
         }
     }
-
-/* // BORRAR TODO LO SIGUIENTE
-    // lo siguiente tiene q irse a otro script ("Attacking"?), este script es solo del movimiento del player
-    // lo hice yo
-    public int tipoArma=0;  // estas 2 variables son modificadas desde otros scripts
-    public int tipoHabilidad=0;
-    public void OnNormalAttack(InputAction.CallbackContext context) 
-    { 
-        if (context.started) // si aprieto golpeo (armas cuerpo a cuerpo) o apunto (armas a distancia)
-        {
-            animator.SetTrigger(AnimationStrings.isAttacking); 
-            animator.SetInteger(AnimationStrings.tipoArma,tipoArma);
-            animator.SetInteger(AnimationStrings.tipoHabilidad,tipoHabilidad);
-        } 
-        /*else 
-        {
-            if (context.canceled) // si dejo de apretar no importa (armas cuerpo a cuerpo) o disparo (armas a distancia)
-            {   
-                if (// tipoHabilidad == (tipo de habilidad de disparo (a distancia)))
-                {
-                    animator.SetTrigger(AnimationStrings.Disparo); // luego  
-                }    
-            }
-        }*/
-    //}
+    
 }

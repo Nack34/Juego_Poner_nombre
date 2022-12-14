@@ -28,7 +28,6 @@ public class Attack : MonoBehaviour
         }
     }
 
-
     private int TipoArma{
         get{
             return (int) gameObject.GetComponent<CurrentStatsWeapon>().TipoArmaActual;
