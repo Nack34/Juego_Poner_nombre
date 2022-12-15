@@ -24,7 +24,7 @@ public class Attack : MonoBehaviour
         tiempoQueisUsingHability+=Time.deltaTime;
         if (tiempoQueisUsingHability>=temporizadorDeisUsingHability){
             tiempoQueisUsingHability=0f;
-            animator.SetBool(AnimationStrings.isUsingHability,false);        
+//            animator.SetBool(AnimationStrings.isUsingHability,false);        
         }
     }
 
@@ -41,15 +41,15 @@ public class Attack : MonoBehaviour
 
     public void NormalAttack() // clic izquierdo de mouse
     { // ACLARACION: el animator tiene un script para activar el collider del arma
-        animator.SetInteger(AnimationStrings.tipoArma,TipoArma);
-        animator.SetInteger(AnimationStrings.tipoHabilidad,0); // la habilidad 0 es la del golpe normal. Lograr que se entienda sin comentario. Enum?
-        animator.SetBool(AnimationStrings.isUsingHability,true);
+//        animator.SetInteger(AnimationStrings.tipoArma,TipoArma);
+//        animator.SetInteger(AnimationStrings.tipoHabilidad,0); // la habilidad 0 es la del golpe normal. Lograr que se entienda sin comentario. Enum?
+//        animator.SetBool(AnimationStrings.isUsingHability,true);
         tiempoQueisUsingHability=0f;
     }
 
     public void Disparo (){ // al soltar el clic izquierdo de mouse
         //if (TipoArma = 1 || TipoArma = 2) Podria ser q solo las armas a distancia? las armas cuerpo a cuerpo no crearian conflicto 
-            animator.SetTrigger(AnimationStrings.disparo); 
+//            animator.SetTrigger(AnimationStrings.disparo); 
     }
 
 }

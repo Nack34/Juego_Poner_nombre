@@ -39,7 +39,7 @@ public class Damageable : MonoBehaviour
         }
         set{
             isAlive=value;
-            animator.SetBool(AnimationStrings.isAlive,value);
+//            animator.SetBool(AnimationStrings.isAlive,value);
         }
     }
 
@@ -49,7 +49,7 @@ public class Damageable : MonoBehaviour
     public void RecibirDanio (int danio, string tipoDeDanio)
     {
         if (IsAlive && !isInvincible) {
-            animator.SetTrigger(AnimationStrings.isBeingHitted);
+//            animator.SetTrigger(AnimationStrings.isBeingHitted);
             gameObject.GetComponent<Stats>().TiempoSinRecibirDanio=0;
             isInvincible=true;
             vidaMax=gameObject.GetComponent<Stats>().vidaMax;

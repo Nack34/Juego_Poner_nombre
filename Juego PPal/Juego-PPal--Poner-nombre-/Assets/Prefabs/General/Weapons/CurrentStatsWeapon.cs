@@ -5,12 +5,11 @@ using UnityEngine;
 public class CurrentStatsWeapon : MonoBehaviour
 {
     
-    public enum TipoHabilidad { normalAttack = 0, habilidad1 = 1, habilidad2 = 2, habilidad3 = 3 };
-    public TipoHabilidad tipoHabilidad=TipoHabilidad.normalAttack;
+    
+    public Enums.PosibleHabilityType tipoHabilidad=Enums.PosibleHabilityType.NormalAttack;
 
-    public enum TipoDeArma { dagger = 0, bow = 1, sword = 2, magic= 3 }; // ya esta en el script de currenDagger, no se si tmb va aca, o si tiene su propio script (solo estaria el enum)
-    [SerializeField] private TipoDeArma tipoArmaActual=TipoDeArma.dagger;
-    public TipoDeArma TipoArmaActual{ 
+    [SerializeField] private Enums.PosibleWeaponType tipoArmaActual=Enums.PosibleWeaponType.Dagger;
+    public Enums.PosibleWeaponType TipoArmaActual{ 
         get{
             return tipoArmaActual;
         }

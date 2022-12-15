@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class AnimationStrings : MonoBehaviour
 {
-    public static string isMoving = "isMoving";
-    public static string isRunning = "isRunning";
-    public static string isLookingUp = "isLookingUp";
-    public static string isLookingDown = "isLookingDown";
-    public static string isLookingLeft = "isLookingLeft"; 
-    public static string isLookingRight = "isLookingRight";
-    public static string isUsingHability = "isUsingHability";
-    public static string tipoArma = "tipoArma"; 
-    public static string tipoHabilidad = "tipoHabilidad";
-    public static string canMove = "canMove"; 
-    public static string isAlive = "isAlive"; 
-    public static string isBeingHitted = "isBeingHitted";
-    public static string disparo = "disparo";
-
+    public static string CanMove = "CanMove";
+    public static string Death = "Death"; 
+    public static string Hitted = "Hitted"; 
+    public static string Armed = "Armed";
+    public static string Unarmed = "Unarmed";
+ 
+    public static string [] PosibleHabilityClass = {"Combate","Agricultura","Ganaderia","Unicas"};
+    public static string [] PosibleWeaponType = {"Dagger","Bow","Sword","Magic"}; 
+    public static string [] PosibleHabilityType = {"Idle","Walk","Run","NormalAttack","Hability1","Hability2"};
+    public static string [] PosibleDirections = {"LD", "Down", "RD", 
+                                                "Left", "NotDirection", "Right", 
+                                                "LU", "Up", "RU"};         
+                                                // Las animaciones de las diagonales (son las mismas que Left o Right, pero ... 
+                                                // ... cambian la direccion de los colliders viculados a esa animacion).
+                                                // NotDirection esta si x=0 e y=0, nunca tendria q pasar, por lo ...
+                                                // ... que -> IMPLEMENTAR: que salte mensaje avisando
 }

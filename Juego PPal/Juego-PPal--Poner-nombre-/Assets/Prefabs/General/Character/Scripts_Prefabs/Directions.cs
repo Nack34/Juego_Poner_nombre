@@ -4,66 +4,59 @@ using UnityEngine;
 
 public class Directions : MonoBehaviour
 {
-    Animator animator;
+    AnimationSelector animationSelector;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-    }
+        animationSelector = GetComponent<AnimationSelector>();
 
-    public enum PosibleDirections {down,up,left,right}
-    public PosibleDirections direction=PosibleDirections.down;
-    public PosibleDirections Direction{ // esto ya no hace falta
-        set { 
-            direction=value;
-            switch (direction)
-            {
-                case PosibleDirections.up: {
-                    animator.SetBool(AnimationStrings.isLookingUp,true);
-                    animator.SetBool(AnimationStrings.isLookingDown,false);
-                    animator.SetBool(AnimationStrings.isLookingLeft,false);
-                    animator.SetBool(AnimationStrings.isLookingRight,false);
-                    break;
-                }
-                case PosibleDirections.down: {
-                    animator.SetBool(AnimationStrings.isLookingUp,false);
-                    animator.SetBool(AnimationStrings.isLookingDown,true);
-                    animator.SetBool(AnimationStrings.isLookingLeft,false);
-                    animator.SetBool(AnimationStrings.isLookingRight,false);
-                    break;
-                }
-                case PosibleDirections.right: {
-                    animator.SetBool(AnimationStrings.isLookingUp,false);
-                    animator.SetBool(AnimationStrings.isLookingDown,false);
-                    animator.SetBool(AnimationStrings.isLookingLeft,false);
-                    animator.SetBool(AnimationStrings.isLookingRight,true);
-                    break;
-                }
-                case PosibleDirections.left: {
-                    animator.SetBool(AnimationStrings.isLookingUp,false);
-                    animator.SetBool(AnimationStrings.isLookingDown,false);
-                    animator.SetBool(AnimationStrings.isLookingLeft,true);
-                    animator.SetBool(AnimationStrings.isLookingRight,false);
-                    break;
-                }
+        int i=0;
+        int j=0;
+        foreach (var item in (Enums.PosibleDirections[])System.Enum.GetValues(typeof(Enums.PosibleDirections)))
+        {
+            PosibleDirections [i,j] = item;
+            //Debug.Log(PosibleDirections [i,j]);
+            i++;
+            if (i==3){
+                j++;
+                i=0;
             }
         }
+        float xIndex=-1f;
+        float yIndex=-1f;
+        for (i=0; i<3;i++){
+            for (j=0; j<3;j++){
+                Debug.Log("A ver que sale: ");
+                Debug.Log("En x: "+(ChooseIndex(xIndex+i)-1));
+                Debug.Log("En y: "+(ChooseIndex(yIndex+j)-1));
+                Debug.Log(PosibleDirections[ChooseIndex(xIndex+i), ChooseIndex(yIndex+j)]);
+            }
+        }
+    }
+
+    
+    private Enums.PosibleDirections [,] PosibleDirections = new Enums.PosibleDirections [3,3];
+    [SerializeField] private Enums.PosibleDirections direction= Enums.PosibleDirections.Down;
+    public Enums.PosibleDirections Direction{ // esto ya no hace falta
+        set { 
+            direction=value;
+            animationSelector.currentDirection = value;
+            }
         get {
             return direction;
         }
     }
     
-    // IMPLEMENTAR: ACA MODIFICAR LA DETECTION ZONE (si no es null) DEL OBJETO y el box collider del arma (traer el arma actual)
+    // IMPLEMENTAR: EN LAS ANIMACIONES MODIFICAR LA DETECTION ZONE DEL OBJETO y el box collider del arma (traer el arma actual)
     public void CheckDirection(Vector2 movementInput){ // le da prioridad al eje X
-        if (movementInput.x == 0f)
-            if (movementInput.y > 0f)
-                Direction = PosibleDirections.up; 
-            else Direction = PosibleDirections.down;
-        else if (movementInput.x > 0f)
-            Direction = PosibleDirections.right;
-            else Direction = PosibleDirections.left;
+        Direction = PosibleDirections[ChooseIndex(movementInput.x), ChooseIndex(movementInput.y)];
     }
 
-
+    private int ChooseIndex (float velocity){
+        if (velocity>0)
+            return 2;
+        else if ( velocity==0) return 1;
+             else return 0; // velocity < 0
+    }
 
 }

@@ -191,7 +191,7 @@ Animator:
   m_GameObject: {fileID: 1543165914479833426}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2308d2d80069af47a8229a02ee9b5dc, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -267,6 +267,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0bc4617f98fbe46a4fabeefcfd4440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionOffset: 0.0005
+  movementFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  direction: {x: 0, y: 0}
+  posObjetivo: {x: 0, y: 0}
+  tieneObjetivo: 0
+  tiempoEnLaMismaDireccion: 0
+  tiempoNecesarioParaCambiarDeDireccion: 2
+  moveSpeed: 0
 --- !u!1001 &4328929434093553390
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,24 +4,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-// Takes and handles input and movement for a player character    // todo el codigo que esta en comentarios es codigo de animaciones (cuando las implementemos, se utilizara)
+// Takes and handles input and movement for a player 
 public class Player_Controller : MonoBehaviour
-{
+{ /*
     // esto es para mover al player    
-    [SerializeField] private float collisionOffset = 0.0005f;
-    public ContactFilter2D movementFilter;
-    Vector2 movementInput;
-    Rigidbody2D rb;
-    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    [SerializeField] private float collisionOffset = 0.0005f; // offset for checking collision
+    public ContactFilter2D movementFilter; // posible collisions
+    Vector2 movementInput; // input
+    Rigidbody2D rb; // rigidbody2D
+    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>(); // list of collisions
     
-    Animator animator;
+    Animator animator; // animator
+    AnimationSelector animationSelector; // script
 
-    Attack attack;
+    Attack attack; // script
     // Awake is called before Start 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        animationSelector = GetComponent<AnimationSelector>();
         attack = gameObject.GetComponent<Attack>();
     }
 
@@ -42,7 +44,7 @@ public class Player_Controller : MonoBehaviour
     }
 
     public bool CanMove {
-        get {
+        get { 
             return animator.GetBool(AnimationStrings.canMove);
         }
     }
@@ -93,7 +95,7 @@ public class Player_Controller : MonoBehaviour
     public bool IsMoving{
         set {
             isMoving=value;
-            animator.SetBool(AnimationStrings.isMoving,value);
+            AnimationSelector.isMoving = value;
         }
         get{
             return isMoving;
@@ -110,7 +112,7 @@ public class Player_Controller : MonoBehaviour
     public bool IsRunning{
         set {
             isRunning=value;
-            animator.SetBool(AnimationStrings.isRunning,value);
+            AnimationSelector.isRunning = value;
         }
         get{
             return isRunning;
@@ -128,12 +130,14 @@ public class Player_Controller : MonoBehaviour
             }
     }
 
-    public void OnNormalAttack(InputAction.CallbackContext context) {
+    public void OnNormalAttack(InputAction.CallbackContext context) { //obtengo los datos de Player Input
         if (context.started) {
             attack.NormalAttack();
         } else if (context.canceled) {
             attack.Disparo();
         }
     }
-    
+
+
+*/
 }
