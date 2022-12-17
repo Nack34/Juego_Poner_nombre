@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damageable : MonoBehaviour
+public class Damageable : MonoBehaviour // recive el danio que se quiere realizar, se calcula el danio real a realizar (se trar )
 {
     // Start is called before the first frame update
     
-    
-    Animator animator;
+    Stats stats;
+    AnimationSelector animationSelector;
+    private int [] vectorDeDefensas;
     private void Awake() {
-        animator = GetComponent<Animator>();
+        animationSelector = GetComponent<AnimationSelector>();
+        stats = gameObject.GetComponent<Stats>();
+        vectorDeDefensas= new int [(int)Enums.PosibleDamageType.Length];
+        // llenar vector de defensas del tamanio de la cantidad de enums
     }
 
     void Start(){
+        
 
     }
 
@@ -39,17 +44,17 @@ public class Damageable : MonoBehaviour
         }
         set{
             isAlive=value;
-//            animator.SetBool(AnimationStrings.isAlive,value);
+            animationSelector.isAlive=value;
         }
     }
 
 
 
     private int vidaMax; // utilizado para calcular el danio real recibido
-    public void RecibirDanio (int danio, string tipoDeDanio)
+    public void RecibirDanio (int danio, Enums.PosibleDamageType tipoDeDanio)
     {
         if (IsAlive && !isInvincible) {
-//            animator.SetTrigger(AnimationStrings.isBeingHitted);
+//          animator.SetBool(AnimationStrings.isBeingHitted);  // el animator tiene que tener una variable isBeingHitted que se setea en false al salir de la animacion, esta variable es la que sera consultada por AnimationSelector cada vez que pregunte porla condicion de Hitted (propiedad que setea hitted con el valor de animator)
             gameObject.GetComponent<Stats>().TiempoSinRecibirDanio=0;
             isInvincible=true;
             vidaMax=gameObject.GetComponent<Stats>().vidaMax;
@@ -61,26 +66,30 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    private float CalcularDanioReal (int danio, string tipoDeDanio){
+    private float CalcularDanioReal (int danio, Enums.PosibleDamageType tipoDeDanio){
         int vidaTotal = CalcularVidaTotal (tipoDeDanio);
         float porcentajeDeDanio = danio*100/vidaTotal;
         return  porcentajeDeDanio * vidaMax / 100 ;
     }
 
-    private int CalcularVidaTotal(string tipoDeDanio){
-        switch (tipoDeDanio){
+    private int CalcularVidaTotal(Enums.PosibleDamageType tipoDeDanio){
+        return vidaMax + vectorDeDefensas[(int)tipoDeDanio];
+        
+        
+        
+        /*switch (tipoDeDanio){
             case "fisico": 
-                return  vidaMax + gameObject.GetComponent<Stats>().defensaFisica;
+                return  vidaMax + stats.defensaFisica;
             case "magico": 
-                return  vidaMax + gameObject.GetComponent<Stats>().defensaMagica;
+                return  vidaMax + stats.defensaMagica;
             case "verdadero": 
                 return  vidaMax;
             default: //hacer algo para evitar poner esto ya que queda feo
                 return vidaMax;
-        }   
+        }   */
     }
 
-    public void Muerte (){
+    public void Muerte (){ // IMPLEMENTAR: SI EL PLAYER MUERE, SE DESACTIVA, NO SE DESTRUYE. Si no es el player, tratar de usar la pileta de spawneo esa (del video)
         Debug.Log("muerte de player");
         IsAlive=false; // (modifica la variable isAlive y el animator)
         //Destroy(gameObject);

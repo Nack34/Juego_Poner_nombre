@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentStatsDagger : MonoBehaviour
+public class CurrentDaggerStats : MonoBehaviour
 {
-    public Enums.PosibleWeaponType tipoArmaActual= Enums.PosibleWeaponType.Dagger; 
+    [SerializeField] public const Enums.PosibleWeaponType tipoArma= Enums.PosibleWeaponType.Dagger; 
 
     // Accede al arma usada (hijo) con gameObject.transform.GetChild(0).GetComponent<espada>() y si no es null, se trae el valor a obtener, sino, se pone 0
     public int danioBase=1;

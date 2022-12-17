@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationStrings : MonoBehaviour
+public class AnimationStrings : MonoBehaviour // guarda datos
 {
     public static string CanMove = "CanMove";
     public static string Death = "Death"; 
     public static string Hitted = "Hitted"; 
     public static string Armed = "Armed";
     public static string Unarmed = "Unarmed";
- 
-    public static string [] PosibleHabilityClass = {"Combate","Agricultura","Ganaderia","Unicas"};
+    public static string Revivir = "Revivir";
+
+    public static string [] PosibleHabilityClass = {"Unarmed","Combate","Agricultura","Ganaderia","Unicas"};
     public static string [] PosibleWeaponType = {"Dagger","Bow","Sword","Magic"}; 
     public static string [] PosibleHabilityType = {"Idle","Walk","Run","NormalAttack","Hability1","Hability2"};
     public static string [] PosibleDirections = {"LD", "Down", "RD", 

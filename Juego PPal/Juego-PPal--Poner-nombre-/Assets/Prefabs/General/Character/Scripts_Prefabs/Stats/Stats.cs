@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    Damageable damageable;
+
     private float tiempoSinRecibirDanio=999f;   
     public float TiempoSinRecibirDanio {
         set {
@@ -21,7 +23,6 @@ public class Stats : MonoBehaviour
             vida=value;
             if (vida<=0) // si tu vida llega a 0, moris
             {
-                Damageable damageable = gameObject.GetComponent<Damageable>();
                 if (damageable != null ) /* esta condicion no se si hace falta. Osea, la pregunta es, que objeto podria recibir 
                                             danio de otro lado que no se damageable? (si la vida bajo a 0, significa que recibio 
                                             danio. Y si recibio danio, tendria q haberlo recibido por medio de damageable, no?)*/
@@ -43,9 +44,9 @@ public class Stats : MonoBehaviour
     public float runSpeed =1; // velocidad de correr
 
 
-    void Start()
+    void Awake()
     {
-        //Vida = vidaMax;
+        damageable = gameObject.GetComponent<Damageable>();
     }
     
 

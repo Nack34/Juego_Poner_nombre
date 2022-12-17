@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow_Controller : MonoBehaviour
+public class ProjectileController : MonoBehaviour
 {
-    // usado cuando toco a player
-    [SerializeField] private int damage= 3;
-    [SerializeField] private string tipoDeDanio= "fisico"; // los tipos posibles son: fisico, magico, verdadero (lista actualizada el 9/12)
-    
-
      // cosas para moverme
     Rigidbody2D rb;
     public GameObject player; // se ingresa en unity
@@ -16,10 +11,14 @@ public class Arrow_Controller : MonoBehaviour
     private float angulo;
     private Vector2 direction;
 
+
+    // cosas para atacar
+    Attack attack;
+
     // Awake is called when the script instance is being loaded. Before Start
     private void Awake (){ 
-        
-        rb = GetComponent<Rigidbody2D>(); // rb es mi propio Rigidbody2D
+        rb = GetComponent<Rigidbody2D>(); 
+        attack = GetComponent<Attack>();
     }
 
     // Start is called before the first frame update
@@ -70,10 +69,12 @@ public class Arrow_Controller : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        Damageable damageable = other.GetComponent<Damageable>();
-        if (damageable != null )  // puede ser que lo que haya tocado no tenga que recibir danio
-            damageable.RecibirDanio(damage,tipoDeDanio);
+    private void OnTriggerEnter2D(Collider2D other) { // HACER Q SEA HIJO DE LO QUE LO INSTANCIO, ENTONCES EN ONTRIGGER ENTER LLAMA A...
+                                                      // ATTACK, PASANDOLE EL COLLIDER, EL DANIO NO VA A DEPENDER DE LA FLECHA, SINO...
+                                                      // DEL ARCO
+        attack.NormalAttack(other); 
         Destroy(gameObject);
     }
+
+
 }

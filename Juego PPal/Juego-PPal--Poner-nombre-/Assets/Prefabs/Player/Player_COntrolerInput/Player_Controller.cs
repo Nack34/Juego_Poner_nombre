@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-// Takes and handles input and movement for a player 
-public class Player_Controller : MonoBehaviour
-{ /*
+public class Player_Controller : MonoBehaviour // toma los datos de entrada y se encarga de estos para manejar a player
+{
     // esto es para mover al player    
     [SerializeField] private float collisionOffset = 0.0005f; // offset for checking collision
     public ContactFilter2D movementFilter; // posible collisions
@@ -17,23 +16,27 @@ public class Player_Controller : MonoBehaviour
     Animator animator; // animator
     AnimationSelector animationSelector; // script
 
-    Attack attack; // script
+    UseHabilty useHabilty; // script
     // Awake is called before Start 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animationSelector = GetComponent<AnimationSelector>();
-        attack = gameObject.GetComponent<Attack>();
+        useHabilty = gameObject.GetComponent<UseHabilty>();
+        PosibleWeaponTypes =  (Enums.PosibleWeaponType[])System.Enum.GetValues(typeof(Enums.PosibleWeaponType));
+        cantArmas = PosibleWeaponTypes.Length;
     }
 
     private void Start(){
         
     }
 
+        // PARA MOVERSE (flechas o awsd) Y CORRER (shift)
+
     public float MoveSpeed (){
-        if (isMoving){
-            if (isRunning) {
+        if (IsMoving){
+            if (IsRunning) {
                 return gameObject.GetComponent<Stats>().runSpeed;
             }
             else  {
@@ -45,13 +48,13 @@ public class Player_Controller : MonoBehaviour
 
     public bool CanMove {
         get { 
-            return animator.GetBool(AnimationStrings.canMove);
+            return animator.GetBool(AnimationStrings.CanMove); // devuelve false cuando se usan habilidades de no movimiento
         }
     }
 
     private float moveSpeed;
     private void FixedUpdate() {
-        if(CanMove) {
+        if(CanMove && !IsUsingHability) {
             moveSpeed=MoveSpeed();  // TENER CUIDADO CON ESTO
             // If movement input is not 0, try to move
             if(IsMoving){
@@ -94,31 +97,48 @@ public class Player_Controller : MonoBehaviour
     private bool isMoving=false;
     public bool IsMoving{
         set {
-            isMoving=value;
-            AnimationSelector.isMoving = value;
+            if (!IsUsingHability){
+                isMoving=value;
+                if (isMoving && !IsRunning) // la animacion de correr tiene prioridad
+                    animationSelector.currentHabilityType = Enums.PosibleHabilityType.Walk;
+                else if (!isMoving && !IsRunning) // las animaciones de correr y caminar tienen prioridad
+                    animationSelector.currentHabilityType = Enums.PosibleHabilityType.Idle;
+            } else isMoving=false;
         }
         get{
             return isMoving;
         }
     }
-    public void OnMove(InputAction.CallbackContext context) { //obtengo los datos de Player Input
-        movementInput = context.ReadValue<Vector2>();
+    [SerializeField] private bool isUsingHability=false;
+    public bool IsUsingHability{
+        get{
+            isUsingHability = gameObject.GetComponent<UseHabilty>().isUsingHability;
+            return isUsingHability;
+        }
+    }
+
+    public void OnMove(InputAction.CallbackContext context) { //obtengo los datos de Player Input (fleachas o wasd)
+        if (!IsUsingHability)
+            movementInput = context.ReadValue<Vector2>();
+        else movementInput = Vector2.zero;
         IsMoving = movementInput != Vector2.zero;
-        if (IsMoving)
-            gameObject.GetComponent<Directions>().CheckDirection(movementInput);    
+        gameObject.GetComponent<Directions>().CheckDirection(movementInput);    
     }
 
     private bool isRunning=false;
     public bool IsRunning{
         set {
-            isRunning=value;
-            AnimationSelector.isRunning = value;
+            if (!IsUsingHability)
+                isRunning=value;
+            else isRunning=false;
+            if (isRunning) // si esta corriendo es la habilidad ppal, puede pisar las de caminar o correr
+                animationSelector.currentHabilityType = Enums.PosibleHabilityType.Run;
         }
         get{
             return isRunning;
         }
     }
-    public void OnRun(InputAction.CallbackContext context) { //obtengo los datos de Player Input
+    public void OnRun(InputAction.CallbackContext context) { // Obtengo los datos de Player Input (shift)
         if (context.started)
         {
             IsRunning=true;
@@ -130,14 +150,92 @@ public class Player_Controller : MonoBehaviour
             }
     }
 
-    public void OnNormalAttack(InputAction.CallbackContext context) { //obtengo los datos de Player Input
-        if (context.started) {
-            attack.NormalAttack();
-        } else if (context.canceled) {
-            attack.Disparo();
+
+        // REALIZAR UN ATAQUE NORMAL (click izquierdo del mouse)
+
+    private bool Unarmed {
+        get{
+            return CurrentHabilityClass == Enums.PosibleHabilityClass.Unarmed;
         }
     }
 
+    public void OnNormalAttack(InputAction.CallbackContext context) { // Con el shift
+        if (!Unarmed){
+            if (context.started) {
+                useHabilty.NormalAttack();
+            } //else if (context.canceled) {  BORRAR ESTO, EL FILTRO ES HECHO DEBIDO A QUE SOLO SE ACTIVARA EL DISPARO AL TERMINAR LA ANIMACION DE APUNTADO
+            // UseHabilty.Disparo();
+            //}
+        }
+    }
+
+    
+       // SELECCIONAR ARMA/HERRAMIENTA (tab)
+    
+    [SerializeField] private float tiempoManteniendoApretadoElTab=0; 
+    [SerializeField] private float tiempoNecesarioParaAbrirLaRuedita=1f; 
+    private void Update(){
+        tiempoManteniendoApretadoElTab+=Time.deltaTime;
+    }
+
+    private int cantArmas; // inicializado en awake
+    private Enums.PosibleWeaponType [] PosibleWeaponTypes; // inicializado en awake
+    [SerializeField] private Enums.PosibleWeaponType armaSeleccionada= Enums.PosibleWeaponType.Dagger; 
+    public void OnWeaponChange (InputAction.CallbackContext context){ 
+        if (context.started && Unarmed) {
+            CurrentHabilityClass = Enums.PosibleHabilityClass.Combate;
+        }
+        else {
+            if (context.started) {
+                tiempoManteniendoApretadoElTab=0f;
+                armaSeleccionada=PosibleWeaponTypes[SiguienteArma()]; // siguiente arma en la ruedita
+            } else if (context.performed && (tiempoManteniendoApretadoElTab > tiempoNecesarioParaAbrirLaRuedita)) {
+                // IMPLEMENTAR: llamar a metodo que se encarga de abrir la ruedita y dependiendo del arma elegida, armaSeleccionada toma ese valor
+                // armaSeleccionada = metodo del renglon de arriba ();
+                // i= (int) armaSeleccionada;
+            } else if (context.canceled){
+                Debug.Log(armaSeleccionada);
+                gameObject.GetComponent<CurrentWeaponStats>().TipoArmaActual = armaSeleccionada; // aca se setea el arma actual, se cambia en CurrentStatsWeapon 
+            }
+        }
+    }
+
+    private int i=0;
+    public int SiguienteArma(){
+        i++;
+        if (i>(cantArmas-1))
+            i=0;
+        Debug.Log(i);
+        return i;
+    }
+
+
+        //SELECCIONAR CLASE DE HABILIDAD (teclas: 0=unarmed, 1=combate, 2= ganaderia (no implementado), IMPLEMENTAR LOS DEMAS)
+
+    [SerializeField] private Enums.PosibleHabilityClass currentHabilityClass = Enums.PosibleHabilityClass.Unarmed;
+    private Enums.PosibleHabilityClass CurrentHabilityClass {
+        set{
+            currentHabilityClass=value;
+            animationSelector.currentHabilityClass = currentHabilityClass;
+        }
+        get{
+            return currentHabilityClass;
+        }
+    }
+
+    public void OnSelectUnarmed (InputAction.CallbackContext context){ 
+        CurrentHabilityClass = Enums.PosibleHabilityClass.Unarmed;
+    }
+
+    
+    public void OnSelectCombate (InputAction.CallbackContext context){ 
+        CurrentHabilityClass = Enums.PosibleHabilityClass.Combate;
+    }
+
+    /*
+    public void OnSelectGanaderia (InputAction.CallbackContext context){ 
+        CurrentHabilityClass = Enums.PosibleHabilityClass.Unarmed;
+    }
 
 */
 }

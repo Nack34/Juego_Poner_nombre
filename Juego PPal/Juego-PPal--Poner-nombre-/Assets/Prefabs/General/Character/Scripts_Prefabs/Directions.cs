@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Directions : MonoBehaviour
+public class Directions : MonoBehaviour // calcula la direccion a enviar a AnimationSelector
 {
     AnimationSelector animationSelector;
 
@@ -14,34 +14,27 @@ public class Directions : MonoBehaviour
         int j=0;
         foreach (var item in (Enums.PosibleDirections[])System.Enum.GetValues(typeof(Enums.PosibleDirections)))
         {
-            PosibleDirections [i,j] = item;
-            //Debug.Log(PosibleDirections [i,j]);
+            PosibleDirections [i,j] = item; // llena una matriz con las posibles direcciones para que en Check Directions se elija
             i++;
             if (i==3){
                 j++;
                 i=0;
             }
         }
-        float xIndex=-1f;
-        float yIndex=-1f;
-        for (i=0; i<3;i++){
-            for (j=0; j<3;j++){
-                Debug.Log("A ver que sale: ");
-                Debug.Log("En x: "+(ChooseIndex(xIndex+i)-1));
-                Debug.Log("En y: "+(ChooseIndex(yIndex+j)-1));
-                Debug.Log(PosibleDirections[ChooseIndex(xIndex+i), ChooseIndex(yIndex+j)]);
-            }
-        }
     }
 
-    
     private Enums.PosibleDirections [,] PosibleDirections = new Enums.PosibleDirections [3,3];
     [SerializeField] private Enums.PosibleDirections direction= Enums.PosibleDirections.Down;
-    public Enums.PosibleDirections Direction{ // esto ya no hace falta
+    public Enums.PosibleDirections Direction{ 
         set { 
-            direction=value;
-            animationSelector.currentDirection = value;
+            if (!(value == Enums.PosibleDirections.NotDirection)){
+                direction=value;
             }
+            else {
+//              Debug.Log("Script Directions avisa: Se intento setear la direccion NotDirection. La direccion mantendria su valor previo");
+            }
+            animationSelector.currentDirection = direction;
+        }
         get {
             return direction;
         }
