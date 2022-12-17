@@ -23,6 +23,6 @@ public class Enums : MonoBehaviour // guarda tipos de datos
                                     // NotDirection esta si x=0 e y=0, nunca tendria q pasar, por lo ...
                                     // ... que -> se mantiene la ultima posicion
 
-    public enum PosibleDamageType {Fisico=0,Magico=1,Verdadero=2,Length=3} // Length esta para obtener la longitud del enum
-                                                                                // ARREGLARRRRRRR
+    public enum PosibleDamageType {Fisico=0,Magico=1,Verdadero=2} // usar System.Enum.GetValues(typeof(Enums.PosibleDamageType)).GetLength(0) ...
+                                                                // ... para obtener la longitud del enum (en el script Damageable se usa)
 }

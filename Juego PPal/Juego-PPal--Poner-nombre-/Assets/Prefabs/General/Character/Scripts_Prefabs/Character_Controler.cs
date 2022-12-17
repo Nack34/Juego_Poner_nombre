@@ -6,10 +6,11 @@ public class Character_Controler : MonoBehaviour
 {
     
     [SerializeField] private float collisionOffset = 0.0005f;
-    public ContactFilter2D movementFilter;
-    public Vector2 direction;
-    Rigidbody2D rb;
-    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    [SerializeField] private ContactFilter2D movementFilter;
+    [SerializeField] private Vector2 direction;
+    private Rigidbody2D rb;
+    private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    [SerializeField] private Collider2D MovementCollider;
     
 //    Animator animator;
 
@@ -137,11 +138,13 @@ public class Character_Controler : MonoBehaviour
     private bool TryMove(Vector2 direction) {
         if(direction != Vector2.zero) {
             // Check for potential collisions
-            int count = rb.Cast(
+            int count = MovementCollider.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                (moveSpeed) * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                (moveSpeed) * Time.fixedDeltaTime + collisionOffset, // The amount to cast equal to the movement plus an offset
+                true); // ignoreSiblingColliders = true: Determines whether the cast should ignore Colliders attached to the same Rigidbody2D (known as sibling Colliders))
+
 
             if(count == 0){
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);

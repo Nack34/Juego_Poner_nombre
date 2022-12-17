@@ -8,13 +8,14 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
 {
     // esto es para mover al player    
     [SerializeField] private float collisionOffset = 0.0005f; // offset for checking collision
-    public ContactFilter2D movementFilter; // posible collisions
-    Vector2 movementInput; // input
-    Rigidbody2D rb; // rigidbody2D
-    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>(); // list of collisions
+    [SerializeField] private ContactFilter2D movementFilter; // posible collisions
+    private Vector2 movementInput; // input
+    private Rigidbody2D rb; // rigidbody2D
+    private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>(); // list of collisions
+    [SerializeField] private Collider2D MovementCollider;
     
-    Animator animator; // animator
-    AnimationSelector animationSelector; // script
+    private Animator animator; // animator
+    private AnimationSelector animationSelector; // script
 
     UseHabilty useHabilty; // script
     // Awake is called before Start 
@@ -26,6 +27,7 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
         useHabilty = gameObject.GetComponent<UseHabilty>();
         PosibleWeaponTypes =  (Enums.PosibleWeaponType[])System.Enum.GetValues(typeof(Enums.PosibleWeaponType));
         cantArmas = PosibleWeaponTypes.Length;
+        directions=gameObject.GetComponent<Directions>();
     }
 
     private void Start(){
@@ -76,11 +78,12 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
     private bool TryMove(Vector2 direction) {
         if(direction != Vector2.zero) {
             // Check for potential collisions
-            int count = rb.Cast(
+            int count = MovementCollider.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                (moveSpeed) * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                (moveSpeed) * Time.fixedDeltaTime + collisionOffset, // The amount to cast equal to the movement plus an offset
+                true); // ignoreSiblingColliders = true: Determines whether the cast should ignore Colliders attached to the same Rigidbody2D (known as sibling Colliders))
 
             if(count == 0){
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
@@ -117,12 +120,14 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
         }
     }
 
+
+    Directions directions;
     public void OnMove(InputAction.CallbackContext context) { //obtengo los datos de Player Input (fleachas o wasd)
         if (!IsUsingHability)
             movementInput = context.ReadValue<Vector2>();
         else movementInput = Vector2.zero;
         IsMoving = movementInput != Vector2.zero;
-        gameObject.GetComponent<Directions>().CheckDirection(movementInput);    
+        directions.CheckDirection(movementInput);    
     }
 
     private bool isRunning=false;
@@ -180,6 +185,7 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
 
     private int cantArmas; // inicializado en awake
     private Enums.PosibleWeaponType [] PosibleWeaponTypes; // inicializado en awake
+    [SerializeField] private CurrentWeaponStats currentWeaponStats;  // se refencia en unity
     [SerializeField] private Enums.PosibleWeaponType armaSeleccionada= Enums.PosibleWeaponType.Dagger; 
     public void OnWeaponChange (InputAction.CallbackContext context){ 
         if (context.started && Unarmed) {
@@ -195,7 +201,7 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
                 // i= (int) armaSeleccionada;
             } else if (context.canceled){
                 Debug.Log(armaSeleccionada);
-                gameObject.GetComponent<CurrentWeaponStats>().TipoArmaActual = armaSeleccionada; // aca se setea el arma actual, se cambia en CurrentStatsWeapon 
+                currentWeaponStats.TipoArmaActual = armaSeleccionada; // aca se setea el arma actual, se cambia en CurrentStatsWeapon 
             }
         }
     }
@@ -205,7 +211,6 @@ public class Player_Controller : MonoBehaviour // toma los datos de entrada y se
         i++;
         if (i>(cantArmas-1))
             i=0;
-        Debug.Log(i);
         return i;
     }
 

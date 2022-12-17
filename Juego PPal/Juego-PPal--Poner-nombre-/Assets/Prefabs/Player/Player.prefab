@@ -50,7 +50,6 @@ GameObject:
   - component: {fileID: 6190386586295126146}
   - component: {fileID: 1711954336971781329}
   - component: {fileID: 859435012248379309}
-  - component: {fileID: 2315573828183622118}
   - component: {fileID: 4709848276279662400}
   - component: {fileID: 2775771078327913673}
   - component: {fileID: 3293328127618476848}
@@ -196,6 +195,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  MovementCollider: {fileID: 0}
   isUsingHability: 0
   tiempoManteniendoApretadoElTab: 0
   tiempoNecesarioParaAbrirLaRuedita: 1
@@ -354,8 +354,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vidaMax: 10
   vida: 5
+  vectorDeDefensas: 000000000000000000000000
   defensaFisica: 1
   defensaMagica: 1
+  defensaVerdadera: 0
   danioBase: 1
   stamina: 5
   percepcion: 1
@@ -406,21 +408,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUsingHability: 0
   tipoHabilidad: 0
---- !u!114 &2315573828183622118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3698066197318474367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 289e3cbaad0c92c4c81c8b0a01cdf952, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tipoArmaActual: 0
-  BaseDamage: 1
-  tipoDeDanio: 0
 --- !u!95 &4709848276279662400
 Animator:
   serializedVersion: 4

@@ -15,12 +15,16 @@ public class AnimationSelector : MonoBehaviour // obtiene datos y selecciona la 
     public bool SeguirAnimando {
         set {
             seguirAnimando=value;
-//            if (seguirAnimando)
-//                animator.Play(AnimationStrings.Revivir); // <- IMPLEMENTAR (ACA NO)
         }
         get {
-            return seguirAnimando; // return animator.seguirAnimando (no quiero que cualquier animacion pueda ...
+            seguirAnimando=animator.GetBool(AnimationStrings.SeguirAnimando); // (no quiero que cualquier animacion pueda ...
                                    // ... pisar a cualquier otra. Solo quiero q la animacion cambie OnExit) <- IMPLEMENTAR
+            if (animator.GetBool(AnimationStrings.DejarDeAnimar)){
+                currentHabilityType=Enums.PosibleHabilityType.Idle; 
+                seguirAnimando=true;
+                animator.SetBool(AnimationStrings.DejarDeAnimar,false);
+            }
+            return seguirAnimando;
         }
     }
     public bool isAlive=true;
@@ -50,6 +54,7 @@ public class AnimationSelector : MonoBehaviour // obtiene datos y selecciona la 
                                     AnimationStrings.PosibleHabilityType[(int)currentHabilityType]+ // solo de movimiento
                                     AnimationStrings.PosibleDirections[(int)currentDirection]         );
         if (SeguirAnimando) {
+            Debug.Log(animacion);
             animator.Play(animacion);
         }
     }

@@ -16,6 +16,7 @@ public class Stats : MonoBehaviour
         }
     }  
     
+    // VIDA
     public int vidaMax=5;
     [SerializeField] private int vida=5;  // vida actual
     public int Vida {
@@ -33,8 +34,41 @@ public class Stats : MonoBehaviour
             return vida;
         }
     }
-    public int defensaFisica =1;
-    public int defensaMagica =1;
+    
+    // DEFENSAS
+    public int [] vectorDeDefensas = new int [System.Enum.GetValues(typeof(Enums.PosibleDamageType)).GetLength(0)];
+    [SerializeField] private int defensaFisica =1;
+    [SerializeField] private int defensaMagica =1;
+    [SerializeField] private int defensaVerdadera =0; // mantener siempre en 0
+    public int DefensaFisica{
+        set {
+            defensaFisica=value;
+            vectorDeDefensas[(int)Enums.PosibleDamageType.Fisico] = defensaFisica;
+        }
+        get{
+            return defensaFisica;
+        }
+    }
+    public int DefensaMagica{
+        set {
+            defensaMagica=value;
+            vectorDeDefensas[(int)Enums.PosibleDamageType.Magico] = defensaMagica;
+        }
+        get{
+            return defensaMagica;
+        }
+    }
+    public int DefensaVerdadera{
+        set {
+            defensaVerdadera=value;
+            vectorDeDefensas[(int)Enums.PosibleDamageType.Verdadero] = defensaVerdadera;
+        }
+        get{
+            return defensaVerdadera;
+        }
+    }
+
+
     public int danioBase =1; // danio base de todas las armas, es sumado(?) por el danio de arma para obtener el danio total 
     public int stamina =5;  // utitlizado para correr, trabajar, etc
     public int percepcion =1; // algunas cosas (objetos) del mundo solo pueden verse con cierto puntaje de esto, de tenerlo demasiado bajo, estas cosas seran invicibles o se veran de otra manera
@@ -47,6 +81,10 @@ public class Stats : MonoBehaviour
     void Awake()
     {
         damageable = gameObject.GetComponent<Damageable>();
+        // inicializacion del vector de defensas
+        DefensaFisica=DefensaFisica; 
+        DefensaMagica=DefensaMagica;
+        DefensaVerdadera=DefensaVerdadera;
     }
     
 

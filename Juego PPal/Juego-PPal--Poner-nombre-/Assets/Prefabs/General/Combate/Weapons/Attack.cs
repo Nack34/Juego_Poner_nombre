@@ -15,6 +15,6 @@ public class Attack : MonoBehaviour
     { 
         damageable = other.GetComponent<Damageable>();
         if (damageable != null )  // puede ser que lo que haya tocado no tenga que recibir danio
-            damageable.RecibirDanio(CurrentWeaponStats.BaseDamage,CurrentWeaponStats.tipoDeDanio);
+            damageable.RecibirDanio(CurrentWeaponStats.BaseDamageCurrentWeapon,CurrentWeaponStats.tipoDeDanio);
     }
 }

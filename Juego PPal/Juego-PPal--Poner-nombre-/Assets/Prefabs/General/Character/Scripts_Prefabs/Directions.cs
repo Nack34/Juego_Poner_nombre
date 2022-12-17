@@ -30,8 +30,7 @@ public class Directions : MonoBehaviour // calcula la direccion a enviar a Anima
             if (!(value == Enums.PosibleDirections.NotDirection)){
                 direction=value;
             }
-            else {
-//              Debug.Log("Script Directions avisa: Se intento setear la direccion NotDirection. La direccion mantendria su valor previo");
+            else { //Se intento setear la direccion NotDirection. La direccion mantendria su valor previo
             }
             animationSelector.currentDirection = direction;
         }

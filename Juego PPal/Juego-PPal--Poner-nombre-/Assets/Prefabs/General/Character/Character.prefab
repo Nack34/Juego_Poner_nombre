@@ -189,7 +189,7 @@ Animator:
   m_GameObject: {fileID: 1543165914479833426}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c2308d2d80069af47a8229a02ee9b5dc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -226,7 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipoArmaActual: 2
-  danioBase: 1
+  BaseDamage: 1
+  tipoDeDanio: 0
 --- !u!114 &3302569209621034112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a52e78e7c711246900b938fd87cbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsingHability: 0
   tipoHabilidad: 0
 --- !u!114 &764401965149281821
 MonoBehaviour:
