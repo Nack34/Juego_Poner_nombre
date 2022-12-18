@@ -5,17 +5,16 @@ using UnityEngine;
 public class AnimationStrings : MonoBehaviour // guarda datos
 {
     public static string CanMove = "CanMove";
-    public static string Death = "Death"; 
+    public static string IsAlive = "IsAlive"; 
     public static string Hitted = "Hitted"; 
-    public static string Armed = "Armed";
-    public static string Unarmed = "Unarmed";
-    public static string Revivir = "Revivir"; 
-    public static string SeguirAnimando = "SeguirAnimando";
-    public static string DejarDeAnimar = "DejarDeAnimar";
+    public static string IsUsingHability = "IsUsingHability"; 
+    public static string IsRunning = "IsRunning";
+    public static string IsMoving = "IsMoving";
+    public static string DirectionX = "DirectionX";
+    public static string DirectionY = "DirectionY";  
 
-    public static string [] PosibleHabilityClass = {"Unarmed","Combate","Agricultura","Ganaderia","Unicas"};
-    public static string [] PosibleWeaponType = {"Dagger","Sword","Bow","Magic","Spear"}; 
-    public static string [] PosibleHabilityType = {"Idle","Walk","Run","NormalAttack","Hability1","Hability2"};
+    public static string Revivir = "Revivir"; // IMPLEMENTAR
+
     public static string [] PosibleDirections = {"LD", "Down", "RD", 
                                                 "Left", "NotDirection", "Right", 
                                                 "LU", "Up", "RU"};         

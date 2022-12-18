@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - LeftLimit
-  - RightLimit
-  - DownLimit
-  - UpLimit
-  - Enemy
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -16,14 +11,14 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - Enemy
+  - PlayerMovement
+  - EnemyMovement
   - PlayerHitbox
   - EnemyHitbox
-  - 
-  - 
-  - 
-  - 
+  - PlayerHurtbox
+  - EnemyHurtbox
+  - AllProjectile
+  - OnlyPlayerProjectile
   - 
   - 
   - 
@@ -43,9 +38,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 2954329423
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 2954329423
+    locked: 0
+  - name: Decorations
+    uniqueID: 3989252149
+    locked: 0
+  - name: Walls
+    uniqueID: 2810754409
+    locked: 0
+  - name: Enemies
+    uniqueID: 1751917757
+    locked: 0
+  - name: Player
+    uniqueID: 3219446217
+    locked: 0
+  - name: Roof
+    uniqueID: 4127738777
     locked: 0
