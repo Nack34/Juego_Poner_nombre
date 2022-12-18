@@ -14,7 +14,7 @@ public class AnimationStrings : MonoBehaviour // guarda datos
     public static string DejarDeAnimar = "DejarDeAnimar";
 
     public static string [] PosibleHabilityClass = {"Unarmed","Combate","Agricultura","Ganaderia","Unicas"};
-    public static string [] PosibleWeaponType = {"Dagger","Sword","Bow","Magic"}; 
+    public static string [] PosibleWeaponType = {"Dagger","Sword","Bow","Magic","Spear"}; 
     public static string [] PosibleHabilityType = {"Idle","Walk","Run","NormalAttack","Hability1","Hability2"};
     public static string [] PosibleDirections = {"LD", "Down", "RD", 
                                                 "Left", "NotDirection", "Right", 
