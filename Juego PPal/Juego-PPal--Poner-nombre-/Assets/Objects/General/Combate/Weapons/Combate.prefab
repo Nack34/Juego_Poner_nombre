@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2608477699463685737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 6802908549881418724, guid: 0b671e0a3bc457d4b9d38d00c8935d37, type: 3}
+  m_PrefabInstance: {fileID: 5867114306530890385}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8856561751317629103}
+  m_Layer: 0
+  m_Name: 'Dagger (Missing Prefab with guid: 0b671e0a3bc457d4b9d38d00c8935d37)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8856561751317629103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 3135911192967223870, guid: 0b671e0a3bc457d4b9d38d00c8935d37, type: 3}
+  m_PrefabInstance: {fileID: 5867114306530890385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608477699463685737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1595743915981984396}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4536142014621342128
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1595743915981984396}
-  - component: {fileID: 2439095133452940849}
   m_Layer: 6
   m_Name: Combate
   m_TagString: Untagged
@@ -35,23 +65,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2439095133452940849
-MonoBehaviour:
+--- !u!1 &5401765066260063550
+GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8242529128358213280, guid: 3366b02ca8f511d4e8166896548ab90a, type: 3}
+  m_PrefabInstance: {fileID: 303886919984421358}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4536142014621342128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 289e3cbaad0c92c4c81c8b0a01cdf952, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  armasEquipadas: []
-  armaActual: {fileID: 0}
-  BaseDamageCurrentWeapon: 1
-  tipoDeDanio: 0
-  tipoArmaActual: 0
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240197443505713530}
+  m_Layer: 0
+  m_Name: 'Bow (Missing Prefab with guid: 3366b02ca8f511d4e8166896548ab90a)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240197443505713530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1513647673835415700, guid: 3366b02ca8f511d4e8166896548ab90a, type: 3}
+  m_PrefabInstance: {fileID: 303886919984421358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401765066260063550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1595743915981984396}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5419809104787253660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 8371571675772686974, guid: 8378b1b6d10fda9428402f03d23d4171, type: 3}
+  m_PrefabInstance: {fileID: 1813974975601234633}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4942369575332315703}
+  m_Layer: 0
+  m_Name: 'Sword (Missing Prefab with guid: 8378b1b6d10fda9428402f03d23d4171)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4942369575332315703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 6753809891951464702, guid: 8378b1b6d10fda9428402f03d23d4171, type: 3}
+  m_PrefabInstance: {fileID: 1813974975601234633}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419809104787253660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1595743915981984396}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &303886919984421358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,11 +184,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3366b02ca8f511d4e8166896548ab90a, type: 3}
---- !u!4 &1240197443505713530 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1513647673835415700, guid: 3366b02ca8f511d4e8166896548ab90a, type: 3}
-  m_PrefabInstance: {fileID: 303886919984421358}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1813974975601234633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171,11 +241,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8378b1b6d10fda9428402f03d23d4171, type: 3}
---- !u!4 &4942369575332315703 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6753809891951464702, guid: 8378b1b6d10fda9428402f03d23d4171, type: 3}
-  m_PrefabInstance: {fileID: 1813974975601234633}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5867114306530890385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -233,8 +298,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b671e0a3bc457d4b9d38d00c8935d37, type: 3}
---- !u!4 &8856561751317629103 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3135911192967223870, guid: 0b671e0a3bc457d4b9d38d00c8935d37, type: 3}
-  m_PrefabInstance: {fileID: 5867114306530890385}
-  m_PrefabAsset: {fileID: 0}
