@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    Damageable damageable;
+    
+    [SerializeField] private Animator animator; // para IsAlive
 
-    private float tiempoSinRecibirDanio=999f;   
+    private float tiempoSinRecibirDanio=999f; // utilizado por curable
     public float TiempoSinRecibirDanio {
         set {
             tiempoSinRecibirDanio=value;
@@ -15,6 +16,17 @@ public class Stats : MonoBehaviour
             return tiempoSinRecibirDanio;
         }
     }  
+
+    private bool isAlive=true; // utilizado para condiciones y la animacion de morir
+    public bool IsAlive{
+        set{
+            isAlive=value;
+            animator.SetBool(AnimationStrings.IsAlive,value);
+        }
+        get{
+            return isAlive;
+        }
+    }
     
     // VIDA
     public int vidaMax=5;
@@ -24,10 +36,7 @@ public class Stats : MonoBehaviour
             vida=value;
             if (vida<=0) // si tu vida llega a 0, moris
             {
-                if (damageable != null ) /* esta condicion no se si hace falta. Osea, la pregunta es, que objeto podria recibir 
-                                            danio de otro lado que no se damageable? (si la vida bajo a 0, significa que recibio 
-                                            danio. Y si recibio danio, tendria q haberlo recibido por medio de damageable, no?)*/
-                    damageable.Muerte();
+                Muerte();
             }
         }
         get {
@@ -36,38 +45,10 @@ public class Stats : MonoBehaviour
     }
     
     // DEFENSAS
+    [SerializeField] private int defensaFisicaBase =1;
+    [SerializeField] private int defensaMagicaBase =1;
+    [SerializeField] private int defensaVerdaderaBase =0; // mantener siempre en 0
     public int [] vectorDeDefensas = new int [System.Enum.GetValues(typeof(Enums.PosibleDamageType)).GetLength(0)];
-    [SerializeField] private int defensaFisica =1;
-    [SerializeField] private int defensaMagica =1;
-    [SerializeField] private int defensaVerdadera =0; // mantener siempre en 0
-    public int DefensaFisica{
-        set {
-            defensaFisica=value;
-            vectorDeDefensas[(int)Enums.PosibleDamageType.Fisico] = defensaFisica;
-        }
-        get{
-            return defensaFisica;
-        }
-    }
-    public int DefensaMagica{
-        set {
-            defensaMagica=value;
-            vectorDeDefensas[(int)Enums.PosibleDamageType.Magico] = defensaMagica;
-        }
-        get{
-            return defensaMagica;
-        }
-    }
-    public int DefensaVerdadera{
-        set {
-            defensaVerdadera=value;
-            vectorDeDefensas[(int)Enums.PosibleDamageType.Verdadero] = defensaVerdadera;
-        }
-        get{
-            return defensaVerdadera;
-        }
-    }
-
 
     public int danioBase =1; // danio base de todas las armas, es sumado(?) por el danio de arma para obtener el danio total 
     public int stamina =5;  // utitlizado para correr, trabajar, etc
@@ -78,21 +59,25 @@ public class Stats : MonoBehaviour
     public float runSpeed =1; // velocidad de correr
 
 
-    void Awake()
+    private void Awake()
     {
-        damageable = gameObject.GetComponent<Damageable>();
-        // inicializacion del vector de defensas
-        DefensaFisica=DefensaFisica; 
-        DefensaMagica=DefensaMagica;
-        DefensaVerdadera=DefensaVerdadera;
+        // inicializacion del vector de defensas (no se me ocurrio manera de hacerlo dinamico)
+        vectorDeDefensas[(int)Enums.PosibleDamageType.Fisico] = defensaFisicaBase;
+        vectorDeDefensas[(int)Enums.PosibleDamageType.Magico] = defensaMagicaBase;
+        vectorDeDefensas[(int)Enums.PosibleDamageType.Verdadero] = defensaVerdaderaBase;
     }
     
 
-    void FixedUpdate(){
+    private void Update(){
         TiempoSinRecibirDanio+=Time.fixedDeltaTime;
     }
 
-
+    
+    public void Muerte (){ // IMPLEMENTAR: SI EL PLAYER MUERE, SE DESACTIVA, NO SE DESTRUYE. Si no es el player, tratar de usar la pileta de spawneo esa (del video)
+        Debug.Log("muerte de player");
+        IsAlive=false; // (modifica la variable isAlive y el animator)
+        //Destroy(gameObject);
+    }
 
 
 }

@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(Stats))]
 public class Curable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+    
+    Stats stats;
+//    AnimationSelector animationSelector;
+    private void Awake() {
+//        animationSelector = GetComponent<AnimationSelector>();
+        stats = GetComponent<Stats>();
     }
+
+
+
 
     private float vidaMax;
     [SerializeField] private int segundosNecesariosParaCurarse= 10;
@@ -18,15 +26,15 @@ public class Curable : MonoBehaviour
     float tiempoSinRecibirDanio;
     void Update()
     {
-        vidaMax = gameObject.GetComponent<Stats>().vidaMax;
-        tiempoSinRecibirDanio = gameObject.GetComponent<Stats>().TiempoSinRecibirDanio;
+        vidaMax = stats.vidaMax;
+        tiempoSinRecibirDanio = stats.TiempoSinRecibirDanio;
 
         temporizadorDeSegundos+=Time.deltaTime;
         if (temporizadorDeSegundos>=1f){ //cada un segundo cheequeo si puedo curarme
             temporizadorDeSegundos=0f;
 
             tiempoSinRecibirDanio++;
-            if ((tiempoSinRecibirDanio>=segundosNecesariosParaCurarse) && (gameObject.GetComponent<Stats>().Vida<vidaMax) ){
+            if ((tiempoSinRecibirDanio>=segundosNecesariosParaCurarse) && (stats.Vida<vidaMax) ){
                 curacionAcumulada = CantCuracion(curacionAcumulada);
                 curacionAcumulada = Curarse(curacionAcumulada);
             }
@@ -40,7 +48,7 @@ public class Curable : MonoBehaviour
     
     private float Curarse (float curacionAcumulada){
         if ((int)curacionAcumulada>0){
-            gameObject.GetComponent<Stats>().Vida+=(int)curacionAcumulada;
+            stats.Vida+=(int)curacionAcumulada;
             return 0;
         }
         return curacionAcumulada;
