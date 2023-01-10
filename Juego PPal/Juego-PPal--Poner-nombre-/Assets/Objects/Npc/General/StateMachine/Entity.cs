@@ -11,7 +11,7 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb {get; private set;}
     public Animator animator {get; private set;}
     public GameObject aliveGO {get; private set;}
-    public Vector2 startPosition {get; private set;}
+    public Vector2 aliveGOStartPosition {get; private set;}
     
     [SerializeField]
     private Vector2 direction= new Vector2 (0,0);
@@ -37,8 +37,8 @@ public class Entity : MonoBehaviour
     private Stats stats ;
 
     public virtual void Start(){
-        startPosition = transform.position;
         aliveGO = transform.Find("Alive").gameObject;
+        aliveGOStartPosition = aliveGO.transform.position;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         animator = aliveGO.GetComponent<Animator>();
         stateMachine = new FiniteStateMachine(); 
@@ -95,5 +95,9 @@ public class Entity : MonoBehaviour
             // Can't move if there's no direction to move in
             return false;
         }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(aliveGOStartPosition, entityData.baseRadius);
     }
 }

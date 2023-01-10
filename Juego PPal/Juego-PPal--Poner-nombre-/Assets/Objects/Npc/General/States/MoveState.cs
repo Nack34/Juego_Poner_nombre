@@ -38,7 +38,9 @@ public class MoveState : State
 
         Debug.Log("direccion: "+entity.Direction+", moveSpeed:"+moveSpeed);
 
-        if (CanChangeMovement()){
+        if((DistanceToBasePosition()) > (entity.entityData.baseRadius)){
+            ChangeMovement();
+        }else if (CanChangeMovement()){
             ChangeMovement();
         }
     }
@@ -48,6 +50,23 @@ public class MoveState : State
         
         isMoving = entity.TryMovingAllDirections (entity.Direction, moveSpeed) ;
     }
+
+    // ---
+
+    private float DistanceToBasePosition(){
+        Vector2 distace;
+        distace.x = Mathf.Abs(entity.aliveGOStartPosition.x - entity.aliveGO.transform.position.x);
+        distace.y = Mathf.Abs(entity.aliveGOStartPosition.y - entity.aliveGO.transform.position.y);
+        Debug.Log("entity.aliveGOStartPosition.x: "+entity.aliveGOStartPosition.x+"entity.transform.position.x: "+entity.aliveGO.transform.position.x);
+        Debug.Log("entity.aliveGOStartPosition.y: "+entity.aliveGOStartPosition.y+"entity.transform.position.y: "+entity.aliveGO.transform.position.y);
+
+        Debug.Log("distace.x: "+distace.x+"distace.y: "+distace.y);
+        float linearDistance = Mathf.Sqrt(Mathf.Pow(distace.x,2)+Mathf.Pow(distace.y,2)); 
+        //Debug.Log("linearDistance: "+linearDistance+", entity.entityData.baseRadius: "+entity.entityData.baseRadius);
+        return linearDistance;
+        
+    }
+
 
     // ---
 
@@ -73,21 +92,21 @@ public class MoveState : State
             return 0;    
         } 
         else {*/
-            return Random.Range(0,stateData.maxMovementSpeed);   
+            return 1;//Random.Range(0,stateData.maxMovementSpeed);   
         //}
     }
 
     // ---
 
     private Vector2 RandomOriginDireccion(){  
-        Vector2 newPosition = RandomPosition(-stateData.baseRadius,stateData.baseRadius); // elije una posicion (un punto) de la zona de inicio
+        Vector2 newPosition = RandomPosition(-entity.entityData.baseRadius,entity.entityData.baseRadius); // elije una posicion (un punto) de la zona de inicio
         return CalculateDirection(newPosition); // calcula la direccion necesaria para ir a ese punto
     }
 
 
     // HACER: a esto le falta tener en cuenta la posicion de origen (posicion de inicio, en donde se instancio)
     private Vector2 RandomPosition (float LeftAndDownRangeLimit, float RightAndUpRangeLimit){
-        return RandomVector2 (LeftAndDownRangeLimit, RightAndUpRangeLimit, LeftAndDownRangeLimit, RightAndUpRangeLimit) + entity.startPosition;
+        return RandomVector2 (LeftAndDownRangeLimit, RightAndUpRangeLimit, LeftAndDownRangeLimit, RightAndUpRangeLimit) + entity.aliveGOStartPosition;
     }
 
     private Vector2 RandomVector2(float minX, float maxX, float minY, float maxY){
@@ -97,7 +116,8 @@ public class MoveState : State
     }
     
     private Vector2 CalculateDirection (Vector2 positionToGoTo){
-        Vector2 directionToGoTo = new Vector2((int)(positionToGoTo.x - entity.transform.position.x), (int)(positionToGoTo.y - entity.transform.position.y));
+        Debug.Log("positionToGoTo: "+positionToGoTo+", entity.transform.position: "+ entity.aliveGO.transform.position);
+        Vector2 directionToGoTo = new Vector2((positionToGoTo.x - entity.aliveGO.transform.position.x), (positionToGoTo.y - entity.aliveGO.transform.position.y));
         directionToGoTo.Normalize(); // When normalized, a vector keeps the same direction but its length is 1.0
         return directionToGoTo;
     }
