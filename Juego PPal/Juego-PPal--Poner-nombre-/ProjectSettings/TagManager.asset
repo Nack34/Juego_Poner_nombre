@@ -11,14 +11,14 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerMovement
-  - EnemyMovement
-  - PlayerHitbox
-  - EnemyHitbox
-  - PlayerHurtbox
-  - EnemyHurtbox
-  - AllProjectile
-  - OnlyPlayerProjectile
+  - Obstacle
+  - Player
+  - Bando1
+  - Bando2
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -44,11 +44,11 @@ TagManager:
   - name: Floor
     uniqueID: 2954329423
     locked: 0
-  - name: Decorations
-    uniqueID: 3989252149
-    locked: 0
   - name: Walls
     uniqueID: 2810754409
+    locked: 0
+  - name: Decorations
+    uniqueID: 3989252149
     locked: 0
   - name: Enemies
     uniqueID: 1751917757

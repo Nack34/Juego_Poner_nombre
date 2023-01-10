@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AnimationStrings : MonoBehaviour // guarda datos
 {
+    
+    public static string MoveState = "move";
+    public static string IdleState = "idle";
+    public static string Xdirection = "Xdirection";
+    public static string Ydirection = "Ydirection";
+
+    // de aca para abajo es todo viejo (lo usa el player), cuando cambie lo del player hay q borralo
     public static string CanMove = "CanMove";
     public static string IsAlive = "IsAlive"; 
     public static string Hitted = "Hitted"; 

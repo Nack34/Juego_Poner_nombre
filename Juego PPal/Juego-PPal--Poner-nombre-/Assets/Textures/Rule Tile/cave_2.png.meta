@@ -6135,7 +6135,7 @@ TextureImporter:
     nameFileIdTable:
       cave_2_277: 950935190
       cave_2_97: 263706112
-      cave_2_5: -220009383
+      cave_2_273: 1550359748
       cave_2_55: 351724717
       cave_2_150: 1188679131
       cave_2_95: -147655710
@@ -6417,8 +6417,8 @@ TextureImporter:
       cave_2_90: 1961585696
       cave_2_83: 1450867785
       cave_2_261: 1605122293
-      cave_2_273: 1550359748
       cave_2_119: -570828806
+      cave_2_5: -220009383
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
