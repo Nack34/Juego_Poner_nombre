@@ -10,10 +10,10 @@ public class Attack : MonoBehaviour
         CurrentWeaponStats = GetComponent<CurrentWeaponStats>();
     }
 
-    Damageable damageable;
+    OldDamageable damageable;
     public void NormalAttack(Collider2D other) 
     { 
-        damageable = other.GetComponent<Damageable>();
+        damageable = other.GetComponent<OldDamageable>();
         if (damageable != null )  // puede ser que lo que haya tocado no tenga que recibir danio
             damageable.RecibirDanio(CurrentWeaponStats.BaseDamageCurrentWeapon,CurrentWeaponStats.tipoDeDanio);
     }
