@@ -56,8 +56,9 @@ public class Entity : MonoBehaviour
     
 
     public bool TryMovingAllDirections(Vector2 direction, float moveSpeed) {
+        Debug.Log("moveSpeed: "+moveSpeed+", direccion: "+direction);
         // If movement input is not 0, try to move
-        if(moveSpeed!=0){
+        if(moveSpeed>0){
             bool success = TryMove(direction, moveSpeed); //me muevo en diagonal
 
             if(!success) { //si no puedo moverme en diagonal, lo intento en un solo eje
@@ -76,7 +77,8 @@ public class Entity : MonoBehaviour
     private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>(); // list of collisions
 
     private bool TryMove (Vector2 direction, float moveSpeed) {
-        if(direction != Vector2.zero) {
+        //if(direction != Vector2.zero) { // <-- esto es viejo, BORRAR
+        if(IsMoving(direction,moveSpeed)) {
             // Check for potential collisions
             int count = movementCollider.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
@@ -96,6 +98,21 @@ public class Entity : MonoBehaviour
             return false;
         }
     }
+
+
+    private bool IsMoving(Vector2 direction, float moveSpeed){ // se fija si la velocidad lineal actual es mayor o igual a la minima
+        return (direction != Vector2.zero) && (CurrentSpeed(direction,moveSpeed) >= entityData.velocidadMinima);
+    }
+    
+    private float CurrentSpeed(Vector2 direction, float moveSpeed){ // Calcula la velocidad lineal actual real
+        Vector2 speedOnAxes = direction * moveSpeed;
+        float linearSpeed = Mathf.Sqrt(Mathf.Pow(speedOnAxes.x,2)+Mathf.Pow(speedOnAxes.y,2));  
+        Debug.Log("realDirection: "+direction.x+", "+direction.y);
+        Debug.Log("realSpeed: "+linearSpeed);
+        return linearSpeed;
+    }
+
+    // ---
 
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(aliveGOStartPosition, entityData.baseRadius);

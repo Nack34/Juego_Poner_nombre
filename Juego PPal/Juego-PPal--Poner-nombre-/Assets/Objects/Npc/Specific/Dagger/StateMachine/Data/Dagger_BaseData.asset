@@ -27,4 +27,5 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   collisionOffset: 0.0005
-  baseRadius: 2.17
+  baseRadius: 2.68
+  velocidadMinima: 0.4

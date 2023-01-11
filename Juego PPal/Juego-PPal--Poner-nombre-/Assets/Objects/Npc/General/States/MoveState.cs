@@ -36,8 +36,6 @@ public class MoveState : State
     public override void LogicUpdate () {
         base.LogicUpdate();
 
-        Debug.Log("direccion: "+entity.Direction+", moveSpeed:"+moveSpeed);
-
         if((DistanceToBasePosition()) > (entity.entityData.baseRadius)){
             ChangeMovement();
         }else if (CanChangeMovement()){
@@ -57,10 +55,10 @@ public class MoveState : State
         Vector2 distace;
         distace.x = Mathf.Abs(entity.aliveGOStartPosition.x - entity.aliveGO.transform.position.x);
         distace.y = Mathf.Abs(entity.aliveGOStartPosition.y - entity.aliveGO.transform.position.y);
-        Debug.Log("entity.aliveGOStartPosition.x: "+entity.aliveGOStartPosition.x+"entity.transform.position.x: "+entity.aliveGO.transform.position.x);
-        Debug.Log("entity.aliveGOStartPosition.y: "+entity.aliveGOStartPosition.y+"entity.transform.position.y: "+entity.aliveGO.transform.position.y);
+        //Debug.Log("entity.aliveGOStartPosition.x: "+entity.aliveGOStartPosition.x+"entity.transform.position.x: "+entity.aliveGO.transform.position.x);
+        //Debug.Log("entity.aliveGOStartPosition.y: "+entity.aliveGOStartPosition.y+"entity.transform.position.y: "+entity.aliveGO.transform.position.y);
 
-        Debug.Log("distace.x: "+distace.x+"distace.y: "+distace.y);
+        //Debug.Log("distace.x: "+distace.x+"distace.y: "+distace.y);
         float linearDistance = Mathf.Sqrt(Mathf.Pow(distace.x,2)+Mathf.Pow(distace.y,2)); 
         //Debug.Log("linearDistance: "+linearDistance+", entity.entityData.baseRadius: "+entity.entityData.baseRadius);
         return linearDistance;
@@ -78,7 +76,7 @@ public class MoveState : State
     private void ChangeMovement(){
         tiempoConElMismoMovimiento=0.0f;
         tiempoNecesarioParaCambiarDeMovimiento = 5.0f;
-        //tiempoNecesarioParaCambiarDeMovimiento = Random.Range(1.5f,stateData.maxTiempoNecesarioParaCambiarDeMovimiento); 
+        tiempoNecesarioParaCambiarDeMovimiento = Random.Range(stateData.minTiempoNecesarioParaCambiarDeMovimiento,stateData.maxTiempoNecesarioParaCambiarDeMovimiento); 
 
         entity.Direction = RandomOriginDireccion(); 
         moveSpeed = MoveSpeed();
@@ -92,7 +90,7 @@ public class MoveState : State
             return 0;    
         } 
         else {*/
-            return 1;//Random.Range(0,stateData.maxMovementSpeed);   
+            return Random.Range(stateData.minMovementSpeed,stateData.maxMovementSpeed);   
         //}
     }
 
@@ -116,7 +114,7 @@ public class MoveState : State
     }
     
     private Vector2 CalculateDirection (Vector2 positionToGoTo){
-        Debug.Log("positionToGoTo: "+positionToGoTo+", entity.transform.position: "+ entity.aliveGO.transform.position);
+        //Debug.Log("positionToGoTo: "+positionToGoTo+", entity.transform.position: "+ entity.aliveGO.transform.position);
         Vector2 directionToGoTo = new Vector2((positionToGoTo.x - entity.aliveGO.transform.position.x), (positionToGoTo.y - entity.aliveGO.transform.position.y));
         directionToGoTo.Normalize(); // When normalized, a vector keeps the same direction but its length is 1.0
         return directionToGoTo;
