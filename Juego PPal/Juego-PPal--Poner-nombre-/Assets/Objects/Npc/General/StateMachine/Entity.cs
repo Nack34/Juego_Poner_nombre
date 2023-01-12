@@ -17,7 +17,6 @@ public class Entity : MonoBehaviour
     public Collider2D DetectionZone {get; private set;}// no es un collider CAMBIAR
     
     
-    [SerializeField]
     private NPCStats stats;
     [SerializeField]
     private Vector2 direction= new Vector2 (0,0);
@@ -57,7 +56,7 @@ public class Entity : MonoBehaviour
         rb = NPC.GetComponent<Rigidbody2D>();
 
         // from childs
-        movementCollider = transform.GetChild(0).GetComponent<Collider2D>();
+        movementCollider = transform.Find("Colliders/MovementCollider").GetComponent<Collider2D>();
 
     }
 

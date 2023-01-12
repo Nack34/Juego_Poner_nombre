@@ -11,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Obstacle
+  - ObstacleNST
+  - ObstacleST
   - Player
   - Bando1
   - Bando2
-  - 
   - 
   - 
   - 
@@ -44,18 +44,15 @@ TagManager:
   - name: Floor
     uniqueID: 2954329423
     locked: 0
-  - name: Walls
+  - name: Obstacles
     uniqueID: 2810754409
     locked: 0
   - name: Decorations
     uniqueID: 3989252149
     locked: 0
-  - name: Enemies
+  - name: Characters
     uniqueID: 1751917757
     locked: 0
-  - name: Player
-    uniqueID: 3219446217
-    locked: 0
   - name: Roof
-    uniqueID: 4127738777
+    uniqueID: 3219446217
     locked: 0

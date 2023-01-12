@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NPCStats : MonoBehaviour
 {
-    [SerializeField]
     private Entity entity;
     private Curable curable;
     public Damageable damageable {get; private set;}
