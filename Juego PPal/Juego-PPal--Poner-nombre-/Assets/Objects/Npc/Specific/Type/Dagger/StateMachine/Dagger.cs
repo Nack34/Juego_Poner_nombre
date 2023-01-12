@@ -13,7 +13,7 @@ public class Dagger : Entity
     private D_IdleState idleStateData;
     
 
-    private List<string> posibleIdleAnimations; // llenarlo en start (cortar (control X) los metodos que estan en idleState a este script)
+    private List<string> posibleIdleAnimations = new  List<string>(); // llenarlo en start (cortar (control X) los metodos que estan en idleState a este script)
 
 
     public override void Start(){

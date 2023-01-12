@@ -12,6 +12,7 @@ public class MoveState : State
     protected float tiempoNecesarioParaCambiarDeMovimiento;
     protected int cantCambiosDeSpeed = 0;
     protected int cambiosDeSpeedParaPasarAIdle;
+    protected bool canChangeMovement;
 
     // constructor
     public MoveState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_MoveState stateData) : base(entity, stateMachine, animationName)
@@ -36,9 +37,10 @@ public class MoveState : State
     public override void LogicUpdate () { // mantiene a la entidad en la zona de inicio y con un movimiento dinamico
         base.LogicUpdate();
 
-        if((DistanceToBasePosition()) > (entity.entityData.speciesData.baseRadius)){
+        canChangeMovement = CanChangeMovement();
+        if((DistanceToBasePosition()) > (entity.entityData.speciesData.baseRadius) && canChangeMovement){
             ChangeMovement();
-        }else if (CanChangeMovement()){
+        }else if (canChangeMovement){
             ChangeMovement();
         }
     }
@@ -48,6 +50,7 @@ public class MoveState : State
         
         isMoving = TryMovingAllDirections (entity.Direction, moveSpeed) ;
     }
+    
 
     // ---
 
@@ -70,23 +73,24 @@ public class MoveState : State
 
     private void ChangeMovement(){ // selecciona otro movimiento random dentro de la zona de inicio
         tiempoConElMismoMovimiento=0.0f;
-        tiempoNecesarioParaCambiarDeMovimiento = 5.0f;
         tiempoNecesarioParaCambiarDeMovimiento = Random.Range(stateData.minTiempoNecesarioParaCambiarDeMovimiento,stateData.maxTiempoNecesarioParaCambiarDeMovimiento); 
 
+        entity.CurrentSpeed = moveSpeed = MoveSpeed();
         entity.Direction = RandomOriginDireccion(); 
-        moveSpeed = MoveSpeed();
+        
     }
 
     // ---
     
     private float MoveSpeed(){ // devuelve una velocidad random. Si ya paso bastante sin ir a IdleState, fuerza el cambio
-        cantCambiosDeSpeed++;
-        /*if (cantCambiosDeSpeed >= cambiosDeSpeedParaPasarAIdle) {
+        if (cantCambiosDeSpeed >= cambiosDeSpeedParaPasarAIdle) {
+            Debug.Log("PARO");
             return 0;    
         } 
-        else {*/
+        else {
+            cantCambiosDeSpeed++;
             return Random.Range(entity.entityData.speciesData.minMovementSpeed,entity.entityData.speciesData.maxMovementSpeed);
-        //}
+        }
     }
 
     // ---
@@ -116,10 +120,10 @@ public class MoveState : State
     // --- Lo siguiente no se si dejarlo aca o pasarlo a entity. Si algun otro State utiliza tryMove, CAMBIAR A ENTITY
 
     
-    public bool TryMovingAllDirections(Vector2 direction, float moveSpeed) { // intenta moverse hacia la direccion indicada tratando de evadir obstaculos
-        Debug.Log("moveSpeed: "+moveSpeed+", direccion: "+direction);
+    private bool TryMovingAllDirections(Vector2 direction, float moveSpeed) { // intenta moverse hacia la direccion indicada tratando de evadir obstaculos
+        //Debug.Log("moveSpeed: "+moveSpeed+", direccion: "+direction);
         // If movement input is not 0, try to move
-        if(moveSpeed>0){
+        if(moveSpeed >= stateData.velocidadMinimaDeMovimiento){
             bool success = TryMove(direction, moveSpeed); //me muevo en diagonal
 
             if(!success) { //si no puedo moverme en diagonal, lo intento en un solo eje
@@ -164,9 +168,11 @@ public class MoveState : State
     private float CurrentSpeed(Vector2 direction, float moveSpeed){ // Calcula la velocidad lineal actual real
         Vector2 speedOnAxes = direction * moveSpeed;
         float linearSpeed = Mathf.Sqrt(Mathf.Pow(speedOnAxes.x,2)+Mathf.Pow(speedOnAxes.y,2));  
-        Debug.Log("trying Direction: "+direction.x+", "+direction.y);
-        Debug.Log("trying Speed: "+linearSpeed);
+        //Debug.Log("trying Direction: "+direction.x+", "+direction.y);
+        //Debug.Log("trying Speed: "+linearSpeed);
         return linearSpeed;
     }
+
+
 
 }

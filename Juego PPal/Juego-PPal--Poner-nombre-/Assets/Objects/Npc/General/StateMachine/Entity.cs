@@ -7,7 +7,7 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public D_Entity entityData;
-    public FiniteStateMachine stateMachine;
+    public FiniteStateMachine stateMachine = new FiniteStateMachine(); 
 
     public Rigidbody2D rb {get; private set;}
     public Animator animator {get; private set;}
@@ -15,6 +15,7 @@ public class Entity : MonoBehaviour
     public Vector2 NPCStartPosition {get; private set;}
     public Collider2D movementCollider {get; private set;}
     public Collider2D DetectionZone {get; private set;}// no es un collider CAMBIAR
+    
     
     [SerializeField]
     private NPCStats stats;
@@ -25,27 +26,44 @@ public class Entity : MonoBehaviour
             return direction;
         }
         set{
-            direction=value;
+            direction=value; // HACER: setear tmb la direccion en el objeto padre
+            //Debug.Log("Direction change:"+direction);
             animator.SetFloat(AnimationStrings.Xdirection,direction.x);
             animator.SetFloat(AnimationStrings.Ydirection,direction.y);
         }
     }
+    private float currentSpeed = 0.0f;
+    public float CurrentSpeed {
+        get{
+            return currentSpeed;
+        }
+        set{
+            currentSpeed=value; // HACER: setear tmb la velocidad en el objeto padre
+        }
+    }
+
+    public virtual void Awake() {
+        
+        // from this
+        animator = GetComponent<Animator>();
+        stats = GetComponent<NPCStats>();
+    }
 
     public virtual void Start(){
+
         // from parent
         NPC = transform.parent.gameObject;
         NPCStartPosition = NPC.transform.position;
         rb = NPC.GetComponent<Rigidbody2D>();
 
-        // from this
-        animator = GetComponent<Animator>();
-        stats = GetComponent<NPCStats>();
-
         // from childs
         movementCollider = transform.GetChild(0).GetComponent<Collider2D>();
 
-        // new
-        stateMachine = new FiniteStateMachine(); 
+    }
+
+    public virtual void OnEnable(){
+        Direction=direction; // hacer q sea igual a la direccion del padre
+        // CurrentSpeed = NPC.ScriptGlobal.currentSpeed; // hacer q sea igual a la velocidad del padre
     }
 
 
@@ -59,7 +77,13 @@ public class Entity : MonoBehaviour
 
     // ---
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
+        // zona de inicio
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(NPCStartPosition, entityData.speciesData.baseRadius);
+
+        // movimiento
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, new Vector3 (direction.x * CurrentSpeed , direction.y * CurrentSpeed, 0) );
     }
 }

@@ -25,7 +25,8 @@ public class Dagger_MoveState : MoveState
     public override void LogicUpdate () {
         base.LogicUpdate();
         if (!isMoving){
-            Debug.Log("NO SE MUEVE");
+            Debug.Log("Pasa a Idle");
+            stateMachine.ChangeState(dagger.idleState);
         }
 
     }

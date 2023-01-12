@@ -13,22 +13,8 @@ MonoBehaviour:
   m_Name: GoblinDagger_BaseData
   m_EditorClassIdentifier: 
   entityName: Goblin Dagger
-  movementFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 64
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  collisionOffset: 0.0005
   velocidadMinimaDeMovimiento: 0.4
+  npcData: {fileID: 11400000, guid: e1435ecfb85c90647b29d14759fb9428, type: 2}
   typeData: {fileID: 11400000, guid: eb2728689123f9f48b8bff79d61d05a8, type: 2}
   speciesData: {fileID: 11400000, guid: b181698023dfa034eac1c785ba4b4739, type: 2}
   bandoData: {fileID: 11400000, guid: 6f09dd5fff27ebe43bdf7f2d2051c5cd, type: 2}

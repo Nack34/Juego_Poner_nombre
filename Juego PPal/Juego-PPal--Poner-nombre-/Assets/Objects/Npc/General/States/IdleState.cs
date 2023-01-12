@@ -30,9 +30,11 @@ public class IdleState : State
     
     public override void Enter () {
         base.Enter();
+        entity.CurrentSpeed=0.0f;
         stopIdle = false;
         //randomAnimatorSelector = new RandomAnimationSelector(posibleIdleAnimations); (lo q le dije a alvaro) 
-        SeleccionarAnimacion(); // selecciona en el animator la prox animacion, 
+        //SeleccionarAnimacion(); // selecciona en el animator la prox animacion, 
+        
     }
 
     public override void Exit () {
@@ -41,7 +43,10 @@ public class IdleState : State
 
     public override void LogicUpdate () {
         base.LogicUpdate();
-        
+
+        if ( Time.time >=  startTime + 1.0f){
+            AnimationEnding();
+        }
     }
 
     public override void PhysicsUpdate() {
@@ -51,6 +56,7 @@ public class IdleState : State
 
     public void SeleccionarAnimacion (){ 
         //entity.animator.SetFloat("idleAnimation", entity.randomAnimatorSelector.SelectAnimation());
+        
     }
 
     public void AnimationEnding(){ // es llamada por el script nexo animacion-estado 
