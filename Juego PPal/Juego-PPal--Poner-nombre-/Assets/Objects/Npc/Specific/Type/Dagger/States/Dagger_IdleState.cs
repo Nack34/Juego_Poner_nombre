@@ -25,7 +25,7 @@ public class Dagger_IdleState : IdleState
         base.LogicUpdate();
         
         if (stopIdle){
-            Debug.Log("Termino IdleState");
+            //Debug.Log("Termino IdleState");
             stateMachine.ChangeState(dagger.moveState);
         }
     }

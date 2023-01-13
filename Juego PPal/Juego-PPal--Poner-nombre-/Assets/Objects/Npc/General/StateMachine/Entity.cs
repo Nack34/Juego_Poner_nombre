@@ -60,7 +60,6 @@ public class Entity : MonoBehaviour
         ShortRangeFOV = transform.Find("Fields Of View/Short Distance FOV").GetComponent<FieldOfView>();
         LongRangeFOV = transform.Find("Fields Of View/Long Distance FOV").GetComponent<FieldOfView>();
         // new
-        Debug.Log("Llegue a 1");
         InitializeFOVs();
 
     }
@@ -73,7 +72,24 @@ public class Entity : MonoBehaviour
 
     public virtual void Update() {
         stateMachine.currentState.LogicUpdate();
+        /*Debug.Log("Lista de Oponentes en vision: ");
+        Debug.Log("En short range: "+ListToText(visibleOpponents[0]));
+        Debug.Log("En long range: "+ListToText(visibleOpponents[1]));*/
     }
+
+    private string ListToText(List<Transform> list)
+    {
+        string result = "";
+        foreach(var listMember in list)
+        {
+            result += listMember.ToString() + "\n";
+        }
+        return result;
+    }
+
+
+
+
 
     public virtual void FixedUpdate(){
         stateMachine.currentState.PhysicsUpdate();
@@ -85,7 +101,7 @@ public class Entity : MonoBehaviour
         // zona de inicio // poner las sig 2 lineas de cod es el objeto padre
         Gizmos.color = Color.green; 
         Gizmos.DrawWireSphere(NPCStartPosition, entityData.speciesData.baseRadius);
-
+        
         // movimiento
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(transform.position, new Vector3 (direction.x * CurrentSpeed , direction.y * CurrentSpeed, 0));
@@ -94,13 +110,15 @@ public class Entity : MonoBehaviour
 
     // --- Para fields of view
 
-    public List<Transform>[] visibleOpponents = new List<Transform> [System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length];
+    public List<Transform>[] visibleOpponents = new List<Transform> [2] // aca iria: System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length, pero no me deja 
+                                                {new List<Transform>(), new List<Transform>()};
     public List<Transform> ShortRangevisibleOpponents{
         get{
             return visibleOpponents[(int)Enums.PosibleFOVRanges.ShortRange];
         }
         set{
             visibleOpponents[(int)Enums.PosibleFOVRanges.ShortRange] = value;
+
         }
     }
     public List<Transform> LongRangevisibleOpponents{
@@ -149,17 +167,13 @@ public class Entity : MonoBehaviour
     }
  
     private void InitializeFOVs(){
-        Debug.Log("Llegue a 2, el bool = "+System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length);
         for (int i=0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++){
-            Debug.Log("Llegue a 3");
             realVisionRadius[i] = entityData.speciesData.visionRadius[i] * entityData.typeData.visionRadiusMultiplier;
             realVisionAngle [i] = entityData.speciesData.visionAngle[i] * entityData.typeData.visionAngleMultiplier;
             if (realVisionRadius[i]  <= 0.0f || realVisionAngle[i]  <= 0.0f)  {
-                Debug.Log("NO SE CARGARON LOS DATOS DE FIELD OF VIEW EN "+entityData.entityName+", NO SE CREARAN LOS FOV");
+                Debug.LogError("NO SE CARGARON LOS DATOS DE FIELD OF VIEW EN "+entityData.entityName+", NO SE CREARAN LOS FOV");
             } else {
-                Debug.Log("Llegue a 4");
             visibleOpponents [i] = new List<Transform> ();
-            Debug.Log("i: "+i+", hasTarget.Length: "+hasTarget.Length);
             hasTarget [i] = false;
             SetValuesFOV(FOVArray[i], realVisionRadius[i], realVisionAngle[i], entityData.bandoData.oponentFilter, entityData.npcData.nonSeeThroughObstaclesFilter,(Enums.PosibleFOVRanges) i);
             }
@@ -167,7 +181,7 @@ public class Entity : MonoBehaviour
     }
 
     private void SetValuesFOV (FieldOfView FOV, float visionRadius, float visionAngle, LayerMask targetFilter, LayerMask NSTObstaclesFilter, Enums.PosibleFOVRanges identifier){
-        Debug.Log("Se cargan los datos");
+        //Debug.Log("Se cargan los datos");
         FOV.visionRadius=visionRadius;
         FOV.visionAngle=visionAngle;
         FOV.targetFilter=targetFilter;
