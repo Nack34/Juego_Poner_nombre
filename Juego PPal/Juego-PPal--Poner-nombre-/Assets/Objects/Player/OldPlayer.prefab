@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394467771100164387}
   - component: {fileID: 5394467771100164386}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5394467771324172763}
   - component: {fileID: 5394467771324172760}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MovementCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
