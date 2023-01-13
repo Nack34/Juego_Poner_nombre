@@ -12,11 +12,11 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb {get; private set;}
     public Animator animator {get; private set;}
     public GameObject NPC {get; private set;}
-    public Vector2 NPCStartPosition {get; private set;}
+    public Vector2 NPCStartPosition {get; private set;} // traerlo del objeto padre
     public Collider2D movementCollider {get; private set;}
     public Collider2D DetectionZone {get; private set;}// no es un collider CAMBIAR
     
-    
+
     private NPCStats stats;
     [SerializeField]
     private Vector2 direction= new Vector2 (0,0);
@@ -52,7 +52,7 @@ public class Entity : MonoBehaviour
 
         // from parent
         NPC = transform.parent.gameObject;
-        NPCStartPosition = NPC.transform.position;
+        NPCStartPosition = NPC.transform.position; // esto se calcula y guarda en el objeto padre y aca solo se trae
         rb = NPC.GetComponent<Rigidbody2D>();
 
         // from childs
@@ -77,8 +77,8 @@ public class Entity : MonoBehaviour
     // ---
 
     private void OnDrawGizmosSelected() {
-        // zona de inicio
-        Gizmos.color = Color.green;
+        // zona de inicio // poner las sig 2 lineas de cod es el objeto padre
+        Gizmos.color = Color.green; 
         Gizmos.DrawWireSphere(NPCStartPosition, entityData.speciesData.baseRadius);
 
         // movimiento
