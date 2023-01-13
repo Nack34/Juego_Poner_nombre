@@ -8,4 +8,9 @@ public class D_NPC : ScriptableObject {
 
     public ContactFilter2D movementFilter; // posible collisions
     public float collisionOffset = 0.0005f; // offset for checking collision
+
+    // obstruccion filter
+    public LayerMask nonSeeThroughObstaclesFilter; // Obstaculos que ocultan a los oponentes
+    
+
 }

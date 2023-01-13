@@ -27,3 +27,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   collisionOffset: 0.0005
+  nonSeeThroughObstaclesFilter:
+    serializedVersion: 2
+    m_Bits: 64

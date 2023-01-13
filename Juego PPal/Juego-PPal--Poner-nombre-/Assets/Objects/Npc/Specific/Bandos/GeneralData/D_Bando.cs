@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newBandoData", menuName = "Data/Entity Data/Specific Data/Bando Data")]
 public class D_Bando : ScriptableObject
 {
-    // attack filter
+    // target filter
+    public LayerMask oponentFilter; // Obstaculos que ocultan a los oponentes
+
 
 }

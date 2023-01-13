@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9264738f1a51c408e6857f35ae8a52, type: 3}
   m_Name: D_Goblin
   m_EditorClassIdentifier: 
+  visionRadius:
+  - 2
+  - 3
+  visionAngle:
+  - 90
+  - 40
   baseRadius: 2.66
   maxMovementSpeed: 1.2
   minMovementSpeed: 0
-  velocidadMinimaDeMovimiento: 0.4
   segundosNecesariosParaCurarse: 10
   cantPorcentajeCuracionXSegundo: 10
   vidaMaxBase: 5
