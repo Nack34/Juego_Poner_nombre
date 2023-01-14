@@ -26,5 +26,5 @@ public class Enums : MonoBehaviour // guarda tipos de datos
     public enum PosibleDamageType {Fisico=0,Magico=1,Verdadero=2} // usar System.Enum.GetValues(typeof(Enums.PosibleDamageType)).GetLength(0) ...
                                                                 // ... para obtener la longitud del enum (en el script Damageable se usa)
 
-    public enum PosibleFOVRanges {ShortRange = 0, LongRange=1}
+    public enum PosibleFOVRanges {FaceToFaceRange=0, ShortRange = 1, LongRange=2 }
 }

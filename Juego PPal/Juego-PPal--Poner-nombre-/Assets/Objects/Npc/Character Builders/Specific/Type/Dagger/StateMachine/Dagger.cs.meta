@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0e0649a9c341dfc4e9a483bbc386b49f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - entityData: {instanceID: 0}
+  - movementCollider: {instanceID: 0}
+  - DetectionZone: {instanceID: 0}
+  - moveStateData: {instanceID: 0}
+  - idleStateData: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
