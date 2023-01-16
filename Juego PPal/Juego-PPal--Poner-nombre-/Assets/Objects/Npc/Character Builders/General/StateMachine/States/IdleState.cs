@@ -7,33 +7,35 @@ public class IdleState : State
 
     protected D_IdleState stateData;
     protected bool stopIdle;
-    //protected RandomAnimationSelector randomAnimatorSelector; (lo q le dije a alvaro) // pasarlo a entity
     
-    [SerializeField]
-    protected List<string> posibleIdleAnimations= new List<string>();
-
+    /*
+    protected RandomAnimationSelector posibleIdleAnimations;
+*/
     // constructor
-    public IdleState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_IdleState stateData, List<string> posibleIdleAnimations) : base(entity, stateMachine, animationName)
+    public IdleState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_IdleState stateData/*, RandomAnimationSelector posibleIdleAnimations*/) : base(entity, stateMachine, animationName)
     {
         this.stateData=stateData;
-        this.posibleIdleAnimations=posibleIdleAnimations;
+        /*
+        this.posibleIdleAnimations=posibleIdleAnimations; // ya viene cargado con las posibles animaciones a ejecutar
+        */
         
-        /* pasar lo siguiente a entity (posibleIdleAnimations ya viene cargado) 
-        foreach (var animation in System.Enum.GetValues(typeof(D_IdleState.PosibleIdleAnimations)))
-        {
-            Debug.Log("Idle state dice: "+ animation.ToString());
-            posibleIdleAnimations.Add(animation.ToString());
-        }
-        */ 
+        
     } 
     
-    
+    public override void CheckStateTransitions (){
+        
+        if (stopIdle){
+            //Debug.Log("Termino IdleState");
+            stateMachine.ChangeState(entity.moveState);
+        }
+    }
+
+
     public override void Enter () {
         base.Enter();
         entity.CurrentSpeed=0.0f;
         stopIdle = false;
-        //randomAnimatorSelector = new RandomAnimationSelector(posibleIdleAnimations); (lo q le dije a alvaro) 
-        //SeleccionarAnimacion(); // selecciona en el animator la prox animacion, 
+        
         
     }
 
@@ -45,8 +47,10 @@ public class IdleState : State
         base.LogicUpdate();
 
         if ( Time.time >=  startTime + 1.0f){
-            AnimationEnding();
+        SeleccionarAnimacion(); // selecciona en el animator la prox animacion
         }
+
+        
     }
 
     public override void PhysicsUpdate() {
@@ -55,7 +59,10 @@ public class IdleState : State
     }
 
     public void SeleccionarAnimacion (){ 
-        //entity.animator.SetFloat("idleAnimation", entity.randomAnimatorSelector.SelectAnimation());
+        //entity.animator.SetFloat("idleAnimation", posibleIdleAnimations.SelectAnimation()); // selecciona una de las posibles animaciones ...
+                                                                                            // previamente seleccionadas
+        AnimationEnding(); // linea de codigo PROVISORIA. Sacar de aca al crear las animaciones idle y el script de random selector
+
         
     }
 

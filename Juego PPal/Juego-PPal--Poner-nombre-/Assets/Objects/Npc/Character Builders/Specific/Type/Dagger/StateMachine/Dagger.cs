@@ -4,25 +4,51 @@ using UnityEngine;
 
 public class Dagger : Entity
 {
-    public Dagger_MoveState moveState {get; private set;}
-    public Dagger_IdleState idleState {get; private set;}
+    /*
+    public Dagger_ActionState actionState {get; private set;}
+    public CloseRangeNPC_FaceToFaceRangeActionState faceToFaceRangeActionState {get; private set;}
+    public CloseRangeNPC_ShortRangeActionState shortRangeActionState {get; private set;}
+    public CloseRangeNPC_LongRangeActionState longRangeActionState {get; private set;}
+    */
 
+    /*
     [SerializeField]
-    private D_MoveState moveStateData;
+    private D_ActionState actionStateData;
     [SerializeField]
-    private D_IdleState idleStateData;
+    private D_FaceToFaceRangeActionState faceToFaceRangeActionStateData;
+    [SerializeField]
+    private D_ShortRangeActionState shortRangeActionStateData;
+    [SerializeField]
+    private D_LongRangeActionState longRangeActionStateData;
+    */
     
+    //private RandomAnimationSelector IdleStaterandomAnimatorSelector; (lo q le dije a alvaro) 
+    //private RandomAnimationSelector IdleStaterandomAnimatorSelector; (lo q le dije a alvaro) 
+    //private RandomAnimationSelector IdleStaterandomAnimatorSelector; (lo q le dije a alvaro) 
+    //private RandomAnimationSelector IdleStaterandomAnimatorSelector; (lo q le dije a alvaro) 
 
-    private List<string> posibleIdleAnimations = new  List<string>(); // llenarlo en start (cortar (control X) los metodos que estan en idleState a este script)
-
+     
+    public override void Awake() {
+        base.Awake();
+    }
 
     public override void Start(){
         base.Start();
 
-        moveState = new Dagger_MoveState (this, stateMachine, AnimationStrings.MoveState, moveStateData, this);
-        idleState = new Dagger_IdleState (this, stateMachine, AnimationStrings.IdleState, idleStateData, posibleIdleAnimations, this);
+        /*
+            en este start inicializar los States de ataque
 
+        */
+
+        // esto esta aca ya que se tiene que hacer luego de inicializar todos los States
         stateMachine.Initialize(moveState);
     }
+
+
+
+
+
+
+
     
 }

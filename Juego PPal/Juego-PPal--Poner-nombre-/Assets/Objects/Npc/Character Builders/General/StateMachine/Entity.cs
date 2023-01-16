@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(NPCStats))]
 public class Entity : MonoBehaviour
 {
+    [Tooltip("Todos los datos de la entidad")]
     public D_Entity entityData; // set in inspector
     public FiniteStateMachine stateMachine = new FiniteStateMachine(); 
 
@@ -29,7 +30,9 @@ public class Entity : MonoBehaviour
             animator.SetFloat(AnimationStrings.Ydirection,direction.y);
         }
     }
+    [HideInInspector]
     public float[] realVisionRadius;
+    [HideInInspector]
     public float[] realVisionAngle;
     private float currentSpeed = 0.0f;
     public float CurrentSpeed {
@@ -41,7 +44,8 @@ public class Entity : MonoBehaviour
         }
     }
 
-//
+
+    [HideInInspector]
     public bool inicializo = false;
     public virtual void Awake() {
         // from this
@@ -59,6 +63,8 @@ public class Entity : MonoBehaviour
             visibleOpponents[i] = new List<Transform>();
         }
         inicializo = true;
+
+        InicializarIdleStateParametros();
     }
 
     public virtual void Start(){
@@ -71,12 +77,16 @@ public class Entity : MonoBehaviour
         // from childs
         movementCollider = transform.Find("Colliders/MovementCollider").GetComponent<Collider2D>();
 
+/*
         ShortRangeFOV = transform.Find("Fields Of View/Short Distance FOV").GetComponent<FieldOfView>();
         LongRangeFOV = transform.Find("Fields Of View/Long Distance FOV").GetComponent<FieldOfView>();
         FaceToFaceRangeFOV = transform.Find("Fields Of View/Face-to-face Distance FOV").GetComponent<FieldOfView>();
-        
+*/
+
         // new
         InitializeFOVs();
+        InitializeStates();
+
 
     }
 
@@ -103,10 +113,6 @@ public class Entity : MonoBehaviour
         return result;
     }
 
-
-
-
-
     public virtual void FixedUpdate(){
         stateMachine.currentState.PhysicsUpdate();
     }
@@ -124,90 +130,57 @@ public class Entity : MonoBehaviour
     }
 
 
+
+
     // --- Para fields of view
 
-    public List<Transform>[] visibleOpponents;
-    public List<Transform> ShortRangevisibleOpponents{
-        get{
-            return visibleOpponents[(int)Enums.PosibleFOVRanges.ShortRange];
-        }
-        set{
-            visibleOpponents[(int)Enums.PosibleFOVRanges.ShortRange] = value;
 
-        }
-    }
-    public List<Transform> LongRangevisibleOpponents{
-        get{
-            return visibleOpponents[(int)Enums.PosibleFOVRanges.LongRange];
-        }
-        set{
-            visibleOpponents[(int)Enums.PosibleFOVRanges.LongRange] = value;
-        }
-    }
-    public List<Transform> FaceToFaceRangevisibleOpponents{
+
+    public List<Transform>[] visibleOpponents;
+    public List<Transform> FaceToFaceRangeVisibleOpponents{
         get{
             return visibleOpponents[(int)Enums.PosibleFOVRanges.FaceToFaceRange];
         }
-        set{
-            visibleOpponents[(int)Enums.PosibleFOVRanges.FaceToFaceRange] = value;
+    }
+    public List<Transform> ShortRangeVisibleOpponents{
+        get{
+            return visibleOpponents[(int)Enums.PosibleFOVRanges.ShortRange];
+        }
+    }
+    public List<Transform> LongRangeVisibleOpponents{
+        get{
+            return visibleOpponents[(int)Enums.PosibleFOVRanges.LongRange];
         }
     }
     
     public bool[] hasTarget;
-    public bool HasTargetInShortRange {
+    public bool HasTarget {
         get{
-            return hasTarget[(int)Enums.PosibleFOVRanges.ShortRange];
-        }
-        set{
-            hasTarget[(int)Enums.PosibleFOVRanges.ShortRange] = value;
-        }
-    }
-    public bool HasTargetInLongRange {
-        get{
-            return hasTarget[(int)Enums.PosibleFOVRanges.LongRange];
-        }
-        set{
-            hasTarget[(int)Enums.PosibleFOVRanges.LongRange] = value;
+            return HasTargetInFaceToFaceRange || HasTargetInShortRange || HasTargetInLongRange;
         }
     }
     public bool HasTargetInFaceToFaceRange {
         get{
             return hasTarget[(int)Enums.PosibleFOVRanges.FaceToFaceRange];
         }
-        set{
-            hasTarget[(int)Enums.PosibleFOVRanges.FaceToFaceRange] = value;
+    }
+    public bool HasTargetInShortRange {
+        get{
+            return hasTarget[(int)Enums.PosibleFOVRanges.ShortRange];
+        }
+    }
+    public bool HasTargetInLongRange {
+        get{
+            return hasTarget[(int)Enums.PosibleFOVRanges.LongRange];
         }
     }
     
+    [HideInInspector]
     public FieldOfView[] FOVArray;
-    public FieldOfView ShortRangeFOV {
-        get{
-            return FOVArray[(int)Enums.PosibleFOVRanges.ShortRange];
-        }
-        set{
-            FOVArray[(int)Enums.PosibleFOVRanges.ShortRange] = value;
-        }
-    }
-    public FieldOfView LongRangeFOV {
-        get{
-            return FOVArray[(int)Enums.PosibleFOVRanges.LongRange];
-        }
-        set{
-            FOVArray[(int)Enums.PosibleFOVRanges.LongRange] = value;
-        }
-    }
-    public FieldOfView FaceToFaceRangeFOV {
-        get{
-            return FOVArray[(int)Enums.PosibleFOVRanges.FaceToFaceRange];
-        }
-        set{
-            FOVArray[(int)Enums.PosibleFOVRanges.FaceToFaceRange] = value;
-        }
-    }
  
     private void InitializeFOVs(){
         for (int i=0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++){
-            FOVArray[(int)Enums.PosibleFOVRanges.ShortRange] = transform.Find("Fields Of View").GetChild(i).GetComponent<FieldOfView>();;
+            FOVArray[i] = transform.Find("Fields Of View").GetChild(i).GetComponent<FieldOfView>();
 
             realVisionRadius[i] = entityData.speciesData.visionRadius[i] * entityData.typeData.visionRadiusMultiplier;
             realVisionAngle [i] = entityData.speciesData.visionAngle[i] * entityData.typeData.visionAngleMultiplier;
@@ -232,4 +205,52 @@ public class Entity : MonoBehaviour
         // Se inicia la coroutine 
         FOV.doFOVCheck= true;
     }
+
+
+
+    // --- Para STATES
+
+    public MoveState moveState {get; private set;}
+    public IdleState idleState {get; private set;}
+
+    [Header("States Data: ")]
+    [SerializeField]
+    private D_MoveState moveStateData;
+    [SerializeField]
+    private D_IdleState idleStateData;
+    
+    private void InitializeStates(){
+
+        moveState = new MoveState (this, stateMachine, AnimationStrings.MoveState, moveStateData);
+        idleState = new IdleState (this, stateMachine, AnimationStrings.IdleState, idleStateData/*, IdleStaterandomAnimatorSelector*/);
+
+    }
+
+
+    private float[] posibleIdleAnimationsProbabilities;
+    private int[] posibleIdleAnimations; 
+    
+    // llamado en Awake
+    private void InicializarIdleStateParametros(){
+        
+        float sumaDeProbabilidades = 0.0f;
+        posibleIdleAnimationsProbabilities = entityData.specificNPCdata.posibleIdleAnimationsProbabilities;
+
+        // desde aca (el comentario sigue abajo) ...
+        int cantidadDeAnimacionesIdle = System.Enum.GetValues(typeof(Enums.PosibleIdleAnimations)).Length;
+        posibleIdleAnimations = new  int[cantidadDeAnimacionesIdle];
+        for (int i = 0; i < cantidadDeAnimacionesIdle; i++)
+        {
+            posibleIdleAnimations[i] = i;
+            sumaDeProbabilidades += posibleIdleAnimationsProbabilities[i];
+        }
+        // ... hasta aca. No es lo mismo que poner?:  posibleIdleAnimations = (int[]) System.Enum.GetValues(typeof(Enums.PosibleIdleAnimations));
+
+        if (sumaDeProbabilidades != 100.0f){
+            Debug.LogError("EN LA ENTIDAD: "+entityData.entityName+", NO SE CARGARON BIEN LAS PROBABILIDADES DE SELECCION DE ANIMACION IDLE, NO SE CREARA EL SELECTOR DE ANIMACIONES");
+        }else {
+            //IdleStaterandomAnimatorSelector = new RandomAnimationSelector(posibleIdleAnimations,posibleIdleAnimationsProbabilities); // selecciona las prox animaciones a usar (no se usaran todas)
+        }
+    }
+    
 }

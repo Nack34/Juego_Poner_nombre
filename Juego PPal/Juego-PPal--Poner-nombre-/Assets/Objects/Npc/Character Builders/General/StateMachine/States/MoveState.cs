@@ -20,6 +20,15 @@ public class MoveState : State
         this.stateData=stateData;
     } 
 
+
+    public override void CheckStateTransitions (){
+        
+        if (!isMoving){
+            //Debug.Log("Pasa a Idle");
+            stateMachine.ChangeState(entity.idleState);
+        }
+    }
+
     public override void Enter () {
         base.Enter();
         isMoving = true;

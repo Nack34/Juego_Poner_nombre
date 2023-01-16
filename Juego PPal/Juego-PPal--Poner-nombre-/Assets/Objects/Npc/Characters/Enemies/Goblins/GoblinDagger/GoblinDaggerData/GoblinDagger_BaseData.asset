@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GoblinDagger_BaseData
   m_EditorClassIdentifier: 
   entityName: Goblin Dagger
-  velocidadMinimaDeMovimiento: 0.4
   npcData: {fileID: 11400000, guid: e1435ecfb85c90647b29d14759fb9428, type: 2}
   typeData: {fileID: 11400000, guid: eb2728689123f9f48b8bff79d61d05a8, type: 2}
   speciesData: {fileID: 11400000, guid: b181698023dfa034eac1c785ba4b4739, type: 2}
   bandoData: {fileID: 11400000, guid: 6f09dd5fff27ebe43bdf7f2d2051c5cd, type: 2}
+  specificNPCdata: {fileID: 11400000, guid: 47517586cccfa30449dda6438c4ffb55, type: 2}

@@ -1156,7 +1156,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprite_goblin_dagger_48: 643856088
+      sprite_goblin_dagger_41: -1398783367
       sprite_goblin_dagger_30: -1500707873
       sprite_goblin_dagger_5: 216727983
       sprite_goblin_dagger_46: 286848543
@@ -1203,7 +1203,7 @@ TextureImporter:
       sprite_goblin_dagger_27: 269806205
       sprite_goblin_dagger_44: 1564619351
       sprite_goblin_dagger_9: -175817467
-      sprite_goblin_dagger_41: -1398783367
+      sprite_goblin_dagger_48: 643856088
       sprite_goblin_dagger_21: 896401539
   spritePackingTag: 
   pSDRemoveMatte: 0

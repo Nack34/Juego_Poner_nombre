@@ -13,12 +13,8 @@ public class FOV_Editor : Editor {
 
         for (int i=0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++){  
             
-            Debug.Log("FOV "+i+" empezo");
-
             Handles.color = Color.white;
             Handles.DrawWireDisc(entity.transform.parent.position, Vector3.forward, entity.realVisionRadius[i]);
-
-            Debug.Log("FOV "+i+" dice paso");
 
             Vector3 angle01 = AngleDirection(entity.Direction, -entity.realVisionAngle[i]/2);
             Vector3 angle02 = AngleDirection(entity.Direction, entity.realVisionAngle[i]/2);

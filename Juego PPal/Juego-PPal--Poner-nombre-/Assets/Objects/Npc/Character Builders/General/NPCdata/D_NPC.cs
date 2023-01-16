@@ -11,6 +11,10 @@ public class D_NPC : ScriptableObject {
 
     // obstruccion filter
     public LayerMask nonSeeThroughObstaclesFilter; // Obstaculos que ocultan a los oponentes
+
+    // Incremento en las stats (solo stats base) de todos los NPCs
+    // Se incrementan por un script controlador (tendria q estar fuera de las escenas o ejecutarse al pasar por una escena), luego de ciertas etapas (pero eso creo q seria el incremento en las estas base de las especies, o podria estar en la Data general de todos los npcs, ))
+    public int incrementoDeVidaMax = 0;
     
 
 }

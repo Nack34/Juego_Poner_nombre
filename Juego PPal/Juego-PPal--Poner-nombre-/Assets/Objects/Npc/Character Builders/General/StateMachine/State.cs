@@ -18,6 +18,9 @@ public class State
         this.animationName=animationName;
     } 
 
+    public virtual void CheckStateTransitions () {
+        
+    }
     public virtual void Enter () {
         startTime=Time.time;
         entity.animator.SetBool(animationName, true);
@@ -28,7 +31,7 @@ public class State
     }
 
     public virtual void LogicUpdate () {
-
+        CheckStateTransitions();
     }
 
     public virtual void PhysicsUpdate() {
