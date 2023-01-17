@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23d22ec24f746d47ab3f0472ee36b89, type: 3}
   m_Name: GoblinDagger_BaseData
   m_EditorClassIdentifier: 
-  entityName: Goblin Dagger
+  entityName: Goblin Dagger Bando2
   npcData: {fileID: 11400000, guid: e1435ecfb85c90647b29d14759fb9428, type: 2}
   typeData: {fileID: 11400000, guid: eb2728689123f9f48b8bff79d61d05a8, type: 2}
   speciesData: {fileID: 11400000, guid: b181698023dfa034eac1c785ba4b4739, type: 2}

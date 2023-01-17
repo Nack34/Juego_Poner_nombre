@@ -22,8 +22,9 @@ public class MoveState : State
 
 
     public override void CheckStateTransitions (){
-        
-        if (!isMoving){
+        if(entity.HasTarget){
+            stateMachine.ChangeState(entity.combatState);
+        } else if (!isMoving){
             //Debug.Log("Pasa a Idle");
             stateMachine.ChangeState(entity.idleState);
         }
@@ -59,7 +60,10 @@ public class MoveState : State
         
         isMoving = TryMovingAllDirections (entity.Direction, moveSpeed) ;
     }
-    
+
+    public override void AnimationEnding(){ // es llamada por el script nexo animacion-estado. FALTA IMPLEMENTAR
+        base.AnimationEnding();
+    }
 
     // ---
 
@@ -120,7 +124,7 @@ public class MoveState : State
     }
     
     private Vector2 CalculateDirection (Vector2 positionToGoTo){ // calcula la direccion necesaria para ir a ese punto
-        Vector2 directionToGoTo = new Vector2((positionToGoTo.x - entity.NPC.transform.position.x), (positionToGoTo.y - entity.NPC.transform.position.y));
+        Vector2 directionToGoTo = new Vector2((positionToGoTo.x - entity.transform.parent.position.x), (positionToGoTo.y - entity.transform.parent.position.y));
         directionToGoTo.Normalize(); // When normalized, a vector keeps the same direction but its length is 1.0
         return directionToGoTo;
     }

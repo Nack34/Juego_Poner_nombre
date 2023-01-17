@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[HelpURL("https://docs.google.com/document/d/1GgesLstlyUSVTOzc55LiB-MDlqdF7ofICKHARAiuMug/edit")]
 [RequireComponent(typeof(NPCStats))]
 public class Entity : MonoBehaviour
 {
@@ -46,28 +46,13 @@ public class Entity : MonoBehaviour
 
 
     [HideInInspector]
-    public bool inicializo = false;
+    public bool inicializoFOVs = false; // es usado por FOV_Editor
     public virtual void Awake() {
         // from this
         animator = GetComponent<Animator>();
         stats = GetComponent<NPCStats>();
 
-        int cantidadDeRangosFOVPosibles = System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length;
-        hasTarget = new bool [cantidadDeRangosFOVPosibles];
-        realVisionRadius = new float [cantidadDeRangosFOVPosibles];
-        realVisionAngle = new float [cantidadDeRangosFOVPosibles];
-        FOVArray = new FieldOfView [cantidadDeRangosFOVPosibles];
-        visibleOpponents = new List<Transform> [cantidadDeRangosFOVPosibles];
-        for (int i = 0; i < cantidadDeRangosFOVPosibles; i++)
-        {
-            visibleOpponents[i] = new List<Transform>();
-        }
-        inicializo = true;
-
-        InicializarIdleStateParametros();
-    }
-
-    public virtual void Start(){
+        inicializoFOVs = InitializeFOVs();
 
         // from parent
         NPC = transform.parent.gameObject;
@@ -77,16 +62,17 @@ public class Entity : MonoBehaviour
         // from childs
         movementCollider = transform.Find("Colliders/MovementCollider").GetComponent<Collider2D>();
 
-/*
-        ShortRangeFOV = transform.Find("Fields Of View/Short Distance FOV").GetComponent<FieldOfView>();
-        LongRangeFOV = transform.Find("Fields Of View/Long Distance FOV").GetComponent<FieldOfView>();
-        FaceToFaceRangeFOV = transform.Find("Fields Of View/Face-to-face Distance FOV").GetComponent<FieldOfView>();
-*/
-
         // new
-        InitializeFOVs();
         InitializeStates();
+    }
 
+    public virtual void InitializeAllCombatSubStates(){
+        InitializeAllCombatState_RandomActionSelectors ();
+        combatState = new CombatState (this, stateMachine, AnimationStrings.CombatState, combatStateData);
+        // en los hijos del script Entity se agrega la creacion de los estados
+    }
+
+    public virtual void Start(){
 
     }
 
@@ -94,7 +80,6 @@ public class Entity : MonoBehaviour
         Direction=direction; // hacer q sea igual a la direccion del padre
         // CurrentSpeed = NPC.ScriptGlobal.currentSpeed; // hacer q sea igual a la velocidad del padre
     }
-
 
     public virtual void Update() {
         stateMachine.currentState.LogicUpdate();
@@ -136,23 +121,25 @@ public class Entity : MonoBehaviour
 
 
 
-    public List<Transform>[] visibleOpponents;
-    public List<Transform> FaceToFaceRangeVisibleOpponents{
+    public KdTree<Transform>[] visibleOpponents;
+    public KdTree<Transform> FaceToFaceRangeVisibleOpponents{
         get{
             return visibleOpponents[(int)Enums.PosibleFOVRanges.FaceToFaceRange];
         }
     }
-    public List<Transform> ShortRangeVisibleOpponents{
+    public KdTree<Transform> ShortRangeVisibleOpponents{
         get{
             return visibleOpponents[(int)Enums.PosibleFOVRanges.ShortRange];
         }
     }
-    public List<Transform> LongRangeVisibleOpponents{
+    public KdTree<Transform> LongRangeVisibleOpponents{
         get{
             return visibleOpponents[(int)Enums.PosibleFOVRanges.LongRange];
         }
     }
     
+    public Transform closestTarget;
+
     public bool[] hasTarget;
     public bool HasTarget {
         get{
@@ -178,20 +165,30 @@ public class Entity : MonoBehaviour
     [HideInInspector]
     public FieldOfView[] FOVArray;
  
-    private void InitializeFOVs(){
-        for (int i=0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++){
-            FOVArray[i] = transform.Find("Fields Of View").GetChild(i).GetComponent<FieldOfView>();
+    private bool InitializeFOVs(){
+        
+        int cantidadDeRangosFOVPosibles = System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length;
+        hasTarget = new bool [cantidadDeRangosFOVPosibles];
+        realVisionRadius = new float [cantidadDeRangosFOVPosibles];
+        realVisionAngle = new float [cantidadDeRangosFOVPosibles];
+        FOVArray = new FieldOfView [cantidadDeRangosFOVPosibles];
+        visibleOpponents = new KdTree<Transform> [cantidadDeRangosFOVPosibles];
 
+
+        for (int i=0; i < cantidadDeRangosFOVPosibles; i++){
+            hasTarget [i] = false;
             realVisionRadius[i] = entityData.speciesData.visionRadius[i] * entityData.typeData.visionRadiusMultiplier;
             realVisionAngle [i] = entityData.speciesData.visionAngle[i] * entityData.typeData.visionAngleMultiplier;
+            FOVArray[i] = transform.Find("Fields Of View").GetChild(i).GetComponent<FieldOfView>();
             if (realVisionRadius[i]  <= 0.0f || realVisionAngle[i]  <= 0.0f)  {
                 Debug.LogError("NO SE CARGARON LOS DATOS DE FIELD OF VIEW EN "+entityData.entityName+", NO SE CREARAN LOS FOV");
             } else {
-            visibleOpponents [i] = new List<Transform> ();
-            hasTarget [i] = false;
-            SetValuesFOV(FOVArray[i], realVisionRadius[i], realVisionAngle[i], entityData.bandoData.oponentFilter, entityData.npcData.nonSeeThroughObstaclesFilter,(Enums.PosibleFOVRanges) i);
+                SetValuesFOV(FOVArray[i], realVisionRadius[i], realVisionAngle[i], entityData.bandoData.oponentFilter, entityData.npcData.nonSeeThroughObstaclesFilter,(Enums.PosibleFOVRanges) i);
+                visibleOpponents [i] = new KdTree<Transform>();
             }
         }
+
+        return true;
     }
 
     private void SetValuesFOV (FieldOfView FOV, float visionRadius, float visionAngle, LayerMask targetFilter, LayerMask NSTObstaclesFilter, Enums.PosibleFOVRanges identifier){
@@ -212,45 +209,70 @@ public class Entity : MonoBehaviour
 
     public MoveState moveState {get; private set;}
     public IdleState idleState {get; private set;}
+    public CombatState combatState {get; protected set;}
 
     [Header("States Data: ")]
     [SerializeField]
     private D_MoveState moveStateData;
     [SerializeField]
     private D_IdleState idleStateData;
-    
+    [SerializeField]
+    protected D_CombatStates combatStateData;
+
+    // llamado en Awake
     private void InitializeStates(){
+        randomIdleActionSelector = InitializeIdleState_RandomActionSelector();
 
         moveState = new MoveState (this, stateMachine, AnimationStrings.MoveState, moveStateData);
-        idleState = new IdleState (this, stateMachine, AnimationStrings.IdleState, idleStateData/*, IdleStaterandomAnimatorSelector*/);
+        idleState = new IdleState (this, stateMachine, AnimationStrings.IdleState, idleStateData, randomIdleActionSelector);
+        InitializeAllCombatSubStates();
 
+
+        stateMachine.Initialize(moveState);
     }
 
 
-    private float[] posibleIdleAnimationsProbabilities;
-    private int[] posibleIdleAnimations; 
+    // --- Para Random Action Selectors
     
+    private RandomActionSelector randomIdleActionSelector; 
+
+    // Combat Actions
+    protected RandomActionSelector randomFTFRangeCombatActionSelector; 
+    protected RandomActionSelector randomCloseRangeCombatActionSelector;
+    protected RandomActionSelector randomLongRangeCombatActionSelector; 
+
     // llamado en Awake
-    private void InicializarIdleStateParametros(){
-        
-        float sumaDeProbabilidades = 0.0f;
-        posibleIdleAnimationsProbabilities = entityData.specificNPCdata.posibleIdleAnimationsProbabilities;
-
-        // desde aca (el comentario sigue abajo) ...
-        int cantidadDeAnimacionesIdle = System.Enum.GetValues(typeof(Enums.PosibleIdleAnimations)).Length;
-        posibleIdleAnimations = new  int[cantidadDeAnimacionesIdle];
-        for (int i = 0; i < cantidadDeAnimacionesIdle; i++)
-        {
-            posibleIdleAnimations[i] = i;
-            sumaDeProbabilidades += posibleIdleAnimationsProbabilities[i];
-        }
-        // ... hasta aca. No es lo mismo que poner?:  posibleIdleAnimations = (int[]) System.Enum.GetValues(typeof(Enums.PosibleIdleAnimations));
-
-        if (sumaDeProbabilidades != 100.0f){
-            Debug.LogError("EN LA ENTIDAD: "+entityData.entityName+", NO SE CARGARON BIEN LAS PROBABILIDADES DE SELECCION DE ANIMACION IDLE, NO SE CREARA EL SELECTOR DE ANIMACIONES");
-        }else {
-            //IdleStaterandomAnimatorSelector = new RandomAnimationSelector(posibleIdleAnimations,posibleIdleAnimationsProbabilities); // selecciona las prox animaciones a usar (no se usaran todas)
-        }
+    private RandomActionSelector InitializeIdleState_RandomActionSelector(){
+        int[] posibleIdleActions = (int[]) System.Enum.GetValues(typeof(Enums.PosibleIdleActions));
+        return InitializeRandomActionSelector( posibleIdleActions, entityData.specificNPCdata.idleActions_SeleccionProbabilities, entityData.specificNPCdata.idleActions_UseProbabilities);
     }
-    
+
+    // llamado en InitializeStates
+    private void InitializeAllCombatState_RandomActionSelectors(){
+        randomFTFRangeCombatActionSelector = InitializeCombatState_RandomActionSelector(entityData.specificNPCdata.FTFRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.FTFRangeCombatActions_UseProbabilities);
+        randomCloseRangeCombatActionSelector = InitializeCombatState_RandomActionSelector(entityData.specificNPCdata.closeRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.closeRangeCombatActions_UseProbabilities);
+        randomLongRangeCombatActionSelector = InitializeCombatState_RandomActionSelector(entityData.specificNPCdata.longRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.longRangeCombatActions_UseProbabilities);
+    }
+
+    private RandomActionSelector InitializeCombatState_RandomActionSelector(float[] Actions_SeleccionProbabilities, float[] Actions_UseProbabilities){
+        int[] posibleCombatActions = (int[]) System.Enum.GetValues(typeof(Enums.PosibleCombatActions));
+        return InitializeRandomActionSelector(posibleCombatActions, Actions_SeleccionProbabilities, Actions_UseProbabilities);
+    }
+
+    // chequear si la suma de prob. es 100 y crear cargar RandomActionSelector;
+    private RandomActionSelector InitializeRandomActionSelector(int[] posibleActions, float[] actions_SeleccionProbabilities, float[] actions_UseProbabilities){
+        float sumaDeProbabilidades = 0.0f;
+        float sumaDeProbabilidades2 = 0.0f;
+
+        for (int i = 0; i < posibleActions.Length; i++)
+        {
+            sumaDeProbabilidades += actions_SeleccionProbabilities[i];
+            sumaDeProbabilidades2 += actions_UseProbabilities[i];
+        }
+        
+        if (sumaDeProbabilidades != 100.0f || sumaDeProbabilidades2 != 100.0f)
+            Debug.LogError("EN LA ENTIDAD: "+entityData.entityName+", NO SE CARGARON BIEN LAS PROBABILIDADES DE SELECCION DE ACCION");
+        
+        return new RandomActionSelector(posibleActions, actions_SeleccionProbabilities, actions_UseProbabilities);
+    }
 }

@@ -30,8 +30,8 @@ public class Enums : MonoBehaviour // guarda tipos de datos
                                                                 // ... para obtener la longitud del enum (en el script Damageable se usa)
 
     public enum PosibleFOVRanges {FaceToFaceRange=0, ShortRange = 1, LongRange=2 }
-    public enum PosibleIdleAnimations { Nothing = 0, Rascarse = 1 }
-    public enum PosibleLongRangeActions { Nothing = 0, ShootProjectile = 1}
-    public enum PosibleShortRangeActions { Nothing = 0, Dash = 1, Charge = 2}
-    public enum PosibleFTFRangeActions { Nothing = 0, Dash = 1, NormalAttack = 2 }
+    public enum PosibleIdleActions { Nothing = 0, Rascarse = 1 }
+
+    // llenar con todas las acciones de combate posibles, en Data se seleccionara 0% si no se quiere seleccionar
+    public enum PosibleCombatActions { Nothing = 0, NormalAttack = 1, ShootProjectile = 2, Dash = 3, Charge = 4}  
 }

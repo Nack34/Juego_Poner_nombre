@@ -4,11 +4,34 @@ using UnityEngine;
 
 public class AnimationStrings : MonoBehaviour // guarda datos
 {
-    
+    // Bools cambios de State
     public static string MoveState = "move";
-    public static string IdleState = "idle";
+    public static string IdleState = "idle"; 
+    public static string CombatState = "move"; 
+    public static string CombatSubState = "move"; 
+
+    // Floats cambios en la direccion
     public static string Xdirection = "Xdirection";
     public static string Ydirection = "Ydirection";
+
+    // Ints cambios de animacion en el mismo state (IMPORTANTE NO OLVIDAR: Estas animaciones llevan un evento...
+    //... al final que avisa de su finalizacion)
+    public static string IdleAction = "idleAction";
+    public static string CombatAction = "combatAction";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // de aca para abajo es todo viejo (lo usa el OLD player), cuando cambie lo del player hay q borralo
     public static string CanMove = "CanMove";
@@ -20,7 +43,7 @@ public class AnimationStrings : MonoBehaviour // guarda datos
     public static string DirectionX = "DirectionX";
     public static string DirectionY = "DirectionY";  
 
-    public static string Revivir = "Revivir"; // IMPLEMENTAR
+    public static string Revivir = "Revivir"; 
 
     public static string [] PosibleDirections = {"LD", "Down", "RD", 
                                                 "Left", "NotDirection", "Right", 

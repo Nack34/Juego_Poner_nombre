@@ -9,7 +9,7 @@ public class FOV_Editor : Editor {
     public void OnSceneGUI() {
         Entity entity = target as Entity;   
         
-        if (!entity.inicializo) return;
+        if (!entity.inicializoFOVs) return;
 
         for (int i=0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++){  
             
@@ -23,7 +23,7 @@ public class FOV_Editor : Editor {
             Handles.DrawLine(entity.transform.parent.position, entity.transform.parent.position + angle02 * entity.realVisionRadius[i]);
 
             Handles.color = Color.red;
-            foreach (Transform visibleOpponent in entity.visibleOpponents[(int)i])
+            foreach (Transform visibleOpponent in entity.visibleOpponents[i])
             {
                 Handles.DrawLine(entity.transform.parent.position, visibleOpponent.position);
             }

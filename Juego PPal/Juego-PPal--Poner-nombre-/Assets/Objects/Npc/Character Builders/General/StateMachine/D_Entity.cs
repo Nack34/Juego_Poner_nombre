@@ -29,6 +29,6 @@ public class D_Entity : ScriptableObject {
     [Tooltip("Data compartida por los npcs del mismo bando")]
     public D_Bando bandoData;
     [Tooltip("Data compartida unicamente por los npcs que comparten Prefab")]
-    public D_EspecificNPC specificNPCdata;
+    public D_SpecificNPC specificNPCdata;
 
 }
