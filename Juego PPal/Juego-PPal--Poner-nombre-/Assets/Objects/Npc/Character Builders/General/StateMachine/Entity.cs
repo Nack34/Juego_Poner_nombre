@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [HelpURL("https://docs.google.com/document/d/1GgesLstlyUSVTOzc55LiB-MDlqdF7ofICKHARAiuMug/edit")]
-[RequireComponent(typeof(NPCStats))]
+[RequireComponent(typeof(EntityStats))]
 public class Entity : MonoBehaviour
 {
     [Tooltip("Todos los datos de la entidad")]
@@ -12,56 +12,84 @@ public class Entity : MonoBehaviour
 
     public Rigidbody2D rb {get; private set;}
     public Animator animator {get; private set;}
-    public GameObject NPC {get; private set;}
-    public Vector2 NPCStartPosition {get; private set;} // traerlo del objeto padre
     public Collider2D movementCollider {get; private set;}
+    public NPCController controller {get; private set;}
+    public Pathfinding.AIDestinationSetter destinationSetter {get; private set;}
+    private EntityStats stats;
 
-    private NPCStats stats;
-    [SerializeField]
-    private Vector2 direction= new Vector2 (0,0);
-    public Vector2 Direction {
-        get{
-            return direction;
-        }
-        set{
-            direction=value; // HACER: setear tmb la direccion en el objeto padre
-            //Debug.Log("Direction change:"+direction);
-            animator.SetFloat(AnimationStrings.Xdirection,direction.x);
-            animator.SetFloat(AnimationStrings.Ydirection,direction.y);
-        }
-    }
     [HideInInspector]
     public float[] realVisionRadius;
     [HideInInspector]
     public float[] realVisionAngle;
-    private float currentSpeed = 0.0f;
-    public float CurrentSpeed {
-        get{
-            return currentSpeed;
+    [HideInInspector]
+    public bool inicializoFOVs = false; // es usado por FOV_Editor y OnDrawGizmosSelected
+
+    //[SerializeField]
+    //private Vector2 movingDirection = new Vector2 (0,0);
+    public Vector2 MovingDirection {
+        get{ //movingDirection = controller.MovingDirection;
+            return controller.MovingDirection;
         }
         set{
-            currentSpeed=value; // HACER: setear tmb la velocidad en el objeto padre
+            controller.MovingDirection = value;
+            // animator
+            animator.SetFloat(AnimationStrings.XMovingDirection,controller.MovingDirection.x); // sin uso en el animator actualmente
+            animator.SetFloat(AnimationStrings.YMovingDirection,controller.MovingDirection.y); // sin uso en el animator actualmente
+        }
+    }
+    //[SerializeField]
+    //private Vector2 lookingDirection= new Vector2 (0,0);
+    public Vector2 LookingDirection {
+        get{  //lookingDirection = controller.LookingDirection;
+            return controller.LookingDirection;
+        }
+        set{
+            // direction=value; 
+            controller.LookingDirection = value;
+
+            animator.SetFloat(AnimationStrings.XLookingDirection,controller.LookingDirection.x);
+            animator.SetFloat(AnimationStrings.YLookingDirection,controller.LookingDirection.y);
         }
     }
 
+    //private Vector2 currentPosition = new Vector2 (0,0);
+    public Vector2 CurrentPosition {
+        get{ //currentPosition = controller.CurrentPosition;
+            return controller.CurrentPosition;
+        }
+    }
 
-    [HideInInspector]
-    public bool inicializoFOVs = false; // es usado por FOV_Editor
+    //private float currentSpeed = 0.0f;
+    public float CurrentSpeed {
+        get{ //currentSpeed = controller.CurrentSpeed;
+            return controller.CurrentSpeed;
+        }
+        set{
+            // currentSpeed=value;
+            controller.CurrentSpeed = value;
+        }
+    }
+
+    public Vector2 NPCBaseCenter { // viejo NPCStartPosition
+        get {
+            return controller.NPCBaseCenter;
+        }
+    }
+
     public virtual void Awake() {
+        // from parent
+        controller = transform.parent.GetComponent<NPCController>();
+        rb = controller.Rb;
+        destinationSetter = controller.DestinationSetter; 
+
         // from this
         animator = GetComponent<Animator>();
-        stats = GetComponent<NPCStats>();
+        stats = GetComponent<EntityStats>();
 
         inicializoFOVs = InitializeFOVs();
 
-        // from parent
-        NPC = transform.parent.gameObject;
-        NPCStartPosition = NPC.transform.position; // esto se calcula y guarda en el objeto padre y aca solo se trae
-        rb = NPC.GetComponent<Rigidbody2D>();
-
         // from childs
         movementCollider = transform.Find("Colliders/MovementCollider").GetComponent<Collider2D>();
-
         // new
         InitializeStates();
     }
@@ -77,15 +105,12 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void OnEnable(){
-        Direction=direction; // hacer q sea igual a la direccion del padre
-        // CurrentSpeed = NPC.ScriptGlobal.currentSpeed; // hacer q sea igual a la velocidad del padre
+        MovingDirection=MovingDirection; // actualizar animators
+        LookingDirection = LookingDirection; // actualizar animators
     }
 
     public virtual void Update() {
         stateMachine.currentState.LogicUpdate();
-        /*Debug.Log("Lista de Oponentes en vision: ");
-        Debug.Log("En short range: "+ListToText(visibleOpponents[0]));
-        Debug.Log("En long range: "+ListToText(visibleOpponents[1]));*/
     }
 
     private string ListToText(List<Transform> list)
@@ -106,16 +131,23 @@ public class Entity : MonoBehaviour
 
     private void OnDrawGizmosSelected() {
         // zona de inicio // poner las sig 2 lineas de cod es el objeto padre
-        Gizmos.color = Color.green; 
-        Gizmos.DrawWireSphere(NPCStartPosition, entityData.speciesData.baseRadius);
-        
-        // movimiento
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, new Vector3 (direction.x * CurrentSpeed , direction.y * CurrentSpeed, 0));
+        if (inicializoFOVs){
+            Gizmos.color = Color.green; 
+            Gizmos.DrawWireSphere(NPCBaseCenter, entityData.speciesData.baseRadius);
+            
+            // movimiento
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, new Vector3 (MovingDirection.x * CurrentSpeed , MovingDirection.y * CurrentSpeed, 0));
+        }
     }
 
+    // --- Usado por States
 
-
+    public Vector2 CalculateDirection (Vector2 positionToGoTo){ // calcula la direccion necesaria para ir a ese punto
+        Vector2 directionToGoTo = new Vector2((positionToGoTo.x - CurrentPosition.x), (positionToGoTo.y - CurrentPosition.y));
+        directionToGoTo.Normalize(); // When normalized, a vector keeps the same direction but its length is 1.0
+        return directionToGoTo;
+    }
 
     // --- Para fields of view
 
@@ -138,7 +170,23 @@ public class Entity : MonoBehaviour
         }
     }
     
-    public Transform closestTarget;
+    [HideInInspector]
+    public float seachRadius = 1.5f;
+    [HideInInspector]
+    public Vector2 closestTargetLastSeenPosition;
+    [SerializeField]
+    private Transform closestTarget;
+    public Transform ClosestTarget {
+        get{
+            return closestTarget;
+        }
+        set{
+            if (value == null) {
+                closestTargetLastSeenPosition = closestTarget.position;
+            }
+            closestTarget = value;
+        }
+    }
 
     public bool[] hasTarget;
     public bool HasTarget {

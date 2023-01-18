@@ -572,8 +572,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -1077,8 +1077,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -1639,8 +1639,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -1843,8 +1843,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -3095,8 +3095,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -4009,8 +4009,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -4481,13 +4481,25 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Xdirection
+  - m_Name: XLookingDirection
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Ydirection
+  - m_Name: YLookingDirection
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: XMovingDirection
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: YMovingDirection
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -5177,8 +5189,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -5972,8 +5984,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -7302,8 +7314,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -7672,8 +7684,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -7790,8 +7802,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -7961,8 +7973,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -8731,8 +8743,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -8880,8 +8892,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Xdirection
     m_Mirror: 0
-  m_BlendParameter: Xdirection
-  m_BlendParameterY: Ydirection
+  m_BlendParameter: XLookingDirection
+  m_BlendParameterY: YLookingDirection
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1

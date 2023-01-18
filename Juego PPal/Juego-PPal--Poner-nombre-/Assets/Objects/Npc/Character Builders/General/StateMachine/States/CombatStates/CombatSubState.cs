@@ -22,20 +22,37 @@ public class CombatSubState : State
 
     public override void Enter () {
         base.Enter();
+        if (entity.ClosestTarget != null){
+            entity.LookingDirection = entity.CalculateDirection(entity.ClosestTarget.position);
+        }
+
     }
 
     public override void Exit () {
         base.Exit();
+        
+        entity.destinationSetter.target = entity.ClosestTarget = null; 
     }
 
     public override void LogicUpdate () { 
         base.LogicUpdate();
+        if (entity.ClosestTarget != null){
+            entity.LookingDirection = entity.CalculateDirection(entity.ClosestTarget.position);
+        }
         for (int i = 0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++)
         {
             entity.visibleOpponents[i].UpdatePositions(); // funcion de KdTree
         }
+    }
+    
+    /*
+    public virtual void Combat() { 
+    
+        entity.destinationSetter.ai.canMove = false;
+        
 
     }
+    */
 
     public override void PhysicsUpdate() { 
         base.PhysicsUpdate();

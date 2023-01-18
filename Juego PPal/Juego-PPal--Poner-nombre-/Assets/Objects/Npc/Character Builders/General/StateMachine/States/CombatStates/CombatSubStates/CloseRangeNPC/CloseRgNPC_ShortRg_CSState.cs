@@ -25,6 +25,13 @@ public class CloseRgNPC_ShortRg_CSState : ShortRange_CombatSubState
     public override void LogicUpdate () { 
         base.LogicUpdate();
         //Debug.Log("LogicUpdate en Short");
+
+        //if (no esta en el rango de combate){
+            if (!entity.destinationSetter.ai.canMove){
+                entity.destinationSetter.ai.canMove = true;
+            }
+            entity.destinationSetter.target = entity.ClosestTarget;
+        //} else {Combate()}
     }
 
     public override void PhysicsUpdate() { 

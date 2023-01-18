@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Curable 
 {
-    private NPCStats stats;
+    private EntityStats stats;
     private float segundosNecesariosParaCurarse;
     private float cantPorcentajeCuracionXSegundo;
     
-    public Curable(NPCStats stats, float segundosNecesariosParaCurarse, float cantPorcentajeCuracionXSegundo){
+    public Curable(EntityStats stats, float segundosNecesariosParaCurarse, float cantPorcentajeCuracionXSegundo){
         this.stats=stats;
         this.segundosNecesariosParaCurarse = segundosNecesariosParaCurarse;
         this.cantPorcentajeCuracionXSegundo = cantPorcentajeCuracionXSegundo;

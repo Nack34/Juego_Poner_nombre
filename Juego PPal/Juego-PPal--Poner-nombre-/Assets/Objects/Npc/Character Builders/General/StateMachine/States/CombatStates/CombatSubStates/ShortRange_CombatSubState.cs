@@ -23,7 +23,7 @@ public class ShortRange_CombatSubState : CombatSubState
     public override void LogicUpdate () { 
         base.LogicUpdate();
 
-        entity.closestTarget = entity.ShortRangeVisibleOpponents.FindClosest(entity.transform.parent.transform.position); // funcion de KdTree
+        entity.ClosestTarget = entity.ShortRangeVisibleOpponents.FindClosest(entity.transform.parent.transform.position); // funcion de KdTree
     }                                                                       
 
     public override void PhysicsUpdate() { 

@@ -11,8 +11,10 @@ public class AnimationStrings : MonoBehaviour // guarda datos
     public static string CombatSubState = "move"; 
 
     // Floats cambios en la direccion
-    public static string Xdirection = "Xdirection";
-    public static string Ydirection = "Ydirection";
+    public static string XLookingDirection = "XLookingDirection";
+    public static string YLookingDirection = "YLookingDirection";
+    public static string XMovingDirection = "XMovingDirection"; // sin uso en el animator actualmente
+    public static string YMovingDirection = "YMovingDirection"; // sin uso en el animator actualmente
 
     // Ints cambios de animacion en el mismo state (IMPORTANTE NO OLVIDAR: Estas animaciones llevan un evento...
     //... al final que avisa de su finalizacion)

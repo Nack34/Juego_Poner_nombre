@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Damageable 
 {
-    private NPCStats stats;
+    private EntityStats stats;
     
-    public Damageable(NPCStats stats){
+    public Damageable(EntityStats stats){
         this.stats=stats;
     }
     

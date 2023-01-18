@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCStats : MonoBehaviour
+public class EntityStats : MonoBehaviour
 {
     private Entity entity;
     private Curable curable;

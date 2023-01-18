@@ -25,6 +25,13 @@ public class CloseRgNPC_LongRg_CSState : LongRange_CombatSubState
     public override void LogicUpdate () { 
         base.LogicUpdate();
         //Debug.Log("LogicUpdate en Long");
+
+        //if (no esta en el rango de combate){
+            if (!entity.destinationSetter.ai.canMove){
+                entity.destinationSetter.ai.canMove = true;
+            }
+            entity.destinationSetter.target = entity.ClosestTarget;
+        //} else {Combate()}
     }
 
     public override void PhysicsUpdate() { 

@@ -23,7 +23,7 @@ public class FaceToFaceRange_CombatSubState : CombatSubState
     public override void LogicUpdate () { 
         base.LogicUpdate();
         
-        entity.closestTarget = entity.FaceToFaceRangeVisibleOpponents.FindClosest(entity.transform.parent.transform.position); // funcion de KdTree
+        entity.ClosestTarget = entity.FaceToFaceRangeVisibleOpponents.FindClosest(entity.transform.parent.transform.position); // funcion de KdTree
     }
 
     public override void PhysicsUpdate() { 

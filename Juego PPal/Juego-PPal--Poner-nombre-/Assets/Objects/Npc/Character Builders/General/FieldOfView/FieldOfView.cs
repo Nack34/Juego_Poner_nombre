@@ -48,22 +48,22 @@ public class FieldOfView : MonoBehaviour
     private void FOV (){  
         entity.visibleOpponents[(int)typeOfFOV].Clear();
         // primero obtengo todos los que esten en el posible rango de vision
-        Collider2D[] tangetsInRange = Physics2D.OverlapCircleAll(entity.NPC.transform.position, visionRadius, targetFilter);
+        Collider2D[] tangetsInRange = Physics2D.OverlapCircleAll(entity.CurrentPosition, visionRadius, targetFilter);
         
         
         for (int i=0; i < tangetsInRange.Length; i++){
         
             Transform target = tangetsInRange[i].transform;
-            Vector2 directionToTarget = (target.position - entity.NPC.transform.position).normalized;
+            Vector2 directionToTarget = ((Vector2)target.position - entity.CurrentPosition).normalized;
 
             // me fijo si realmente estan en el angulo de vision
-            if (Vector2.Angle(entity.Direction, directionToTarget) < visionAngle/2){
+            if (Vector2.Angle(entity.LookingDirection, directionToTarget) < visionAngle/2){
                 
-                float distanceToTarget = Vector2.Distance(entity.NPC.transform.position, target.position);
+                float distanceToTarget = Vector2.Distance(entity.CurrentPosition, (Vector2)target.position);
 
                 // si esta en en algulo de vision, me fijo si tiene algun obstaculo en el medio
-                if (!Physics2D.Raycast(entity.NPC.transform.position, directionToTarget, distanceToTarget, NSTObstaclesFilter)){
-                    entity.visibleOpponents[(int)typeOfFOV].Add (target);
+                if (!Physics2D.Raycast(entity.CurrentPosition, directionToTarget, distanceToTarget, NSTObstaclesFilter)){
+                    entity.visibleOpponents[(int)typeOfFOV].Add(target);
                 }
             }
         }

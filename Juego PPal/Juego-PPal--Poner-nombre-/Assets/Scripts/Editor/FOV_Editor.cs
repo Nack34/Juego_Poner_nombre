@@ -14,19 +14,25 @@ public class FOV_Editor : Editor {
         for (int i=0; i < System.Enum.GetValues(typeof(Enums.PosibleFOVRanges)).Length; i++){  
             
             Handles.color = Color.white;
-            Handles.DrawWireDisc(entity.transform.parent.position, Vector3.forward, entity.realVisionRadius[i]);
+            Handles.DrawWireDisc(entity.CurrentPosition, Vector3.forward, entity.realVisionRadius[i]);
 
-            Vector3 angle01 = AngleDirection(entity.Direction, -entity.realVisionAngle[i]/2);
-            Vector3 angle02 = AngleDirection(entity.Direction, entity.realVisionAngle[i]/2);
+            Vector2 angle01 = AngleDirection(entity.LookingDirection, -entity.realVisionAngle[i]/2);
+            Vector2 angle02 = AngleDirection(entity.LookingDirection, entity.realVisionAngle[i]/2);
             
-            Handles.DrawLine(entity.transform.parent.position, entity.transform.parent.position + angle01 * entity.realVisionRadius[i]);
-            Handles.DrawLine(entity.transform.parent.position, entity.transform.parent.position + angle02 * entity.realVisionRadius[i]);
+            Handles.DrawLine(entity.CurrentPosition, entity.CurrentPosition + angle01 * entity.realVisionRadius[i]);
+            Handles.DrawLine(entity.CurrentPosition, entity.CurrentPosition + angle02 * entity.realVisionRadius[i]);
 
             Handles.color = Color.red;
             foreach (Transform visibleOpponent in entity.visibleOpponents[i])
             {
-                Handles.DrawLine(entity.transform.parent.position, visibleOpponent.position);
+                Handles.DrawLine(entity.CurrentPosition, visibleOpponent.position);
             }
+        }
+        Handles.color= Color.magenta;
+        if (entity.ClosestTarget != null){
+            Handles.DrawLine(entity.CurrentPosition, entity.ClosestTarget.position);
+        } else{
+            Handles.DrawWireDisc(entity.closestTargetLastSeenPosition, Vector3.forward, entity.seachRadius);
         }
     }
 
