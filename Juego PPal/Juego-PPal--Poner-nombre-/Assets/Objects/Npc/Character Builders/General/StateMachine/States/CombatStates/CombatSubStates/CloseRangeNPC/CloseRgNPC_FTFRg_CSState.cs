@@ -6,7 +6,7 @@ using UnityEngine;
 public class CloseRgNPC_FTFRg_CSState : FaceToFaceRange_CombatSubState
 {
     // constructor
-    public CloseRgNPC_FTFRg_CSState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_CombatSubState stateData, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, stateData, randomCombatActionSelector){
+    public CloseRgNPC_FTFRg_CSState (Entity entity, FiniteStateMachine stateMachine, string animationName, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, randomCombatActionSelector){
  
  
     } 

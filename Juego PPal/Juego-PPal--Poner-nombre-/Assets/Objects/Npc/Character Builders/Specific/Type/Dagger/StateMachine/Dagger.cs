@@ -9,9 +9,9 @@ public class Dagger : Entity
     public override void InitializeAllCombatSubStates(){
         base.InitializeAllCombatSubStates();
         
-        combatState.Initialize( new CloseRgNPC_FTFRg_CSState (this, stateMachine, AnimationStrings.CombatSubState, combatStateData.faceToFaceRange_CombatSubStateData, randomFTFRangeCombatActionSelector),
-                                new CloseRgNPC_ShortRg_CSState (this, stateMachine, AnimationStrings.CombatSubState, combatStateData.shortRange_CombatSubStateData, randomCloseRangeCombatActionSelector),
-                                new CloseRgNPC_LongRg_CSState (this, stateMachine, AnimationStrings.CombatSubState, combatStateData.longRange_CombatSubStateData, randomLongRangeCombatActionSelector) );
+        combatState.Initialize( new CloseRgNPC_FTFRg_CSState (this, stateMachine, AnimationStrings.CombatSubState, randomFTFRangeCombatActionSelector),
+                                new CloseRgNPC_ShortRg_CSState (this, stateMachine, AnimationStrings.CombatSubState, randomCloseRangeCombatActionSelector),
+                                new CloseRgNPC_LongRg_CSState (this, stateMachine, AnimationStrings.CombatSubState, randomLongRangeCombatActionSelector) );
         
     }
     

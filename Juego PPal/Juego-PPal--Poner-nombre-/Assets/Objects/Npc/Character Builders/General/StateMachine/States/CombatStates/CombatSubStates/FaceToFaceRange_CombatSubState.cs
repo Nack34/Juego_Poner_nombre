@@ -6,7 +6,7 @@ public class FaceToFaceRange_CombatSubState : CombatSubState
 {
     
     // constructor
-    public FaceToFaceRange_CombatSubState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_CombatSubState stateData, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, stateData, randomCombatActionSelector){
+    public FaceToFaceRange_CombatSubState (Entity entity, FiniteStateMachine stateMachine, string animationName,  RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, randomCombatActionSelector){
  
  
     } 
@@ -18,6 +18,7 @@ public class FaceToFaceRange_CombatSubState : CombatSubState
 
     public override void Exit () {
         base.Exit();
+        entity.opponentSearchState.searchLevel = Enums.SearchLevel.ItWasInFTFRange;
     }
 
     public override void LogicUpdate () { 

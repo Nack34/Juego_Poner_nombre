@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class IdleState : State
 {
-
-    protected D_IdleState stateData;
     protected bool stopIdle;
     
     protected RandomActionSelector randomActionSelector;
 
     // constructor
-    public IdleState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_IdleState stateData, RandomActionSelector randomActionSelector) : base(entity, stateMachine, animationName)
+    public IdleState (Entity entity, FiniteStateMachine stateMachine, string animationName, RandomActionSelector randomActionSelector) : base(entity, stateMachine, animationName)
     {
-        this.stateData=stateData;
-        
         this.randomActionSelector = randomActionSelector; // ya viene cargado con las posibles animaciones a ejecutar
         
         

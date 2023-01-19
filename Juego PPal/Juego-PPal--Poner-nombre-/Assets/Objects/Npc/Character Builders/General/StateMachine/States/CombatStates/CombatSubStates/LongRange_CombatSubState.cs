@@ -6,7 +6,7 @@ public class LongRange_CombatSubState : CombatSubState
 {
     
     // constructor
-    public LongRange_CombatSubState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_CombatSubState stateData, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, stateData, randomCombatActionSelector){
+    public LongRange_CombatSubState (Entity entity, FiniteStateMachine stateMachine, string animationName, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, randomCombatActionSelector){
  
    
     } 
@@ -18,6 +18,7 @@ public class LongRange_CombatSubState : CombatSubState
 
     public override void Exit () {
         base.Exit();
+        entity.opponentSearchState.searchLevel = Enums.SearchLevel.ItWasInLongRange;
     }
 
     public override void LogicUpdate () { 

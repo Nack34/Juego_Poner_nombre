@@ -6,7 +6,7 @@ using UnityEngine;
 public class CloseRgNPC_ShortRg_CSState : ShortRange_CombatSubState
 {
     // constructor
-    public CloseRgNPC_ShortRg_CSState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_CombatSubState stateData, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, stateData, randomCombatActionSelector){
+    public CloseRgNPC_ShortRg_CSState (Entity entity, FiniteStateMachine stateMachine, string animationName, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName, randomCombatActionSelector){
  
    
     } 

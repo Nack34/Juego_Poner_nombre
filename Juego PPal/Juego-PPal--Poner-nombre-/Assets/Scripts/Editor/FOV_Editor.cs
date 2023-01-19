@@ -32,7 +32,7 @@ public class FOV_Editor : Editor {
         if (entity.ClosestTarget != null){
             Handles.DrawLine(entity.CurrentPosition, entity.ClosestTarget.position);
         } else{
-            Handles.DrawWireDisc(entity.closestTargetLastSeenPosition, Vector3.forward, entity.seachRadius);
+            Handles.DrawWireDisc(entity.closestTargetLastSeenPosition, Vector3.forward, entity.entityData.speciesData.seachRadius);
         }
     }
 

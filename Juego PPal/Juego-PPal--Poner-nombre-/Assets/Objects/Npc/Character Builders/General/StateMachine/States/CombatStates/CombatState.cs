@@ -6,8 +6,6 @@ using UnityEngine;
 // Usa moverse sin chocarse que tiene que estar en entity
 public class CombatState : State
 {
-    protected D_CombatStates stateData; //PARA QUE ME SERVIRIA?
-
     protected FaceToFaceRange_CombatSubState faceToFaceRange_CombatSubState;
     protected ShortRange_CombatSubState shortRange_CombatSubState;
     protected LongRange_CombatSubState longRange_CombatSubState;
@@ -19,14 +17,12 @@ public class CombatState : State
     }
 
     // constructor
-    public CombatState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_CombatStates stateData) : base(entity, stateMachine, animationName)
+    public CombatState (Entity entity, FiniteStateMachine stateMachine, string animationName) : base(entity, stateMachine, animationName)
     {
-        this.stateData=stateData;
     } 
 
     private bool InitializedState(){
         return faceToFaceRange_CombatSubState != null || shortRange_CombatSubState != null || longRange_CombatSubState != null ;
-
     }
 
     public void Initialize ( FaceToFaceRange_CombatSubState faceToFaceRange_CombatSubState, 
@@ -36,12 +32,11 @@ public class CombatState : State
         this.faceToFaceRange_CombatSubState = faceToFaceRange_CombatSubState ;
         this.shortRange_CombatSubState = shortRange_CombatSubState ;
         this.longRange_CombatSubState = longRange_CombatSubState ;
-        
     }
 
     public override void CheckStateTransitions () { // aca van todas las tranciciones e/ estados (depende del estado)
         if (!HasTarget){
-            stateMachine.ChangeState(entity.moveState);
+            stateMachine.ChangeState(entity.opponentSearchState);
         }
     }
     

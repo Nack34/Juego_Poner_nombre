@@ -6,7 +6,6 @@ using UnityEngine;
 // IMPLEMENTAR: Ver nota en Update. Ver nota en AnimationEnding
 public class MoveState : State 
 {
-    protected D_MoveState stateData;
     protected float moveSpeed = 2.0f;
     protected bool isMoving;
     protected float tiempoConElMismoMovimiento = 999.0f;
@@ -17,9 +16,8 @@ public class MoveState : State
     protected Vector2 desplazamiento = new Vector2(0,0);
 
     // constructor
-    public MoveState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_MoveState stateData) : base(entity, stateMachine, animationName)
+    public MoveState (Entity entity, FiniteStateMachine stateMachine, string animationName ) : base(entity, stateMachine, animationName)
     {
-        this.stateData=stateData;
     } 
 
 
@@ -38,7 +36,7 @@ public class MoveState : State
 
         isMoving = true;
         cantCambiosDeSpeed=0;
-        cambiosDeSpeedParaPasarAIdle = Random.Range(2,stateData.maxCantCambiosDeSpeedParaPasarAIdle); 
+        cambiosDeSpeedParaPasarAIdle = Random.Range(2,entity.entityData.speciesData.maxCantCambiosDeSpeedParaPasarAIdle); 
 
         ChangeMovement();
     }
@@ -51,7 +49,7 @@ public class MoveState : State
     public override void LogicUpdate () { // mantiene a la entidad en la zona de inicio y con un movimiento dinamico
         base.LogicUpdate();
         desplazamiento = desplazamiento * 0; // + random (-0.1 o 0.1) grados  e/ -10 y 10 (La idea es q sea un...
-                                        //... movimiento dinamico de la cabeza, a la izquierda o derecha). IMPLEMENTAR
+                                        //... movimiento dinamico de la cabeza, a la izquierda o derecha). (IMPLEMENTAR en entity)
         entity.LookingDirection = entity.LookingDirection + desplazamiento ; 
 
         canChangeMovement = CanChangeMovement();
@@ -93,7 +91,7 @@ public class MoveState : State
 
     private void ChangeMovement(){ // selecciona otro movimiento random dentro de la zona de inicio
         tiempoConElMismoMovimiento=0.0f;
-        tiempoNecesarioParaCambiarDeMovimiento = Random.Range(stateData.minTiempoNecesarioParaCambiarDeMovimiento,stateData.maxTiempoNecesarioParaCambiarDeMovimiento); 
+        tiempoNecesarioParaCambiarDeMovimiento = Random.Range(entity.entityData.speciesData.minTiempoNecesarioParaCambiarDeMovimiento,entity.entityData.speciesData.maxTiempoNecesarioParaCambiarDeMovimiento); 
 
         entity.CurrentSpeed = moveSpeed = MoveSpeed();
         entity.LookingDirection = entity.MovingDirection = RandomOriginDireccion(); // actualizo direcciones 
@@ -138,7 +136,7 @@ public class MoveState : State
     private bool TryMovingAllDirections(Vector2 direction, float moveSpeed) { // intenta moverse hacia la direccion indicada tratando de evadir obstaculos
         //Debug.Log("moveSpeed: "+moveSpeed+", direccion: "+direction);
         // If movement input is not 0, try to move
-        if(moveSpeed >= stateData.velocidadMinimaDeMovimiento){
+        if(moveSpeed >= entity.entityData.speciesData.velocidadMinimaDeMovimiento){
             bool success = TryMove(direction, moveSpeed); //me muevo en diagonal
 
             if(!success) { //si no puedo moverme en diagonal, lo intento en un solo eje
@@ -177,7 +175,7 @@ public class MoveState : State
     }
 
     private bool IsMoving(Vector2 direction, float moveSpeed){ // se fija si la velocidad lineal actual es mayor o igual a la minima
-        return (direction != Vector2.zero) && (CurrentSpeed(direction,moveSpeed) >= stateData.velocidadMinimaDeMovimiento);
+        return (direction != Vector2.zero) && (CurrentSpeed(direction,moveSpeed) >= entity.entityData.speciesData.velocidadMinimaDeMovimiento);
     }
     
     private float CurrentSpeed(Vector2 direction, float moveSpeed){ // Calcula la velocidad lineal actual real

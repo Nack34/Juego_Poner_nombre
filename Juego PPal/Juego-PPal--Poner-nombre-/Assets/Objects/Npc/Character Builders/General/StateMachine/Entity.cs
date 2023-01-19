@@ -96,7 +96,7 @@ public class Entity : MonoBehaviour
 
     public virtual void InitializeAllCombatSubStates(){
         InitializeAllCombatState_RandomActionSelectors ();
-        combatState = new CombatState (this, stateMachine, AnimationStrings.CombatState, combatStateData);
+        combatState = new CombatState (this, stateMachine, AnimationStrings.CombatState);
         // en los hijos del script Entity se agrega la creacion de los estados
     }
 
@@ -127,7 +127,11 @@ public class Entity : MonoBehaviour
         stateMachine.currentState.PhysicsUpdate();
     }
 
-    // ---
+
+
+    // --- 
+
+
 
     private void OnDrawGizmosSelected() {
         // zona de inicio // poner las sig 2 lineas de cod es el objeto padre
@@ -141,13 +145,19 @@ public class Entity : MonoBehaviour
         }
     }
 
-    // --- Usado por States
+
+
+    // --- Llamado por States
+
+
 
     public Vector2 CalculateDirection (Vector2 positionToGoTo){ // calcula la direccion necesaria para ir a ese punto
         Vector2 directionToGoTo = new Vector2((positionToGoTo.x - CurrentPosition.x), (positionToGoTo.y - CurrentPosition.y));
         directionToGoTo.Normalize(); // When normalized, a vector keeps the same direction but its length is 1.0
         return directionToGoTo;
     }
+
+
 
     // --- Para fields of view
 
@@ -170,8 +180,6 @@ public class Entity : MonoBehaviour
         }
     }
     
-    [HideInInspector]
-    public float seachRadius = 1.5f;
     [HideInInspector]
     public Vector2 closestTargetLastSeenPosition;
     [SerializeField]
@@ -255,32 +263,32 @@ public class Entity : MonoBehaviour
 
     // --- Para STATES
 
+
+
     public MoveState moveState {get; private set;}
     public IdleState idleState {get; private set;}
-    public CombatState combatState {get; protected set;}
-
-    [Header("States Data: ")]
-    [SerializeField]
-    private D_MoveState moveStateData;
-    [SerializeField]
-    private D_IdleState idleStateData;
-    [SerializeField]
-    protected D_CombatStates combatStateData;
+    public CombatState combatState {get; private set;} 
+    public OpponentSearchState opponentSearchState {get; private set;}
 
     // llamado en Awake
     private void InitializeStates(){
         randomIdleActionSelector = InitializeIdleState_RandomActionSelector();
 
-        moveState = new MoveState (this, stateMachine, AnimationStrings.MoveState, moveStateData);
-        idleState = new IdleState (this, stateMachine, AnimationStrings.IdleState, idleStateData, randomIdleActionSelector);
+        moveState = new MoveState (this, stateMachine, AnimationStrings.MoveState);
+        idleState = new IdleState (this, stateMachine, AnimationStrings.IdleState, randomIdleActionSelector);
         InitializeAllCombatSubStates();
+        opponentSearchState = new OpponentSearchState (this, stateMachine, AnimationStrings.OpponentSearchState, entityData.speciesData.maxTiempoDeBusqueda);
 
 
+        // primer estado:
         stateMachine.Initialize(moveState);
     }
 
 
+
     // --- Para Random Action Selectors
+
+
     
     private RandomActionSelector randomIdleActionSelector; 
 

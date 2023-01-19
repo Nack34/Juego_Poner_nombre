@@ -5,12 +5,10 @@ using UnityEngine;
 // Usa moverse sin chocarse que tiene que estar en entity
 public class CombatSubState : State
 {
-    protected D_CombatSubState stateData;
     protected RandomActionSelector randomCombatActionSelector;
 
     // constructor
-    public CombatSubState (Entity entity, FiniteStateMachine stateMachine, string animationName, D_CombatSubState stateData, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName){
-        this.stateData = stateData;
+    public CombatSubState (Entity entity, FiniteStateMachine stateMachine, string animationName, RandomActionSelector randomCombatActionSelector) : base(entity, stateMachine, animationName){
         
         // stateMachine al igual que animation no se usa. No se puede sacar de alguna manera?
     } 
