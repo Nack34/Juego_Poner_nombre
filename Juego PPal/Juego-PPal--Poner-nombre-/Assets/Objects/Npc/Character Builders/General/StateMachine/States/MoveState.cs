@@ -8,12 +8,17 @@ public class MoveState : State
 {
     protected float moveSpeed = 2.0f;
     protected bool isMoving;
-    protected float tiempoConElMismoMovimiento = 999.0f;
+
+    protected float tiempoConElMismoMovimiento;
     protected float tiempoNecesarioParaCambiarDeMovimiento;
-    protected int cantCambiosDeSpeed = 0;
+
+    protected float lastLookingDirectionChangeTime;
+    protected float tiempoEntreLookingDirectionChanges = 0.2f;
+    protected float maxGradosDeMovimientoDeMira = 20.0f;
+
+    protected int cantCambiosDeSpeed;
     protected int cambiosDeSpeedParaPasarAIdle;
     protected bool canChangeMovement;
-    protected Vector2 desplazamiento = new Vector2(0,0);
 
     // constructor
     public MoveState (Entity entity, FiniteStateMachine stateMachine, string animationName ) : base(entity, stateMachine, animationName)
@@ -32,8 +37,8 @@ public class MoveState : State
 
     public override void Enter () {
         base.Enter();
-        entity.destinationSetter.ai.canMove = false;
-
+        entity.StopComplexMovement();
+        
         isMoving = true;
         cantCambiosDeSpeed=0;
         cambiosDeSpeedParaPasarAIdle = Random.Range(2,entity.entityData.speciesData.maxCantCambiosDeSpeedParaPasarAIdle); 
@@ -48,12 +53,10 @@ public class MoveState : State
 
     public override void LogicUpdate () { // mantiene a la entidad en la zona de inicio y con un movimiento dinamico
         base.LogicUpdate();
-        desplazamiento = desplazamiento * 0; // + random (-0.1 o 0.1) grados  e/ -10 y 10 (La idea es q sea un...
-                                        //... movimiento dinamico de la cabeza, a la izquierda o derecha). (IMPLEMENTAR en entity)
-        entity.LookingDirection = entity.LookingDirection + desplazamiento ; 
+        lastLookingDirectionChangeTime = entity.ChangeLookingDirection(lastLookingDirectionChangeTime, tiempoEntreLookingDirectionChanges, maxGradosDeMovimientoDeMira);
 
         canChangeMovement = CanChangeMovement();
-        if((DistanceToBasePosition()) > (entity.entityData.speciesData.baseRadius) && canChangeMovement){
+        if((entity.LinearDistanceTo(entity.NPCBaseCenter)) > (entity.entityData.speciesData.baseRadius) && canChangeMovement){
             ChangeMovement();
         }else if (canChangeMovement){
             ChangeMovement();
@@ -70,19 +73,9 @@ public class MoveState : State
         base.AnimationEnding();
     }
 
-    // ---
-
-    private float DistanceToBasePosition(){ // devuelve la distancia lineal a el punto en donde se instancio
-        Vector2 distace;
-        distace.x = Mathf.Abs(entity.NPCBaseCenter.x - entity.CurrentPosition.x);
-        distace.y = Mathf.Abs(entity.NPCBaseCenter.y - entity.CurrentPosition.y);
-        
-        float linearDistance = Mathf.Sqrt(Mathf.Pow(distace.x,2)+Mathf.Pow(distace.y,2)); 
-        return linearDistance;
-    }
-
 
     // ---
+
 
     private bool CanChangeMovement(){ // cada cierto tiempo sin cambiar el movimiento hay que cambiarlo
         tiempoConElMismoMovimiento+=Time.deltaTime;
@@ -95,7 +88,7 @@ public class MoveState : State
 
         entity.CurrentSpeed = moveSpeed = MoveSpeed();
         entity.LookingDirection = entity.MovingDirection = RandomOriginDireccion(); // actualizo direcciones 
-        
+        lastLookingDirectionChangeTime = Time.time;
     }
 
     // ---
@@ -114,20 +107,10 @@ public class MoveState : State
     // ---
 
     private Vector2 RandomOriginDireccion(){ // devuelve una la direccion necesaria para ir a una posicion random de la zona de inicio
-        Vector2 newPosition = RandomPosition(-entity.entityData.speciesData.baseRadius,entity.entityData.speciesData.baseRadius); 
+        Vector2 newPosition = entity.RandomPosition(-entity.entityData.speciesData.baseRadius,entity.entityData.speciesData.baseRadius) + entity.NPCBaseCenter; 
         return entity.CalculateDirection(newPosition); 
     }
 
-    private Vector2 RandomPosition (float LeftAndDownRangeLimit, float RightAndUpRangeLimit){ // elije una posicion (un punto) random de la zona de inicio
-        return RandomVector2 (LeftAndDownRangeLimit, RightAndUpRangeLimit, LeftAndDownRangeLimit, RightAndUpRangeLimit) + entity.NPCBaseCenter;
-    }
-
-    private Vector2 RandomVector2(float minX, float maxX, float minY, float maxY){
-        float x = Random.Range(minX, maxX);
-        float y = Random.Range(minY, maxY);
-        return new Vector2 (x,y);
-    }
-    
 
 
     // --- Lo siguiente no se si dejarlo aca o pasarlo a entity. Si algun otro State utiliza tryMove, CAMBIAR A ENTITY

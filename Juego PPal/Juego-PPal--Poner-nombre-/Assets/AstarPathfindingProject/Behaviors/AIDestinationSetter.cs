@@ -80,9 +80,9 @@ namespace Pathfinding {
 			if (ai != null){
 				if (target != null){
 					ai.destination = target.position;
-				} //else if (positionToGoTo != Vector3.zero){
-					//ai.destination = positionToGoTo;
-				//}
+				} else if (positionToGoTo != Vector3.zero){
+					ai.destination = positionToGoTo;
+				}
 			}
 		}
 	}

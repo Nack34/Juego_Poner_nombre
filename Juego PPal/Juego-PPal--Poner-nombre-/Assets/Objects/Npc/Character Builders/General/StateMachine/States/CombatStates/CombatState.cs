@@ -36,7 +36,7 @@ public class CombatState : State
 
     public override void CheckStateTransitions () { // aca van todas las tranciciones e/ estados (depende del estado)
         if (!HasTarget){
-            stateMachine.ChangeState(entity.opponentSearchState);
+            stateMachine.ChangeState(entity./*moveState);*/opponentSearchState);
         }
     }
     
@@ -46,6 +46,8 @@ public class CombatState : State
         if (!InitializedState())
             Debug.LogError("En la entidad: "+ entity.entityData.entityName+ ", al menos un Combat Sub State no se cargo correctamente");
         
+        
+        entity.CurrentSpeed = entity.destinationSetter.ai.maxSpeed = entity.entityData.speciesData.maxMovementSpeed;
 
         if (HasTarget){ // Se ejecuta solamente una de las 3 una vez. La idea seria que la animacion ...
                         //... de alerta de deteccion de oponente dure mas mientras MAS lejos este el oponente 

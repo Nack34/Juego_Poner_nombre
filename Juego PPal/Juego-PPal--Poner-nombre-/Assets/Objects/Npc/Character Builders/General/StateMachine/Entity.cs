@@ -157,11 +157,65 @@ public class Entity : MonoBehaviour
         return directionToGoTo;
     }
 
+    public Vector2 AngleDirectionToPositionShift(Vector2 currentdirection, float angleInDregees){
+        angleInDregees+=Vector2.SignedAngle(Vector2.right, currentdirection);;
+        return (new Vector2 (Mathf.Cos(angleInDregees * Mathf.Deg2Rad), Mathf.Sin(angleInDregees * Mathf.Deg2Rad))) ;
+    }
 
+    public void StartComplexMovement(){ // buscar alguna manera de hacerlo mejor
+        //if (destinationSetter.ai.isStopped){
+        //    destinationSetter.ai.isStopped = false;
+        //}
+        if (!destinationSetter.ai.canMove){
+            destinationSetter.ai.canMove = true;
+        }
+    }
+
+    public void StopComplexMovement(){ // buscar alguna manera de hacerlo mejor
+        //if (!destinationSetter.ai.isStopped){
+        //    destinationSetter.ai.isStopped = true;
+        //}
+        if (destinationSetter.ai.canMove){
+            destinationSetter.ai.canMove = false;
+        }
+    }
+    
+    public float ChangeLookingDirection (float lastLookingDirectionChangeTime, float tiempoEntreCambios, float maxGradosDeMovimientoDeMira){
+        if (Time.time > lastLookingDirectionChangeTime + tiempoEntreCambios) {
+            LookingDirection = SlightRandomLookingDirectionChange(LookingDirection, maxGradosDeMovimientoDeMira);
+            return Time.time; 
+        } else {
+            return lastLookingDirectionChangeTime;
+            }
+    }
+    private Vector2 SlightRandomLookingDirectionChange (Vector2 currentLookingDirection, float maxGradosDeMovimientoDeMira){
+        return AngleDirectionToPositionShift(currentLookingDirection, Random.Range(-maxGradosDeMovimientoDeMira/2, maxGradosDeMovimientoDeMira/2)) ; //La idea es q sea un...
+                                        //... movimiento dinamico de la cabeza, a la izquierda o derecha.
+    }
+
+
+    public Vector2 RandomPosition (float LeftAndDownRangeLimit, float RightAndUpRangeLimit){ // elije una posicion (un punto) random de la zona indicada
+        return RandomVector2 (LeftAndDownRangeLimit, RightAndUpRangeLimit, LeftAndDownRangeLimit, RightAndUpRangeLimit);
+    }
+    private Vector2 RandomVector2(float minX, float maxX, float minY, float maxY){
+        float x = Random.Range(minX, maxX);
+        float y = Random.Range(minY, maxY);
+        return new Vector2 (x,y);
+    }
+    
+
+    public float LinearDistanceTo(Vector2 placeToGo){ // devuelve la distancia lineal a el punto indicado
+        Vector2 distace;
+        distace.x = Mathf.Abs(placeToGo.x - CurrentPosition.x);
+        distace.y = Mathf.Abs(placeToGo.y - CurrentPosition.y);
+        
+        float linearDistance = Mathf.Sqrt(Mathf.Pow(distace.x,2)+Mathf.Pow(distace.y,2)); 
+        return linearDistance;
+    }
 
     // --- Para fields of view
 
-
+    public float currentSeachRadius;
 
     public KdTree<Transform>[] visibleOpponents;
     public KdTree<Transform> FaceToFaceRangeVisibleOpponents{
@@ -261,7 +315,7 @@ public class Entity : MonoBehaviour
 
 
 
-    // --- Para STATES
+    // --- Para creacion de STATES
 
 
 

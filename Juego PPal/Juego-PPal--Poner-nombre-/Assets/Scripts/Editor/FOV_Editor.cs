@@ -16,8 +16,8 @@ public class FOV_Editor : Editor {
             Handles.color = Color.white;
             Handles.DrawWireDisc(entity.CurrentPosition, Vector3.forward, entity.realVisionRadius[i]);
 
-            Vector2 angle01 = AngleDirection(entity.LookingDirection, -entity.realVisionAngle[i]/2);
-            Vector2 angle02 = AngleDirection(entity.LookingDirection, entity.realVisionAngle[i]/2);
+            Vector2 angle01 = entity.AngleDirectionToPositionShift(entity.LookingDirection, -entity.realVisionAngle[i]/2);
+            Vector2 angle02 = entity.AngleDirectionToPositionShift(entity.LookingDirection, entity.realVisionAngle[i]/2);
             
             Handles.DrawLine(entity.CurrentPosition, entity.CurrentPosition + angle01 * entity.realVisionRadius[i]);
             Handles.DrawLine(entity.CurrentPosition, entity.CurrentPosition + angle02 * entity.realVisionRadius[i]);
@@ -32,14 +32,7 @@ public class FOV_Editor : Editor {
         if (entity.ClosestTarget != null){
             Handles.DrawLine(entity.CurrentPosition, entity.ClosestTarget.position);
         } else{
-            Handles.DrawWireDisc(entity.closestTargetLastSeenPosition, Vector3.forward, entity.entityData.speciesData.seachRadius);
+            Handles.DrawWireDisc(entity.closestTargetLastSeenPosition, Vector3.forward, entity.currentSeachRadius);
         }
     }
-
-    private Vector2 AngleDirection(Vector2 currentdirection, float angleInDregees){
-        angleInDregees+=Vector2.SignedAngle(Vector2.right, currentdirection);;
-        return (new Vector2 (Mathf.Cos(angleInDregees * Mathf.Deg2Rad), Mathf.Sin(angleInDregees * Mathf.Deg2Rad))) ;
-
-    }
-
 }

@@ -27,11 +27,9 @@ public class CloseRgNPC_FTFRg_CSState : FaceToFaceRange_CombatSubState
         //Debug.Log("LogicUpdate en FTF");
 
         //if (no esta en el rango de combate){
-            if (!entity.destinationSetter.ai.canMove){
-                entity.destinationSetter.ai.canMove = true;
-            }
             entity.destinationSetter.target = entity.ClosestTarget;
-        //} else {Combate()}
+            entity.StartComplexMovement();
+        //} else {Combat()}
     }
 
     public override void PhysicsUpdate() { 

@@ -45,8 +45,7 @@ public class CombatSubState : State
     
     /*
     public virtual void Combat() { 
-    
-        entity.destinationSetter.ai.canMove = false;
+        entity.StopComplexMovement();
         
 
     }

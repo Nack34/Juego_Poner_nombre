@@ -23,8 +23,8 @@ public class D_Species : ScriptableObject
 
     [Header("Stats de Aggro: ")] 
     // seria como el "orgullo" de la especie (algunas especies no permitirian que se les escape un objetivo, y a otras no les importaria tanto)
-    public float maxTiempoDeBusqueda = 5.0f; //usado en OpponentSearchState
-    public float seachRadius = 1.5f;
+    public float maxTiempoDeBusqueda = 10.0f; //usado en OpponentSearchState
+    public float maxSearchRadius = 1.5f;
 
     [Header("Stats del Nivel de Actividad de uso general: ")] 
     //los siguientes son para todos los States menos MoveState 
