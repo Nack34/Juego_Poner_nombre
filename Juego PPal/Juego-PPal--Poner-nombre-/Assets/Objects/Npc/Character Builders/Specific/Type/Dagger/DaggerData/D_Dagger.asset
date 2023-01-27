@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecd860d19461644b89b9bac9f8ba91a, type: 3}
   m_Name: D_Dagger
   m_EditorClassIdentifier: 
+  visionRadiusMultiplier: 1
+  visionAngleMultiplier: 1
+  attackRadius: 0.1
+  attackDistace: 0.1
+  objectToInstance: {fileID: 0}
+  multiplicadorDeVidaMax: 1

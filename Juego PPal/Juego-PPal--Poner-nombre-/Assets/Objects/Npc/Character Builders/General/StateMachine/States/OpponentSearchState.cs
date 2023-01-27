@@ -39,7 +39,7 @@ public class OpponentSearchState : State
         base.CheckStateTransitions();
 
         if(entity.HasTarget){
-            stateMachine.ChangeState(entity.combatState);
+            stateMachine.ChangeState(entity.opponentDetectedState);
         } else if (Time.time >= startTime + tiempoDeBusqueda){
             stateMachine.ChangeState(entity.moveState);
         }
@@ -178,13 +178,14 @@ public class OpponentSearchState : State
     private void ChangeMovement(){ // selecciona otro movimiento random dentro de la zona 
         tiempoConElMismoMovimiento=0.0f;
 
-        entity.LookingDirection = RandomSearchZoneDireccion(); // actualizo direcciones 
-        Debug.Log("entity.LookingDirection = "+entity.LookingDirection);
+        entity.LookingDirection = RandomSearchZoneDireccion(); // actualizo direcciones y setea la posicion a la que queremos ir
+        //Debug.Log("entity.LookingDirection = "+entity.LookingDirection);
         lastLookingDirectionChangeTime = Time.time;
     }
     
     private Vector2 RandomSearchZoneDireccion(){ // setea la posicion a la que queremos ir y devuelve la direccion a la cual tiene que mirar 
-        Vector2 newPosition = entity.destinationSetter.positionToGoTo = entity.RandomPosition(-SearchRadius,SearchRadius) + entity.closestTargetLastSeenPosition; 
+        Vector2 newPosition = entity.RandomPosition(-SearchRadius,SearchRadius) + entity.closestTargetLastSeenPosition; 
+        entity.SetComplexMovementDestination(newPosition);
         return entity.CalculateDirection(newPosition); 
     }
 

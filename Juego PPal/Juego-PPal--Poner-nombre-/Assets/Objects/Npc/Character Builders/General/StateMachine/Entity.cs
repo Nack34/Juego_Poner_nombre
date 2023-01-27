@@ -3,9 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [HelpURL("https://docs.google.com/document/d/1GgesLstlyUSVTOzc55LiB-MDlqdF7ofICKHARAiuMug/edit")]
-[RequireComponent(typeof(EntityStats))]
+[RequireComponent(typeof(EntityStats),typeof(AnimationToStateMachine))]
 public class Entity : MonoBehaviour
 {
+    public string currentTypeOfWeaponAttack = AnimationStrings.DaggerAttack; // cambiarlo por el de abajo:
+/* IMPLEMENTAR
+    protected string currentTypeOfWeaponAttack {
+        set{
+            currentWeaponData.currentTypeOfWeaponAttack = value;
+        }
+        get {
+            return currentWeaponData.currentTypeOfWeaponAttack;
+        }
+    }
+*/
+
     [Tooltip("Todos los datos de la entidad")]
     public D_Entity entityData; // set in inspector
     public FiniteStateMachine stateMachine = new FiniteStateMachine(); 
@@ -15,6 +27,7 @@ public class Entity : MonoBehaviour
     public Collider2D movementCollider {get; private set;}
     public NPCController controller {get; private set;}
     public Pathfinding.AIDestinationSetter destinationSetter {get; private set;}
+    public AnimationToStateMachine animationToStateMachine {get; private set;}
     private EntityStats stats;
 
     [HideInInspector]
@@ -83,29 +96,34 @@ public class Entity : MonoBehaviour
         destinationSetter = controller.DestinationSetter; 
 
         // from this
-        animator = GetComponent<Animator>();
         stats = GetComponent<EntityStats>();
+        animator = GetComponent<Animator>();
+        animationToStateMachine = GetComponent<AnimationToStateMachine>();
 
         inicializoFOVs = InitializeFOVs();
 
         // from childs
         movementCollider = transform.Find("Colliders/MovementCollider").GetComponent<Collider2D>();
+        transform.Find("Colliders/Hurtbox").gameObject.layer = LayerMask.NameToLayer(entityData.bandoData.miBando);
+        
         // new
         InitializeStates();
     }
 
-    public virtual void InitializeAllCombatSubStates(){
-        InitializeAllCombatState_RandomActionSelectors ();
-        combatState = new CombatState (this, stateMachine, AnimationStrings.CombatState);
+    public virtual void InitializeAllOpponentDetectedSubState(){
+        InitializeAllOppDetState_RandomActionSelectors();
+        opponentDetectedState = new OpponentDetectedState (this, stateMachine, AnimationStrings.OpponentDetectedState);
         // en los hijos del script Entity se agrega la creacion de los estados
     }
 
     public virtual void Start(){
+        // primer estado:
+        stateMachine.Initialize(moveState);
 
     }
 
     public virtual void OnEnable(){
-        MovingDirection=MovingDirection; // actualizar animators
+        MovingDirection = MovingDirection; // actualizar animators
         LookingDirection = LookingDirection; // actualizar animators
     }
 
@@ -142,14 +160,44 @@ public class Entity : MonoBehaviour
             // movimiento
             Gizmos.color = Color.blue;
             Gizmos.DrawRay(transform.position, new Vector3 (MovingDirection.x * CurrentSpeed , MovingDirection.y * CurrentSpeed, 0));
+            
+            // zona de daño
+            Gizmos.color = Color.white; 
+            Gizmos.DrawWireSphere(CurrentPosition + (LookingDirection*entityData.typeData.attackDistace), entityData.typeData.attackRadius);
         }
+        
     }
 
 
 
     // --- Llamado por States
+    
+    public bool isInAction = false;
+    private AttackDetails attackDetails;
+
+    public AttackDetails GetAttackDetails(){ // trae los datos del arma actual y la habilidad actual. IMPLEMENTAR
+
+        attackDetails.hurterPosition = CurrentPosition;
+        attackDetails.hurterMovementSpeed = 0.0f; // cambiar esto para q sea solo usado por el que hace el daño, y todo lo demas lo usa el q recive el daño
+        attackDetails.hurterMovementDirection = Vector2.zero; // cambiar esto para q sea solo usado por el que hace el daño, y todo lo demas lo usa el q recive el daño
 
 
+        attackDetails.damageType = Enums.PosibleDamageType.Fisico;
+        attackDetails.damageAmount = 1;
+
+        attackDetails.pushRate = 1;
+        attackDetails.pushDirection = LookingDirection;
+
+        attackDetails.stunRate = 1;
+        attackDetails.burnRate = 1;
+        attackDetails.freezeRate = 1;
+        attackDetails.slowingRate = 1;
+        attackDetails.wettingRate = 1;
+        attackDetails.electrifyRate = 1;
+        attackDetails.bleedingRate = 1;
+
+        return attackDetails; // currentWeaponData.attackDetails + currentHabilityData.attackDetails, DEJAR SOLO ESTO Y BORRAR TODO LO DEMAS 
+    }
 
     public Vector2 CalculateDirection (Vector2 positionToGoTo){ // calcula la direccion necesaria para ir a ese punto
         Vector2 directionToGoTo = new Vector2((positionToGoTo.x - CurrentPosition.x), (positionToGoTo.y - CurrentPosition.y));
@@ -158,7 +206,7 @@ public class Entity : MonoBehaviour
     }
 
     public Vector2 AngleDirectionToPositionShift(Vector2 currentdirection, float angleInDregees){
-        angleInDregees+=Vector2.SignedAngle(Vector2.right, currentdirection);;
+        angleInDregees+=Vector2.SignedAngle(Vector2.right, currentdirection);
         return (new Vector2 (Mathf.Cos(angleInDregees * Mathf.Deg2Rad), Mathf.Sin(angleInDregees * Mathf.Deg2Rad))) ;
     }
 
@@ -175,11 +223,22 @@ public class Entity : MonoBehaviour
         //if (!destinationSetter.ai.isStopped){
         //    destinationSetter.ai.isStopped = true;
         //}
+        if(destinationSetter.ai == null) Debug.LogError("En la entidad: "+entityData.entityName+", destinationSetter.ai == null");
         if (destinationSetter.ai.canMove){
             destinationSetter.ai.canMove = false;
         }
     }
+
+    public void SetComplexMovementDestination(Transform targetToFollow){
+        destinationSetter.target = ClosestTarget;
+        destinationSetter.usesTarget = true;
+    }
     
+    public void SetComplexMovementDestination(Vector2 positionToGoTo){
+        destinationSetter.positionToGoTo = positionToGoTo;
+        destinationSetter.usesTarget = false;
+    }
+
     public float ChangeLookingDirection (float lastLookingDirectionChangeTime, float tiempoEntreCambios, float maxGradosDeMovimientoDeMira){
         if (Time.time > lastLookingDirectionChangeTime + tiempoEntreCambios) {
             LookingDirection = SlightRandomLookingDirectionChange(LookingDirection, maxGradosDeMovimientoDeMira);
@@ -321,7 +380,7 @@ public class Entity : MonoBehaviour
 
     public MoveState moveState {get; private set;}
     public IdleState idleState {get; private set;}
-    public CombatState combatState {get; private set;} 
+    public OpponentDetectedState opponentDetectedState {get; private set;} 
     public OpponentSearchState opponentSearchState {get; private set;}
 
     // llamado en Awake
@@ -330,12 +389,9 @@ public class Entity : MonoBehaviour
 
         moveState = new MoveState (this, stateMachine, AnimationStrings.MoveState);
         idleState = new IdleState (this, stateMachine, AnimationStrings.IdleState, randomIdleActionSelector);
-        InitializeAllCombatSubStates();
+        InitializeAllOpponentDetectedSubState();
         opponentSearchState = new OpponentSearchState (this, stateMachine, AnimationStrings.OpponentSearchState, entityData.speciesData.maxTiempoDeBusqueda);
 
-
-        // primer estado:
-        stateMachine.Initialize(moveState);
     }
 
 
@@ -357,14 +413,15 @@ public class Entity : MonoBehaviour
         return InitializeRandomActionSelector( posibleIdleActions, entityData.specificNPCdata.idleActions_SeleccionProbabilities, entityData.specificNPCdata.idleActions_UseProbabilities);
     }
 
+    // pasar los random selectors a attackState. IMPLEMENTAR
     // llamado en InitializeStates
-    private void InitializeAllCombatState_RandomActionSelectors(){
-        randomFTFRangeCombatActionSelector = InitializeCombatState_RandomActionSelector(entityData.specificNPCdata.FTFRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.FTFRangeCombatActions_UseProbabilities);
-        randomCloseRangeCombatActionSelector = InitializeCombatState_RandomActionSelector(entityData.specificNPCdata.closeRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.closeRangeCombatActions_UseProbabilities);
-        randomLongRangeCombatActionSelector = InitializeCombatState_RandomActionSelector(entityData.specificNPCdata.longRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.longRangeCombatActions_UseProbabilities);
+    private void InitializeAllOppDetState_RandomActionSelectors(){
+        randomFTFRangeCombatActionSelector = InitializeOppDetState_RandomActionSelector(entityData.specificNPCdata.FTFRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.FTFRangeCombatActions_UseProbabilities);
+        randomCloseRangeCombatActionSelector = InitializeOppDetState_RandomActionSelector(entityData.specificNPCdata.closeRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.closeRangeCombatActions_UseProbabilities);
+        randomLongRangeCombatActionSelector = InitializeOppDetState_RandomActionSelector(entityData.specificNPCdata.longRangeCombatActions_SelectionProbabilities, entityData.specificNPCdata.longRangeCombatActions_UseProbabilities);
     }
 
-    private RandomActionSelector InitializeCombatState_RandomActionSelector(float[] Actions_SeleccionProbabilities, float[] Actions_UseProbabilities){
+    private RandomActionSelector InitializeOppDetState_RandomActionSelector(float[] Actions_SeleccionProbabilities, float[] Actions_UseProbabilities){
         int[] posibleCombatActions = (int[]) System.Enum.GetValues(typeof(Enums.PosibleCombatActions));
         return InitializeRandomActionSelector(posibleCombatActions, Actions_SeleccionProbabilities, Actions_UseProbabilities);
     }

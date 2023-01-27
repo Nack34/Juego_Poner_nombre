@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // este estado hace que la entidad se mantenga en movimiento random dentro de una zona determinada
-// IMPLEMENTAR: Ver nota en Update. Ver nota en AnimationEnding
+// cambiar Todo este estado para que use ComplexMovement, usar este tipo de movimiento en player, pero no en los npcs
 public class MoveState : State 
 {
-    protected float moveSpeed = 2.0f;
+    protected float moveSpeed;
     protected bool isMoving;
 
     protected float tiempoConElMismoMovimiento;
@@ -28,7 +28,7 @@ public class MoveState : State
 
     public override void CheckStateTransitions (){
         if(entity.HasTarget){
-            stateMachine.ChangeState(entity.combatState);
+            stateMachine.ChangeState(entity.opponentDetectedState);
         } else if (!isMoving){
             //Debug.Log("Pasa a Idle");
             stateMachine.ChangeState(entity.idleState);
@@ -57,7 +57,7 @@ public class MoveState : State
 
         canChangeMovement = CanChangeMovement();
         if((entity.LinearDistanceTo(entity.NPCBaseCenter)) > (entity.entityData.speciesData.baseRadius) && canChangeMovement){
-            ChangeMovement();
+            ChangeMovement(); 
         }else if (canChangeMovement){
             ChangeMovement();
         }
@@ -67,10 +67,6 @@ public class MoveState : State
         base.PhysicsUpdate();
         
         isMoving = TryMovingAllDirections (entity.MovingDirection, moveSpeed);
-    }
-
-    public override void AnimationEnding(){ // es llamada por el script nexo animacion-estado. FALTA IMPLEMENTAR
-        base.AnimationEnding();
     }
 
 

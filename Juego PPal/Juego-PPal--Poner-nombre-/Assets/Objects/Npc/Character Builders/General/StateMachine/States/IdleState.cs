@@ -21,7 +21,7 @@ public class IdleState : State
         
         
         if(entity.HasTarget){
-            stateMachine.ChangeState(entity.combatState);
+            stateMachine.ChangeState(entity.opponentDetectedState);
         } else if (stopIdle){
             //Debug.Log("Termino IdleState");
             stateMachine.ChangeState(entity.moveState);
@@ -30,6 +30,7 @@ public class IdleState : State
 
     public override void Enter () {
         base.Enter();
+        entity.animationToStateMachine.currentState = this;
         entity.CurrentSpeed=0.0f;
         stopIdle = false;
         
@@ -42,8 +43,8 @@ public class IdleState : State
 
     public override void LogicUpdate () {
         base.LogicUpdate();
-        if ( (Time.time >=  startTime + 1.0f) && !isInAction){
-            TriggerAction(AnimationStrings.IdleAction, randomActionSelector); // selecciona en el animator la prox animacion
+        if ( (Time.time >=  startTime + 1.0f) && !entity.isInAction){
+            // TriggerAction(AnimationStrings.IdleAction, randomActionSelector.SelectActionToUse()); // selecciona en el animator la prox animacion
             
             AnimationEnding(); // linea de codigo PROVISORIA. Sacar de aca al crear las animaciones idle y el script de random selector
 

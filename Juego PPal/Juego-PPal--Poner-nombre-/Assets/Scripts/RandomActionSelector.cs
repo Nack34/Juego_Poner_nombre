@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomActionSelector 
+public class RandomActionSelector //<T> IMPLEMENTAR? fijarse si es necesario  
 {
     private int[] posibleAnimations; 
     private float[] animationsSeleccionProbabilities;
@@ -20,9 +20,10 @@ public class RandomActionSelector
         // se cargan las posibles animaciones a usar en posibleAnimationsToUse, teniendo en cuenta animationsSeleccionProbabilities;
     }
 
-    /*public int SelectActionToUse(){
-        selecciona y devuelve un elemento de posibleAnimationsToUse, teniendo en cuenta animationsUseProbabilities;
-    }*/
+    public int SelectActionToUse(){
+        //selecciona y devuelve un elemento de posibleAnimationsToUse, teniendo en cuenta animationsUseProbabilities;
+        return 0;
+    }
 
 
 }

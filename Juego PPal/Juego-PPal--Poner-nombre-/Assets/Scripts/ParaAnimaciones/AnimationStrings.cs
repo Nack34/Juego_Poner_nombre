@@ -7,9 +7,11 @@ public class AnimationStrings : MonoBehaviour // guarda datos
     // Bools cambios de State
     public static string MoveState = "move";
     public static string IdleState = "idle"; 
-    public static string CombatState = "move"; 
-    public static string CombatSubState = "move"; // jamas se usa
+    public static string OpponentDetectedState = "move"; 
+    public static string OpponentDetectedSubState = "move"; // jamas se usa
     public static string OpponentSearchState = "move"; 
+    public static string DaggerAttack = "dagger attack"; 
+    
 
     // Floats cambios en la direccion
     public static string XLookingDirection = "XLookingDirection";

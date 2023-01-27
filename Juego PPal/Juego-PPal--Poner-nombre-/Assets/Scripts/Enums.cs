@@ -26,12 +26,11 @@ public class Enums : MonoBehaviour // guarda tipos de datos
     // todo lo de aca para arriba CREO q solo lo usa el OLD player, borrar todo luego de hacer el nuevo player 
 
 
-    public enum PosibleDamageType {Fisico=0,Magico=1,Verdadero=2} // usar System.Enum.GetValues(typeof(Enums.PosibleDamageType)).GetLength(0) ...
+    public enum PosibleDamageType {Fisico=0, Magico=1, Verdadero=2} // usar System.Enum.GetValues(typeof(Enums.PosibleDamageType)).GetLength(0) ...
                                                                 // ... para obtener la longitud del enum (en el script Damageable se usa)
 
     public enum PosibleFOVRanges {FaceToFaceRange=0, ShortRange = 1, LongRange=2 }
     public enum SearchLevel { ItWasInNoRange = 0, ItWasInFTFRange = 1, ItWasInShortRange = 2, ItWasInLongRange = 3 } // es necesario debido a la longitud
-    
     
     // llenar con todas las acciones posibles, en Data se seleccionara 0% si no se quiere seleccionar
     public enum PosibleIdleActions { Nothing = 0, Rascarse = 1 }

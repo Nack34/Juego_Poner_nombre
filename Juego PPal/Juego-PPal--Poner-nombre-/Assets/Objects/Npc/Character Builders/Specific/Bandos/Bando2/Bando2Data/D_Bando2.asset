@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff8aa3f0182b20409f6eec8b4a1d012, type: 3}
   m_Name: D_Bando2
   m_EditorClassIdentifier: 
+  miBando: Bando2
   oponentFilter:
     serializedVersion: 2
     m_Bits: 768

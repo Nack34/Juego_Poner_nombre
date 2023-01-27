@@ -1145,6 +1145,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Empty
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 0
+        width: 49
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b87e11edfa4f984b9f0370ba61aa65e
+      internalID: -1390346144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1156,7 +1177,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprite_goblin_dagger_48: 643856088
+      sprite_goblin_dagger_21: 896401539
       sprite_goblin_dagger_30: -1500707873
       sprite_goblin_dagger_5: 216727983
       sprite_goblin_dagger_46: 286848543
@@ -1185,6 +1206,7 @@ TextureImporter:
       sprite_goblin_dagger_16: -1483820754
       sprite_goblin_dagger_12: -773204601
       sprite_goblin_dagger_31: 907647422
+      Empty: -1390346144
       sprite_goblin_dagger_18: 2716809
       sprite_goblin_dagger_37: -1710728122
       sprite_goblin_dagger_2: 1996188238
@@ -1204,7 +1226,7 @@ TextureImporter:
       sprite_goblin_dagger_44: 1564619351
       sprite_goblin_dagger_9: -175817467
       sprite_goblin_dagger_41: -1398783367
-      sprite_goblin_dagger_21: 896401539
+      sprite_goblin_dagger_48: 643856088
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

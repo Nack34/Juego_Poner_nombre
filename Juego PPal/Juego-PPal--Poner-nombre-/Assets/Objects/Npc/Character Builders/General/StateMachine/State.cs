@@ -8,7 +8,6 @@ public class State
     protected Entity entity;
 
     protected float startTime;
-    protected bool isInAction = false;
     protected string animationName;
 
     // constructor
@@ -39,19 +38,22 @@ public class State
 
     }
 
-    public virtual void AnimationEnding(){ // es llamada por el script nexo animacion-estado. FALTA IMPLEMENTAR
-        
-        
-        isInAction = false;
+    public virtual void AnimationEnding(){ // es llamada por el script nexo animacion-estado. FALTA IMPLEMENTAR (solo se usa en idle y combat animatios)
+        entity.isInAction = false;
+    }
+
+    public virtual void TriggerAttack(){ // es llamada por el script nexo animacion-estado. FALTA IMPLEMENTAR (solo se usa en Combat animations)
+
     }
 
     // ---
+
     
-    protected void TriggerAction (string actionName, RandomActionSelector randomActionSelector){
-        isInAction = true;
-        //entity.animator.SetFloat("idleAction", randomActionSelector.SelectActionToUse()); // selecciona una de las posibles animaciones ...
-                                                                                            // previamente seleccionadas
-        //entity.animator.SetFloat("idleAction", 0); // la vuelve a 0
+    protected void TriggerAction (string actionName, int actionSelected){
+        entity.isInAction = true;
+        //entity.animator.SetFloat(actionName, actionSelected); // selecciona una de las posibles animaciones ...
+                                                                // ... previamente seleccionadas
+        //entity.animator.SetFloat(actionName, 0); // la vuelve a 0
        
     }
     
